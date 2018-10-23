@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0b2fe7df-53f2-481c-98dd-418da41d5dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{5530228d-c29b-4cd5-8826-71c97d67ec32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{62693d8b-f90b-454e-96cb-b801bde244e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{356a713d-422e-409b-a3d5-09b8c132654c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{77f68fce-67f3-4994-a5ba-bab7a33f78cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\ShaderLoader">
+      <UniqueIdentifier>{29fbbd7f-c00c-4288-a298-508564a18009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{5ed5c66a-0fde-4601-b473-50df6b55dae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sprite">
+      <UniqueIdentifier>{302c71aa-de2d-497e-887a-86edcad4da6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sound">
+      <UniqueIdentifier>{c65d0940-3307-481e-9f1b-53a41daf60a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{b3074ea2-686f-4628-9445-13ffef0b399a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\TextLoader">
+      <UniqueIdentifier>{13ace10c-8f82-4aa7-8d0d-70b9805801ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{92fba70e-29d1-46f4-8f5a-1d6bf628f45e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{d438703f-1388-42fb-abb5-9618df75f8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\CubeMap">
+      <UniqueIdentifier>{c66ea3fe-0ae2-42a0-b300-af402008c218}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\Sprite">
+      <UniqueIdentifier>{0d0a47ee-b78f-4965-a6b1-e20d7d684a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\Text">
+      <UniqueIdentifier>{eb4317c9-f9ef-447b-8362-87bbdb07e40c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObject">
+      <UniqueIdentifier>{465ca6d5-bc43-4516-b32b-5f2438ffc557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\SpaceShip">
+      <UniqueIdentifier>{8d0cdb30-5d53-48e2-bc4b-fa408a80665b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Time">
+      <UniqueIdentifier>{a690e4fc-8245-44bd-9e0a-bdf5e771852c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Component">
+      <UniqueIdentifier>{bb92b829-fcb0-4808-8606-c932dfc6d4b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Component\SpriteRenderComponent">
+      <UniqueIdentifier>{37a5f5e9-9e85-4a0d-86aa-bc2ed44d2971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Component\MeshComponent">
+      <UniqueIdentifier>{da2f9781-989b-4bd8-a61e-1c67c3bfbd41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes">
+      <UniqueIdentifier>{dfc41e71-5869-4a3c-be31-f324c11ab69e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\TestScene">
+      <UniqueIdentifier>{48fa0dad-5424-48c9-a908-c59bb1a06b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\AssetManager">
+      <UniqueIdentifier>{225f8f3b-b045-46b7-b1c5-9e3c083722a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{74918b90-989e-41d3-8787-2afa7efda493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Mesh">
+      <UniqueIdentifier>{11b0cf9f-a103-457b-8029-a988fcc61ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Mesh\CubeMesh">
+      <UniqueIdentifier>{299bb6f0-5155-4ff4-bb5f-96b46af8ed86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\Unlit">
+      <UniqueIdentifier>{8a44ed77-a87a-4f37-8bd4-aca9406899d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\BasicShapes">
+      <UniqueIdentifier>{0f993999-7307-4c29-8cc8-8b05e43d73c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\BasicShapes\3D Cube">
+      <UniqueIdentifier>{23eb83f9-4589-4bf9-ad73-c5b43e83c860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\BlinnPhong">
+      <UniqueIdentifier>{5e5b9598-0a97-4890-b25e-6887063d92d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\CubeMap">
+      <UniqueIdentifier>{7c8ee095-959f-43d3-87de-92c0cbaa877c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Component\Terrain">
+      <UniqueIdentifier>{ee6aabad-6b40-43a4-a687-68a16a8297e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\HeightMap">
+      <UniqueIdentifier>{b5a26ed9-3a1a-48d1-bcb6-0e81ce699963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TerrainClass">
+      <UniqueIdentifier>{9d916874-50f2-4970-b935-0ab15b4bd75e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Engine\Commenting Header.txt">
+      <Filter>Utility</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Utility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Input.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneMgr.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ShaderLoader.h">
+      <Filter>Framework\ShaderLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sound.h">
+      <Filter>Framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>Framework\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextLoader.h">
+      <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextLabel.h">
+      <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject.h">
+      <Filter>Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Time.h">
+      <Filter>Framework\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshComponent.h">
+      <Filter>Framework\Component\MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SpriteRenderComponent.h">
+      <Filter>Framework\Component\SpriteRenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component.h">
+      <Filter>Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TestScene.h">
+      <Filter>Game\Scenes\TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssetMgr.h">
+      <Filter>Framework\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Debug.h">
+      <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameClasses.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SpaceShip.h">
+      <Filter>Game\SpaceShip</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Mesh.h">
+      <Filter>Framework\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CubeMesh.h">
+      <Filter>Framework\Mesh\CubeMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Cube.h">
+      <Filter>Game\BasicShapes\3D Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CubeMap.h">
+      <Filter>Framework\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Terrain.h">
+      <Filter>Framework\Component\Terrain</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scene.cpp">
+      <Filter>Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneMgr.cpp">
+      <Filter>Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ShaderLoader.cpp">
+      <Filter>Framework\ShaderLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sound.cpp">
+      <Filter>Framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>Framework\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TextLoader.cpp">
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TextLabel.cpp">
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject.cpp">
+      <Filter>Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Time.cpp">
+      <Filter>Framework\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshComponent.cpp">
+      <Filter>Framework\Component\MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SpriteRenderComponent.cpp">
+      <Filter>Framework\Component\SpriteRenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component.cpp">
+      <Filter>Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TestScene.cpp">
+      <Filter>Game\Scenes\TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AssetMgr.cpp">
+      <Filter>Framework\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Debug.cpp">
+      <Filter>Framework\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\SpaceShip.cpp">
+      <Filter>Game\SpaceShip</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CubeMesh.cpp">
+      <Filter>Framework\Mesh\CubeMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Cube.cpp">
+      <Filter>Game\BasicShapes\3D Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CubeMap.cpp">
+      <Filter>Framework\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Terrain.cpp">
+      <Filter>Framework\Component\Terrain</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Shaders\CubeMap.fs">
+      <Filter>Resources\Shaders\CubeMap</Filter>
+    </None>
+    <None Include="Engine\Shaders\CubeMap.vs">
+      <Filter>Resources\Shaders\CubeMap</Filter>
+    </None>
+    <None Include="Engine\Shaders\Sprite.fs">
+      <Filter>Resources\Shaders\Sprite</Filter>
+    </None>
+    <None Include="Engine\Shaders\Sprite.vs">
+      <Filter>Resources\Shaders\Sprite</Filter>
+    </None>
+    <None Include="Engine\Shaders\Text.fs">
+      <Filter>Resources\Shaders\Text</Filter>
+    </None>
+    <None Include="Engine\Shaders\Text.vs">
+      <Filter>Resources\Shaders\Text</Filter>
+    </None>
+    <None Include="Engine\Shaders\Unlit.vs">
+      <Filter>Resources\Shaders\Unlit</Filter>
+    </None>
+    <None Include="Engine\Shaders\Unlit.fs">
+      <Filter>Resources\Shaders\Unlit</Filter>
+    </None>
+    <None Include="Engine\Shaders\BlinnPhong.fs">
+      <Filter>Resources\Shaders\BlinnPhong</Filter>
+    </None>
+    <None Include="Engine\Shaders\BlinnPhong.vs">
+      <Filter>Resources\Shaders\BlinnPhong</Filter>
+    </None>
+    <None Include="Engine\Shaders\Heightmap.fs">
+      <Filter>Resources\Shaders\HeightMap</Filter>
+    </None>
+    <None Include="Engine\Shaders\Heightmap.vs">
+      <Filter>Resources\Shaders\HeightMap</Filter>
+    </None>
+  </ItemGroup>
+</Project>
