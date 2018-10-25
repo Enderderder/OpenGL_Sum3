@@ -54,6 +54,25 @@ void CInput::InitializeInput()
 	glutMouseFunc(InitMouse);
 }
 
+void CInput::Update()
+{
+	for (unsigned char i = 0; i < 255; i++)
+	{
+		if (g_cKeyState[i] == INPUT_FIRST_PRESS)
+		{
+			g_cKeyState[i] = INPUT_HOLD;
+		}
+	}
+
+	for (unsigned char i = 0; i < 3; i++)
+	{
+		if (g_cMouseState[i] == INPUT_FIRST_PRESS)
+		{
+			g_cMouseState[i] = INPUT_HOLD;
+		}
+	}
+}
+
 void CInput::Keyboard_Down(unsigned char key, int x, int y)
 {
 	if (g_cKeyState[key] != INPUT_HOLD && g_cKeyState[key] != INPUT_FIRST_PRESS)

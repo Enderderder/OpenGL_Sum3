@@ -190,8 +190,8 @@ void CTerrain::RenderTerrain(CCamera* _camera)
 float CTerrain::GetHeight(float _x, float _z) const
 {
 	// Transform from terrain local space to "cell" space.
-	float c = (_x + 0.5f * GetDepth()) / m_hmInfo.cellSpacing;
-	float d = (_z - 0.5f * GetWidth()) / -m_hmInfo.cellSpacing;
+	float c = (_x) / m_hmInfo.cellSpacing;
+	float d = (_z) / m_hmInfo.cellSpacing;
 
 	// Get the row and column we are in.
 	int row = (int)floorf(d);

@@ -10,7 +10,7 @@ static CInput* p_Input = CInput::GetInstance();
 
 CCamera::CCamera()
 {
-	m_cameraPosition = glm::vec3(0.0f, 100.0f, 500.0f);
+	m_cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_cameraFacing = glm::vec3(0.0f, 0.0f, -1.0f);
 	m_cameraNormal = glm::vec3(0.0f, 1.0f, 0.0f);
 	m_bPerspective = true;
@@ -72,8 +72,6 @@ void CCamera::Update()
 		{
 			// Add the speed force to the direction
 			this->m_cameraPosition += resultVec;
-
-			//this->m_velocity = glm::normalize(resultVec) * m_movementSpd;
 		}
 	}
 
@@ -92,8 +90,7 @@ void CCamera::CalcViewMatrix()
 {
 	m_viewMatrix = glm::lookAt(
 		m_cameraPosition,
-		glm::vec3(0.0, 0.0, 0.0),
-		//m_cameraPosition + m_cameraFacing,
+		m_cameraPosition + m_cameraFacing,
 		m_cameraNormal);
 }
 

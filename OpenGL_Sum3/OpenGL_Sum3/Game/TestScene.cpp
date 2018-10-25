@@ -27,6 +27,7 @@ void CTestScene::ConfigurateScene()
 
 	/** Create Camera Object */
 	CCamera* mainCamera = new CCamera();
+	mainCamera->m_bIsControlling = false;
 	this->m_mainCamera = mainCamera;
 	
 	/** Create game objects in the scenes */
@@ -35,7 +36,7 @@ void CTestScene::ConfigurateScene()
 	terrain->m_transform.position = glm::vec3(0.0, 0.0, 0.0);
 	terrain->m_transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	std::shared_ptr<CTerrain> terrainRenderer = terrain->CreateComponent<CTerrain>();
-	m_terrainRenderer = terrainRenderer;
+	m_terrain = terrain;
 	HeightMapInfo heightMap;
 	heightMap.heightmapFilename = util::stringToWstring("Resources/HeightMaps/HeightMap3.data");
 	heightMap.numRows = 256;
@@ -53,13 +54,22 @@ void CTestScene::ConfigurateScene()
 		= terrainRenderer->GetHeight(cubeOBJ->m_transform.position.x, cubeOBJ->m_transform.position.z);
 }
 
+void CTestScene::BeginPlay()
+{
+	__super::BeginPlay();
+
+	m_mainCamera->m_cameraPosition = { 300.0f, 200.0f, 500.f };
+}
+
 void CTestScene::UpdateScene()
 {
 	__super::UpdateScene();
 	
 	glm::vec3 postion = m_cubeOBJ.lock()->m_transform.position;
+	std::shared_ptr<CTerrain> terrainRender = m_terrain.lock()->GetComponent<CTerrain>();
+
 	m_cubeOBJ.lock()->m_transform.position.y
-		= m_terrainRenderer.lock()->GetHeight(postion.x, postion.z);
+		= terrainRender->GetHeight(postion.x, postion.z) + m_cubeOBJ.lock()->m_transform.scale.y;
 
 }
 

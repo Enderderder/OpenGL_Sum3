@@ -8,7 +8,7 @@
 //
 // File Name    : Input.h
 // Description	: 
-// Author       : Richard Wulansari & Jacob Dewse
+// Author       : Richard Wulansari
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
@@ -24,6 +24,8 @@ public:
 
 	// Member Functions
 	void InitializeInput();
+	void Update();
+
 
 	static void InitKeyDown(unsigned char key, int x, int y);
 	static void InitKeyUp(unsigned char key, int x, int y);
