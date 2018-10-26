@@ -18,7 +18,7 @@ public:
 
 private:
 
-	std::shared_ptr<CSpriteRenderComponent> m_spriteRenderer;
+	CSpriteRenderComponent* m_spriteRenderer;
 
 };
 

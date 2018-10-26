@@ -36,17 +36,16 @@ public:
 	void InitializeScenes();
 	void RenderCurrentScene();
 	void UpdateCurrentScene();
-	void CreateNewScene(std::string _name, CScene* _scene);
+	void CreateNewScene(CScene* _scene);
 	void LoadScene(std::string _name);
 	CScene* GetRunningScene() const;
 
 private:
 	// Member Variables
 
-	std::map<std::string, CScene*> m_scenes; // Scene Container
+	std::vector<CScene*> m_scenes;
 
 	CScene* m_runningScene;
-
 };
 
 #endif // !_SCENEMGR_H

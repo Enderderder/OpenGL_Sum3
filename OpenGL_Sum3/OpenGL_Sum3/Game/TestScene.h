@@ -4,7 +4,7 @@
 
 // Forward Declaration
 class CCube;
-class CTerrain;
+class CTerrainComponent;
 
 class CTestScene : public CScene
 {

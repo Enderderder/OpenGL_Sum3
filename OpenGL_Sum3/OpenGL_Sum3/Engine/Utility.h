@@ -1,5 +1,4 @@
-#ifndef UTILITY_H
-#define UTILITY_H
+#pragma once
 
 // OpenGL Include ------------------------------------------------------------------------------
 #include <glew.h>
@@ -9,6 +8,8 @@
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 #include <fmod.hpp>
+#include <ft2build.h>
+#include FT_FREETYPE_H  
 //#include <Box2D/Box2D.h>
 
 // Library Include -----------------------------------------------------------------------------
@@ -30,16 +31,7 @@
 
 //#include <vld.h> // Memory Leak Detector
 
-template<typename T>
-std::string ToString(const T& _value)
-{
-	std::strstream theStream;
-	theStream << _value << std::ends;
-	return (theStream.str());
-}
-
 //----------------------------------------------------------------------------------------------
-
 
 namespace util
 {
@@ -56,6 +48,14 @@ namespace util
 
 		//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
 		return converter.from_bytes(t_str);
+	}
+
+	template<typename T>
+	std::string ToString(const T& _value)
+	{
+		std::strstream theStream;
+		theStream << _value << std::ends;
+		return (theStream.str());
 	}
 
 }
@@ -92,15 +92,4 @@ enum InputState
 	INPUT_HOLD,				// Key is held Down 
 };
 
-enum InputMouse 
-{ 
-	MOUSE_LEFT, 
-	MOUSE_MIDDLE, 
-	MOUSE_RIGHT 
-};
-
 //----------------------------------------------------------------------------------------------
-
-
-
-#endif // !_UTILITY_H

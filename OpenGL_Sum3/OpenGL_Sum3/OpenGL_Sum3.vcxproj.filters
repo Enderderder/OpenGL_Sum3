@@ -52,9 +52,6 @@
     <Filter Include="Framework\GameObject">
       <UniqueIdentifier>{465ca6d5-bc43-4516-b32b-5f2438ffc557}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\SpaceShip">
-      <UniqueIdentifier>{8d0cdb30-5d53-48e2-bc4b-fa408a80665b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Time">
       <UniqueIdentifier>{a690e4fc-8245-44bd-9e0a-bdf5e771852c}</UniqueIdentifier>
     </Filter>
@@ -88,12 +85,6 @@
     <Filter Include="Resources\Shaders\Unlit">
       <UniqueIdentifier>{8a44ed77-a87a-4f37-8bd4-aca9406899d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\BasicShapes">
-      <UniqueIdentifier>{0f993999-7307-4c29-8cc8-8b05e43d73c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\BasicShapes\3D Cube">
-      <UniqueIdentifier>{23eb83f9-4589-4bf9-ad73-c5b43e83c860}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Shaders\BlinnPhong">
       <UniqueIdentifier>{5e5b9598-0a97-4890-b25e-6887063d92d1}</UniqueIdentifier>
     </Filter>
@@ -106,8 +97,20 @@
     <Filter Include="Resources\Shaders\HeightMap">
       <UniqueIdentifier>{b5a26ed9-3a1a-48d1-bcb6-0e81ce699963}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\TerrainClass">
-      <UniqueIdentifier>{9d916874-50f2-4970-b935-0ab15b4bd75e}</UniqueIdentifier>
+    <Filter Include="Game\ObjectClass">
+      <UniqueIdentifier>{4db1e5d2-1c8c-4d87-bfd0-32bff2010470}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ObjectClass\BasicShapes">
+      <UniqueIdentifier>{0f993999-7307-4c29-8cc8-8b05e43d73c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ObjectClass\BasicShapes\3D Cube">
+      <UniqueIdentifier>{23eb83f9-4589-4bf9-ad73-c5b43e83c860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ObjectClass\SpaceShip">
+      <UniqueIdentifier>{8d0cdb30-5d53-48e2-bc4b-fa408a80665b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\Geometry">
+      <UniqueIdentifier>{6f0f33f0-4e41-417a-9430-e3fddc488794}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +125,6 @@
     <ClInclude Include="Engine\Camera.h">
       <Filter>Framework\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input.h">
-      <Filter>Framework\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Scene.h">
       <Filter>Framework\Scene</Filter>
     </ClInclude>
@@ -133,9 +133,6 @@
     </ClInclude>
     <ClInclude Include="Engine\ShaderLoader.h">
       <Filter>Framework\ShaderLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Sound.h">
-      <Filter>Framework\Sound</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Sprite.h">
       <Filter>Framework\Sprite</Filter>
@@ -174,7 +171,7 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Game\SpaceShip.h">
-      <Filter>Game\SpaceShip</Filter>
+      <Filter>Game\ObjectClass\SpaceShip</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Mesh.h">
       <Filter>Framework\Mesh</Filter>
@@ -183,7 +180,7 @@
       <Filter>Framework\Mesh\CubeMesh</Filter>
     </ClInclude>
     <ClInclude Include="Game\Cube.h">
-      <Filter>Game\BasicShapes\3D Cube</Filter>
+      <Filter>Game\ObjectClass\BasicShapes\3D Cube</Filter>
     </ClInclude>
     <ClInclude Include="Engine\CubeMap.h">
       <Filter>Framework\CubeMap</Filter>
@@ -191,16 +188,19 @@
     <ClInclude Include="Engine\Engine.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Terrain.h">
+    <ClInclude Include="Engine\TerrainComponent.h">
       <Filter>Framework\Component\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SoundMgr.h">
+      <Filter>Framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\InputMgr.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Framework\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Input.cpp">
-      <Filter>Framework\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene.cpp">
       <Filter>Framework\Scene</Filter>
@@ -210,9 +210,6 @@
     </ClCompile>
     <ClCompile Include="Engine\ShaderLoader.cpp">
       <Filter>Framework\ShaderLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Sound.cpp">
-      <Filter>Framework\Sound</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Sprite.cpp">
       <Filter>Framework\Sprite</Filter>
@@ -251,19 +248,25 @@
       <Filter>Framework\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Game\SpaceShip.cpp">
-      <Filter>Game\SpaceShip</Filter>
+      <Filter>Game\ObjectClass\SpaceShip</Filter>
     </ClCompile>
     <ClCompile Include="Engine\CubeMesh.cpp">
       <Filter>Framework\Mesh\CubeMesh</Filter>
     </ClCompile>
     <ClCompile Include="Game\Cube.cpp">
-      <Filter>Game\BasicShapes\3D Cube</Filter>
+      <Filter>Game\ObjectClass\BasicShapes\3D Cube</Filter>
     </ClCompile>
     <ClCompile Include="Engine\CubeMap.cpp">
       <Filter>Framework\CubeMap</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Terrain.cpp">
+    <ClCompile Include="Engine\TerrainComponent.cpp">
       <Filter>Framework\Component\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SoundMgr.cpp">
+      <Filter>Framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\InputMgr.cpp">
+      <Filter>Framework\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
 #include "Time.h"
 #include "AssetMgr.h"
 #include "SceneMgr.h"
-#include "Input.h"
+#include "InputMgr.h"
 #include "TextLabel.h"
 
 // GLobal Variables

@@ -1,11 +1,6 @@
 
-// This Include 
-#include "MeshComponent.h"
-
 // Engine Include
-#include "Camera.h"
-#include "GameObject.h"
-#include "Mesh.h"
+#include "Engine.h"
 
 CMeshComponent::CMeshComponent() {}
 

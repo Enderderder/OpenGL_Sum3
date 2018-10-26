@@ -33,7 +33,8 @@ protected:
 	bool m_shouldDestroyed;
 	bool m_isActive;
 	
-	std::vector<std::shared_ptr<CComponent>> m_components;
+	//std::vector<std::shared_ptr<CComponent>> m_components;
+	std::vector<CComponent*> m_components;
 
 public:
 	/**
@@ -49,12 +50,12 @@ public:
 	* Creates a component and push to the vector
 	*/
 	template<typename T>
-	std::shared_ptr<T> CreateComponent();
+	T* CreateComponent();
 	/**
 	* Try get the component of the gameobject
 	*/
 	template<typename T>
-	std::shared_ptr<T> GetComponent() const;
+	T* GetComponent() const;
 	/*
 	 *Check if the object should be destroyed on thie frame
 	 */
@@ -76,14 +77,13 @@ public:
 };
 
 template<typename T>
-std::shared_ptr<T> CGameObject::CreateComponent()
+T* CGameObject::CreateComponent()
 {
-	std::shared_ptr<T> newComponent
-		= std::make_shared<T>();
+	T* newComponent = new T();
 	newComponent->SetOwner(this);
 
 	// Check if the generic type is actually a component based class
-	if (std::dynamic_pointer_cast<T>(newComponent))
+	if (dynamic_cast<T*>(newComponent) != nullptr)
 	{
 		// Push into the componet container for operation
 		m_components.push_back(newComponent);
@@ -93,11 +93,11 @@ std::shared_ptr<T> CGameObject::CreateComponent()
 }
 
 template<typename T>
-std::shared_ptr<T> CGameObject::GetComponent() const
+T* CGameObject::GetComponent() const
 {
-	for (std::shared_ptr<CComponent> iter : m_components)
+	for (CComponent* iter : m_components)
 	{
-		std::shared_ptr<T> component = std::dynamic_pointer_cast<T>(iter);
+		T* component = dynamic_cast<T*>(iter);
 		if (component != nullptr)
 		{
 			return component;

@@ -1,9 +1,6 @@
-// This include
-#include "SpriteRenderComponent.h"
 
-// Local Include
-#include "GameObject.h"
-#include "Sprite.h"
+// Engine Include
+#include "Engine.h"
 
 CSpriteRenderComponent::CSpriteRenderComponent() {}
 

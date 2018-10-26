@@ -1,13 +1,6 @@
 
-// This Include
-#include "AssetMgr.h"
-
 // Engine Include
-#include "ShaderLoader.h"
-#include "Sprite.h"
-#include "CubeMesh.h"
-#include "CubeMap.h"
-#include "Debug.h"
+#include "Engine.h"
 
 #pragma region Singleton
 
@@ -42,6 +35,7 @@ void CAssetMgr::InitializeAssets()
 	CreateProgram("UnlitProgram", "Engine/Shaders/Unlit.vs", "Engine/Shaders/Unlit.fs");
 	CreateProgram("BlinnPhongProgram", "Engine/Shaders/BlinnPhong.vs", "Engine/Shaders/BlinnPhong.fs");
 	CreateProgram("CubeMapProgram", "Engine/Shaders/CubeMap.vs", "Engine/Shaders/CubeMap.fs");
+	CreateProgram("TextProgram", "Engine/Shaders/Text.vs", "Engine/Shaders/Text.fs");
 
 	/** Initialize Meshes */
 	CreateMesh("DefaultCubeMesh", new CCubeMesh());

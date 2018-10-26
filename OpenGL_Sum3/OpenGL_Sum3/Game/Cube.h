@@ -18,6 +18,6 @@ public:
 
 private:
 
-	std::shared_ptr<CMeshComponent> m_meshRenderer;
+	CMeshComponent* m_meshRenderer;
 };
 

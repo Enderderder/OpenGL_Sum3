@@ -1,10 +1,6 @@
 
-// This Include
-#include "CubeMap.h"
-
 // Engine Include
-#include "AssetMgr.h"
-#include "Camera.h"
+#include "Engine.h"
 
 CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 {

@@ -1,12 +1,9 @@
 
-// This Include
-#include "SpaceShip.h"
+// Inlcude Game Classes
+#include "GameClasses.h"
 
 // Engine Include
-#include "Engine/AssetMgr.h"
-#include "Engine/Component.h"
-#include "Engine/SpriteRenderComponent.h"
-#include <Box2D.h>
+#include "Engine/Engine.h"
 
 
 CSpaceShip::CSpaceShip()

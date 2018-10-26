@@ -1,12 +1,9 @@
 
-// This Include
-#include "Cube.h"
+// Inlcude Game Classes
+#include "GameClasses.h"
 
 // Engine Include
-#include "Engine/MeshComponent.h"
-#include "Engine/AssetMgr.h"
-#include "Engine/Input.h"
-#include "Engine/Time.h"
+#include "Engine/Engine.h"
 
 CCube::CCube() 
 {

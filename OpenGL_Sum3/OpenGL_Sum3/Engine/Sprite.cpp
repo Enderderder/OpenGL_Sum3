@@ -1,11 +1,6 @@
 
-// This Include
-#include "Sprite.h"
-
 // Engine Include
-#include "Camera.h"
-#include "GameObject.h"
-#include "AssetMgr.h"
+#include "Engine.h"
 
 CSprite::CSprite() {}
 CSprite::~CSprite() {}

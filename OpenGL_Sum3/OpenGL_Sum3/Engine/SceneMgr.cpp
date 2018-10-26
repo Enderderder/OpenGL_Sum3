@@ -1,11 +1,8 @@
 
-// This Include
-#include "SceneMgr.h"
+// Engine Include
+#include "Engine.h"
 
-// Local Include
-#include "Scene.h"
-#include "Debug.h"
-
+// Build Scene
 #include "Game/TestScene.h"
 
 // Static Variable
@@ -30,15 +27,18 @@ void CSceneMgr::DestroyInstance()
 void CSceneMgr::InitializeScenes()
 {
 	/** Create scenes that is going to build in the game */
-	CreateNewScene("Test Scene", new CTestScene());
+	CreateNewScene(new CTestScene());
 	
 	/** Run the first scene */
 	if (!m_scenes.empty())
 	{
-		auto iter = m_scenes.begin();
-		m_runningScene = iter->second;
+		m_runningScene = m_scenes[0];
 		m_runningScene->ConfigurateScene();
 		m_runningScene->BeginPlay();
+	}
+	else
+	{
+		CDebug::Log("There is no scene build");
 	}
 }
 
@@ -55,10 +55,9 @@ void CSceneMgr::UpdateCurrentScene()
 	m_runningScene->UpdateScene();
 }
 
-void CSceneMgr::CreateNewScene(std::string _name, CScene* _scene)
+void CSceneMgr::CreateNewScene(CScene* _scene)
 {
-	_scene->m_sceneName = _name;
-	m_scenes.insert(std::pair<std::string, CScene*>(_name, _scene));
+	m_scenes.push_back(_scene);
 }
 
 void CSceneMgr::LoadScene(std::string _name)
@@ -69,10 +68,11 @@ void CSceneMgr::LoadScene(std::string _name)
 	// Jump to another scene and initialise 
 	for (auto iter = m_scenes.begin(); iter != m_scenes.end(); ++iter)
 	{
-		if (iter->first == _name)
+		if ((*iter)->m_sceneName == _name)
 		{
-			m_runningScene = iter->second;
+			m_runningScene = *iter;
 			m_runningScene->ConfigurateScene();
+			m_runningScene->BeginPlay();
 		}
 	}
 }
@@ -87,9 +87,10 @@ CSceneMgr::CSceneMgr()
 
 CSceneMgr::~CSceneMgr()
 {
-	for (auto iter = m_scenes.begin(); iter != m_scenes.end(); ++iter)
+	for (auto scene : m_scenes)
 	{
-		delete iter->second;
+		delete scene;
+		scene = nullptr;
 	}
 	m_scenes.clear();
 }

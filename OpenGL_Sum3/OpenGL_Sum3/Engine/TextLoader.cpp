@@ -1,16 +1,13 @@
-// This Include
-#include "TextLoader.h"
 
-// Local Include
-//#include "AssetMgr.h"
-#include "Utility.h"
+// Engine Include
+#include "Engine.h"
 
 Text::Text(std::string font) :
 	color(1.0f, 1.0f, 1.0f),
 	text(""),
 	scale(1.0f)
 {
-	//m_Program = CAssetMgr::GetInstance()->GetProgramID("Text");
+	m_Program = CAssetMgr::GetInstance()->GetProgramID("TextProgram");
 
 	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)util::SCR_WIDTH, 0.0f, (GLfloat)util::SCR_HEIGHT);
 	glUseProgram(m_Program);

@@ -2,14 +2,11 @@
 // This Include
 #include "TestScene.h"
 
-// Inlcude the game classes
+// Inlcude Game Classes
 #include "GameClasses.h"
-#include "Engine/Camera.h"
-#include "Engine/AssetMgr.h"
-#include "Engine/MeshComponent.h"
-#include "Engine/CubeMap.h"
-#include "Engine/Terrain.h"
-#include "Engine/SpriteRenderComponent.h"
+
+// Engine Include
+#include "Engine/Engine.h"
 
 static CAssetMgr* p_Assets = CAssetMgr::GetInstance();
 
@@ -35,13 +32,13 @@ void CTestScene::ConfigurateScene()
 	std::shared_ptr<CGameObject> terrain = std::make_shared<CGameObject>();
 	terrain->m_transform.position = glm::vec3(0.0, 0.0, 0.0);
 	terrain->m_transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	std::shared_ptr<CTerrain> terrainRenderer = terrain->CreateComponent<CTerrain>();
+	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
 	m_terrain = terrain;
 	HeightMapInfo heightMap;
 	heightMap.heightmapFilename = util::stringToWstring("Resources/HeightMaps/HeightMap3.data");
 	heightMap.numRows = 256;
 	heightMap.numCols = 256;
-	heightMap.cellSpacing = 2.0f;
+	heightMap.cellSpacing = 4.0f;
 	terrainRenderer->CreateTerrain(heightMap);
 	this->m_vGameObj.push_back(terrain);
 
@@ -66,7 +63,7 @@ void CTestScene::UpdateScene()
 	__super::UpdateScene();
 	
 	glm::vec3 postion = m_cubeOBJ.lock()->m_transform.position;
-	std::shared_ptr<CTerrain> terrainRender = m_terrain.lock()->GetComponent<CTerrain>();
+	CTerrainComponent* terrainRender = m_terrain.lock()->GetComponent<CTerrainComponent>();
 
 	m_cubeOBJ.lock()->m_transform.position.y
 		= terrainRender->GetHeight(postion.x, postion.z) + m_cubeOBJ.lock()->m_transform.scale.y;

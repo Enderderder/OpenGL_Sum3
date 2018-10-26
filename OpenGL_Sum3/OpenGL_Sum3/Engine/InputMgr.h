@@ -1,19 +1,9 @@
-//
-// Bachelor of Software Engineering
-// Media Design School
-// Auckland
-// New Zealand
-//
-// (c) 2018 Media Design School
-//
-// File Name    : Input.h
-// Description	: 
-// Author       : Richard Wulansari
-// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
 
-#ifndef INPUT_H
-#define INPUT_H
+#pragma once
+
+// Global Include
+#include "Utility.h"
+
 
 class CInput
 {
@@ -26,19 +16,15 @@ public:
 	void InitializeInput();
 	void Update();
 
-
 	static void InitKeyDown(unsigned char key, int x, int y);
 	static void InitKeyUp(unsigned char key, int x, int y);
 	static void InitMouse(int button, int glutState, int x, int y);
+	static void InitMouseMotion(int x, int y);
 
 private:
 	// Make Singleton
 	CInput();
 	~CInput();
-
-	void Keyboard_Down(unsigned char key, int x, int y);
-	void Keyboard_Up(unsigned char key, int x, int y);
-	void Mouse(int button, int glutState, int x, int y);
 
 	// Make this Instance Non-copyable
 	CInput(const CInput& _kr) = delete;
@@ -49,11 +35,14 @@ protected:
 
 private: // Private Member Variables
 
+	void KeyboardDown(unsigned char key, int x, int y);
+	void KeyboardUp(unsigned char key, int x, int y);
+	void MouseButton(int button, int glutState, int x, int y);
+	void MouseMotion(int x, int y);
 
 public: // Public Variables
+
 	unsigned char g_cKeyState[255];
 	unsigned char g_cMouseState[3];
-
+	glm::vec2 g_mousePosition;
 };
-
-#endif // !INPUT_H

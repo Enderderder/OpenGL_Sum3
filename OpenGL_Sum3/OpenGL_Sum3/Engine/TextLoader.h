@@ -1,20 +1,7 @@
 #pragma once
-#include <glew.h>
-#include <freeglut.h>
-#include <SOIL.h>
 
-#include <glm.hpp>
-#include <gtc\matrix_transform.hpp>
-#include <gtc\type_ptr.hpp>
-
-//#include "Utility.h"
-
-#include <ft2build.h>
-#include FT_FREETYPE_H  
-
-#include <map>
-#include <string>
-#include <iostream>
+// Global Include
+#include "Utility.h"
 
 struct Character
 {
@@ -24,8 +11,10 @@ struct Character
 	GLuint      Advance;	// How far to move for the next character
 };
 
-class Text {
+class Text 
+{
 public:
+
 	Text(std::string font);
 	~Text();
 

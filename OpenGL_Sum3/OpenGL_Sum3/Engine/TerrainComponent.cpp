@@ -1,31 +1,26 @@
 
-// This Include
-#include "Terrain.h"
-
 // Engine Include
-#include "AssetMgr.h"
-#include "GameObject.h"
-#include "Camera.h"
+#include "Engine.h"
 
-CTerrain::CTerrain()
+CTerrainComponent::CTerrainComponent()
 {}
 
-CTerrain::~CTerrain()
+CTerrainComponent::~CTerrainComponent()
 {}
 
-void CTerrain::BeginPlay()
+void CTerrainComponent::BeginPlay()
 {
 	__super::BeginPlay();
 	
 }
 
-void CTerrain::Update(float _tick)
+void CTerrainComponent::Update(float _tick)
 {
 	__super::Update(_tick);
 	
 }
 
-void CTerrain::LoadHeightMap()
+void CTerrainComponent::LoadHeightMap()
 {
 	// A height for each vertex
 	std::vector<unsigned char> in(m_hmInfo.numRows * m_hmInfo.numCols);
@@ -45,19 +40,19 @@ void CTerrain::LoadHeightMap()
 
 	// Copy the array data into a float array, and scale and offset the heights.
 	m_heightMap.resize(m_hmInfo.numRows * m_hmInfo.numCols, 0);
-	for (UINT i = 0; i < m_hmInfo.numRows * m_hmInfo.numCols; ++i)
+	for (unsigned int i = 0; i < m_hmInfo.numRows * m_hmInfo.numCols; ++i)
 	{
 		m_heightMap[i] = (float)in[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
 	}
 }
 
-void CTerrain::SmoothHeightMap()
+void CTerrainComponent::SmoothHeightMap()
 {
 	std::vector<float> dest(m_heightMap.size());
 
-	for (int i = 0; i < m_hmInfo.numRows; ++i)
+	for (unsigned int i = 0; i < m_hmInfo.numRows; ++i)
 	{
-		for (int j = 0; j < m_hmInfo.numCols; ++j)
+		for (unsigned int j = 0; j < m_hmInfo.numCols; ++j)
 		{
 			dest[i * m_hmInfo.numCols + j] = Average(i, j);
 		}
@@ -67,7 +62,7 @@ void CTerrain::SmoothHeightMap()
 	m_heightMap = dest;
 }
 
-void CTerrain::CreateTerrain(HeightMapInfo& _info)
+void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 {
 	// Pass in the information of the heightmap
 	m_hmInfo = _info;
@@ -75,9 +70,11 @@ void CTerrain::CreateTerrain(HeightMapInfo& _info)
 	m_numVertices = 256 * 256;
 	m_numFaces = (256 - 1) * (256 - 1) * 2;
 
+	// Load the height map into a vector that store the height of each point
 	LoadHeightMap();
-	// Smooth for 100 times to make it smooth af
-	for (int i = 0; i < 10; ++i)
+
+	// Smooth for 10 times to make it smooth af
+	for (unsigned int i = 0; i < 10; ++i)
 	{
 		SmoothHeightMap();
 	}
@@ -89,13 +86,13 @@ void CTerrain::CreateTerrain(HeightMapInfo& _info)
 	float z;
 	float x;
 	float y;
-	for (int row = 0; row < 256; ++row)
+	for (unsigned int row = 0; row < 256; ++row)
 	{
-		for (int col = 0; col < 256; ++col)
+		for (unsigned int col = 0; col < 256; ++col)
 		{
 			z = (float)row * m_hmInfo.cellSpacing;
 			x = (float)col * m_hmInfo.cellSpacing;
-			y = m_heightMap[((float)row * (float)m_hmInfo.numCols) + (float)col];
+			y = m_heightMap[(row * m_hmInfo.numCols) + col];
 
 			// load each data into the vertices
 			vertex.push_back(x);
@@ -107,9 +104,9 @@ void CTerrain::CreateTerrain(HeightMapInfo& _info)
 	// Iterate over each quad and compute indices.
 	std::vector<GLuint> indices((m_hmInfo.numRows - 1) * (m_hmInfo.numCols - 1) * 6);
 	int k = 0;
-	for (int row = 0; row < m_hmInfo.numRows - 1; ++row)
+	for (unsigned int row = 0; row < m_hmInfo.numRows - 1; ++row)
 	{
-		for (int col = 0; col < m_hmInfo.numCols - 1; ++col)
+		for (unsigned int col = 0; col < m_hmInfo.numCols - 1; ++col)
 		{
 			indices[k] = row * m_hmInfo.numCols + col;
 			indices[k + 1] = row * m_hmInfo.numCols + col + 1;
@@ -150,7 +147,7 @@ void CTerrain::CreateTerrain(HeightMapInfo& _info)
 	m_indiceCount = indices.size() * sizeof(GLuint) / sizeof(GLuint);
 }
 
-void CTerrain::RenderTerrain(CCamera* _camera)
+void CTerrainComponent::RenderTerrain(CCamera* _camera)
 {
 	glUseProgram(m_program);
 
@@ -187,7 +184,7 @@ void CTerrain::RenderTerrain(CCamera* _camera)
 	glUseProgram(0);
 }
 
-float CTerrain::GetHeight(float _x, float _z) const
+float CTerrainComponent::GetHeight(float _x, float _z) const
 {
 	// Transform from terrain local space to "cell" space.
 	float c = (_x) / m_hmInfo.cellSpacing;
@@ -226,25 +223,25 @@ float CTerrain::GetHeight(float _x, float _z) const
 	}
 }
 
-float CTerrain::GetWidth() const
+float CTerrainComponent::GetWidth() const
 {
 	return (m_hmInfo.numCols - 1) * m_hmInfo.cellSpacing;
 }
 
-float CTerrain::GetDepth() const
+float CTerrainComponent::GetDepth() const
 {
 	return (m_hmInfo.numRows - 1) * m_hmInfo.cellSpacing;
 }
 
-bool CTerrain::InBounds(int i, int j)
+bool CTerrainComponent::InBounds(int i, int j)
 {
 	// True if ij are valid indices; false otherwise.
 	return
-		i >= 0 && i < m_hmInfo.numRows &&
-		j >= 0 && j < m_hmInfo.numCols;
+		i >= 0 && i < (int)m_hmInfo.numRows &&
+		j >= 0 && j < (int)m_hmInfo.numCols;
 }
 
-float CTerrain::Average(int i, int j)
+float CTerrainComponent::Average(int i, int j)
 {
 	// Function computes the average height of the ij element.
 	// It averages itself with its eight neighbor pixels.  Note

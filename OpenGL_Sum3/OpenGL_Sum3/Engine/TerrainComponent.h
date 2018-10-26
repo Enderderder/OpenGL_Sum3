@@ -11,8 +11,8 @@ struct HeightMapInfo
 	std::wstring heightmapFilename;
 	float heightScale = 1.0f;
 	float heightOffset = 0.0f;
-	int numRows;
-	int numCols;
+	unsigned int numRows;
+	unsigned int numCols;
 	float cellSpacing = 2.0f;
 };
 
@@ -23,13 +23,13 @@ struct TerrainVertex
 	glm::vec2 texCoord;
 };
 
-class CTerrain : public CComponent
+class CTerrainComponent : public CComponent
 {
 
 public:
 
-	CTerrain();
-	virtual ~CTerrain();
+	CTerrainComponent();
+	virtual ~CTerrainComponent();
 
 	virtual void BeginPlay() override;
 	virtual void Update(float _tick);

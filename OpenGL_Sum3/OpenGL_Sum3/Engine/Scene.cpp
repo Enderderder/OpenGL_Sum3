@@ -1,24 +1,6 @@
-// This Include
-#include "Scene.h"
 
 // Engine Include
-#include "GameObject.h"
-#include "SpriteRenderComponent.h"
-#include "MeshComponent.h"
-#include "Camera.h"
-#include "CubeMap.h"
-#include "Debug.h"
-#include "Terrain.h"
-//#include "Player.h"
-//#include "PowerUps.h"
-//#include "AssetMgr.h"
-//#include "MeshMgr.h"
-//#include "ModelMgr.h"
-//#include "SceneMgr.h"
-//#include "Input.h"
-//#include "Camera.h"
-//#include "CAIMgr.h"
-//#include "TextLabel.h"
+#include "Engine.h"
 
 CScene::CScene()
 {
@@ -68,7 +50,7 @@ void CScene::RenderScene()
 	{
 		for (std::shared_ptr<CGameObject> gameObject : m_vGameObj)
 		{
-			std::shared_ptr<CSpriteRenderComponent> spriteRenderer
+			CSpriteRenderComponent* spriteRenderer
 				= gameObject->GetComponent<CSpriteRenderComponent>();
 			if (spriteRenderer)
 			{
@@ -76,7 +58,7 @@ void CScene::RenderScene()
 				continue;
 			}
 
-			std::shared_ptr<CMeshComponent> meshRenderer 
+			CMeshComponent* meshRenderer
 				= gameObject->GetComponent<CMeshComponent>();
 			if (meshRenderer)
 			{
@@ -84,8 +66,8 @@ void CScene::RenderScene()
 				continue;
 			}
 
-			std::shared_ptr<CTerrain> terrainRender 
-				= gameObject->GetComponent<CTerrain>();
+			CTerrainComponent* terrainRender
+				= gameObject->GetComponent<CTerrainComponent>();
 			if (terrainRender)
 			{
 				terrainRender->RenderTerrain(m_mainCamera);
