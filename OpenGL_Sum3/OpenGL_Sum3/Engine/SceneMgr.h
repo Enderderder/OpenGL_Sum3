@@ -1,5 +1,4 @@
-#ifndef _SCENEMGR_H
-#define _SCENEMGR_H
+#pragma once
 
 // Global Include
 #include "Utility.h"
@@ -47,5 +46,3 @@ private:
 
 	CScene* m_runningScene;
 };
-
-#endif // !_SCENEMGR_H

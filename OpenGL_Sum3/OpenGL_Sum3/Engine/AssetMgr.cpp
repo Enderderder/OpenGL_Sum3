@@ -156,11 +156,11 @@ void CAssetMgr::CreateTexture(std::string _name, const char* _pathName)
 	std::cout << "Loading Texture: " << _pathName << "\n";
 
 	unsigned char* image = SOIL_load_image(
-		_pathName,				// File path / Name
+		_pathName,			// File path / Name
 		&width,				// Output for the image width
 		&height,			// Output for the image height
 		0,					// Output for number of channels
-		SOIL_LOAD_RGBA);	// Load RGB values only
+		SOIL_LOAD_RGBA);	// Load RGBA values only
 
 	glTexImage2D(
 		GL_TEXTURE_2D,		// Type of texture

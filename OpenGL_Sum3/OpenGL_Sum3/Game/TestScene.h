@@ -14,7 +14,6 @@ public:
 	virtual void BeginPlay() override;
 	virtual void UpdateScene() override;
 
-
 private:
 
 	std::weak_ptr<CCube> m_cubeOBJ;

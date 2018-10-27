@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AssetMgr.h" />
+    <ClInclude Include="Engine\BuildScene.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\CubeMap.h" />

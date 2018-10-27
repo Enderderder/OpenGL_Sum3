@@ -8,11 +8,11 @@ class CCamera;
 
 struct HeightMapInfo
 {
-	std::wstring heightmapFilename;
+	const char* heightmapFilename;
 	float heightScale = 1.0f;
 	float heightOffset = 0.0f;
-	unsigned int numRows;
-	unsigned int numCols;
+	unsigned int width;
+	unsigned int height;
 	float cellSpacing = 2.0f;
 };
 
@@ -63,12 +63,12 @@ public:
 
 	float GetDepth() const;
 
-private:
-
 	/**
-	 * Check if the point is inside the height map
-	 */
+	* Check if the point is inside the height map
+	*/
 	bool InBounds(int i, int j);
+
+private:
 
 	/**
 	 * Compute the average element value of the point
@@ -82,11 +82,12 @@ private:
 	UINT m_numVertices;
 	UINT m_numFaces;
 
+	// height of each vertices in the height map
 	std::vector<float> m_heightMap;
 
+	// OpenGL rendering data
 	GLuint m_vao;
 	GLuint m_indiceCount;
-
 	GLuint m_program;
 
 };

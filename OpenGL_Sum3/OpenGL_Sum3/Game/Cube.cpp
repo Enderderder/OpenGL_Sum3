@@ -27,20 +27,21 @@ void CCube::Update()
 	
 	CInput* input = CInput::GetInstance();
 
+	// Moving functionality of the object
 	if (input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
 	{
-		m_transform.position.z -= 0.5f;
+		m_transform.position.z -= 0.5f * CTime::GetInstance()->GetDeltaTime();
 	}
 	if (input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
 	{
-		m_transform.position.z += 0.5f;
+		m_transform.position.z += 0.5f * CTime::GetInstance()->GetDeltaTime();
 	}
 	if (input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
 	{
-		m_transform.position.x -= 0.5f;
+		m_transform.position.x -= 0.5f * CTime::GetInstance()->GetDeltaTime();
 	}
 	if (input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
 	{
-		m_transform.position.x += 0.5f;
+		m_transform.position.x += 0.5f * CTime::GetInstance()->GetDeltaTime();
 	}
 }

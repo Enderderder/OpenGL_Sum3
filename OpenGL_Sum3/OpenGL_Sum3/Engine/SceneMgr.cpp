@@ -3,7 +3,7 @@
 #include "Engine.h"
 
 // Build Scene
-#include "Game/TestScene.h"
+#include "BuildScene.h"
 
 // Static Variable
 CSceneMgr* CSceneMgr::s_pSceneMgr = nullptr;

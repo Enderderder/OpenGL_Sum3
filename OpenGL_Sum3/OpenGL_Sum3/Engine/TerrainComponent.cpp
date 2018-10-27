@@ -22,39 +22,71 @@ void CTerrainComponent::Update(float _tick)
 
 void CTerrainComponent::LoadHeightMap()
 {
+	// Load the .tga image as a heightmap
+	int width, height, channel;
+	unsigned char* htmp = SOIL_load_image(
+		m_hmInfo.heightmapFilename,
+		&width,
+		&height,
+		&channel,
+		SOIL_LOAD_L);
+
+	// Check if the heightmap loaded correctly
+	if (htmp == nullptr)
+	{
+		CDebug::Log("Fail to load the height map, please check file name and file type");
+		return;
+	}
+
+	// Retrieve the width and height info
+	m_hmInfo.width = width;
+	m_hmInfo.height = height;
+
+	// Load the height value into the vector
+	m_heightMap.resize(width * height, 0);
+	for (int i = 0; i < width * height; ++i)
+	{
+		m_heightMap[i] = htmp[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
+	}
+
+#pragma region Legacy way of loading heightmap using .data file
+
 	// A height for each vertex
-	std::vector<unsigned char> in(m_hmInfo.numRows * m_hmInfo.numCols);
+	//std::vector<unsigned char> in(m_hmInfo.numRows * m_hmInfo.numCols);
 
 	// Open the height map file
-	std::ifstream inFile;
-	inFile.open(m_hmInfo.heightmapFilename.c_str(), std::ios_base::binary);
+	//std::ifstream inFile;
+	//inFile.open(m_hmInfo.heightmapFilename.c_str(), std::ios_base::binary);
 
-	if (inFile)
-	{
-		// Read the RAW bytes
-		inFile.read((char*)&in[0], (std::streamsize)in.size());
+	//if (inFile)
+	//{
+	//	// Read the RAW bytes
+	//	inFile.read((char*)&in[0], (std::streamsize)in.size());
 
-		// Done with file.
-		inFile.close();
-	}
+	//	// Done with file.
+	//	inFile.close();
+	//}
 
 	// Copy the array data into a float array, and scale and offset the heights.
-	m_heightMap.resize(m_hmInfo.numRows * m_hmInfo.numCols, 0);
+	/*m_heightMap.resize(m_hmInfo.numRows * m_hmInfo.numCols, 0);
 	for (unsigned int i = 0; i < m_hmInfo.numRows * m_hmInfo.numCols; ++i)
 	{
-		m_heightMap[i] = (float)in[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
-	}
+	m_heightMap[i] = (float)in[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
+	}*/
+
+#pragma endregion Legacy way of loading heightmap using .data file
+
 }
 
 void CTerrainComponent::SmoothHeightMap()
 {
 	std::vector<float> dest(m_heightMap.size());
 
-	for (unsigned int i = 0; i < m_hmInfo.numRows; ++i)
+	for (unsigned int i = 0; i < m_hmInfo.width; ++i)
 	{
-		for (unsigned int j = 0; j < m_hmInfo.numCols; ++j)
+		for (unsigned int j = 0; j < m_hmInfo.height; ++j)
 		{
-			dest[i * m_hmInfo.numCols + j] = Average(i, j);
+			dest[i * m_hmInfo.height + j] = Average(i, j);
 		}
 	}
 
@@ -66,9 +98,6 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 {
 	// Pass in the information of the heightmap
 	m_hmInfo = _info;
-
-	m_numVertices = 256 * 256;
-	m_numFaces = (256 - 1) * (256 - 1) * 2;
 
 	// Load the height map into a vector that store the height of each point
 	LoadHeightMap();
@@ -86,13 +115,13 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	float z;
 	float x;
 	float y;
-	for (unsigned int row = 0; row < 256; ++row)
+	for (unsigned int row = 0; row < _info.width; ++row)
 	{
-		for (unsigned int col = 0; col < 256; ++col)
+		for (unsigned int col = 0; col < _info.height; ++col)
 		{
 			z = (float)row * m_hmInfo.cellSpacing;
 			x = (float)col * m_hmInfo.cellSpacing;
-			y = m_heightMap[(row * m_hmInfo.numCols) + col];
+			y = m_heightMap[(row * m_hmInfo.width) + col];
 
 			// load each data into the vertices
 			vertex.push_back(x);
@@ -102,19 +131,19 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	}
 
 	// Iterate over each quad and compute indices.
-	std::vector<GLuint> indices((m_hmInfo.numRows - 1) * (m_hmInfo.numCols - 1) * 6);
+	std::vector<GLuint> indices((m_hmInfo.width - 1) * (m_hmInfo.height - 1) * 6);
 	int k = 0;
-	for (unsigned int row = 0; row < m_hmInfo.numRows - 1; ++row)
+	for (unsigned int row = 0; row < m_hmInfo.width - 1; ++row)
 	{
-		for (unsigned int col = 0; col < m_hmInfo.numCols - 1; ++col)
+		for (unsigned int col = 0; col < m_hmInfo.height - 1; ++col)
 		{
-			indices[k] = row * m_hmInfo.numCols + col;
-			indices[k + 1] = row * m_hmInfo.numCols + col + 1;
-			indices[k + 2] = (row + 1) * m_hmInfo.numCols + col;
+			indices[k] = row * m_hmInfo.height + col;
+			indices[k + 1] = row * m_hmInfo.height + col + 1;
+			indices[k + 2] = (row + 1) * m_hmInfo.height + col;
 
-			indices[k + 3] = (row + 1) * m_hmInfo.numCols + col;
-			indices[k + 4] = row * m_hmInfo.numCols + col + 1;
-			indices[k + 5] = (row + 1) * m_hmInfo.numCols + col + 1;
+			indices[k + 3] = (row + 1) * m_hmInfo.height + col;
+			indices[k + 4] = row * m_hmInfo.height + col + 1;
+			indices[k + 5] = (row + 1) * m_hmInfo.height + col + 1;
 
 			k += 6; // next quad
 		}
@@ -199,10 +228,10 @@ float CTerrainComponent::GetHeight(float _x, float _z) const
 	//  | /|
 	//  |/ |
 	// C*--*D
-	float A = m_heightMap[row * m_hmInfo.numCols + col];
-	float B = m_heightMap[row * m_hmInfo.numCols + col + 1];
-	float C = m_heightMap[(row + 1) * m_hmInfo.numCols + col];
-	float D = m_heightMap[(row + 1) * m_hmInfo.numCols + col + 1];
+	float A = m_heightMap[row * m_hmInfo.height + col];
+	float B = m_heightMap[row * m_hmInfo.height + col + 1];
+	float C = m_heightMap[(row + 1) * m_hmInfo.height + col];
+	float D = m_heightMap[(row + 1) * m_hmInfo.height + col + 1];
 
 	// Where we are relative to the cell.
 	float s = c - (float)col;
@@ -225,20 +254,20 @@ float CTerrainComponent::GetHeight(float _x, float _z) const
 
 float CTerrainComponent::GetWidth() const
 {
-	return (m_hmInfo.numCols - 1) * m_hmInfo.cellSpacing;
+	return (m_hmInfo.height - 1) * m_hmInfo.cellSpacing;
 }
 
 float CTerrainComponent::GetDepth() const
 {
-	return (m_hmInfo.numRows - 1) * m_hmInfo.cellSpacing;
+	return (m_hmInfo.width - 1) * m_hmInfo.cellSpacing;
 }
 
 bool CTerrainComponent::InBounds(int i, int j)
 {
 	// True if ij are valid indices; false otherwise.
 	return
-		i >= 0 && i < (int)m_hmInfo.numRows &&
-		j >= 0 && j < (int)m_hmInfo.numCols;
+		i >= 0 && i < (int)m_hmInfo.width &&
+		j >= 0 && j < (int)m_hmInfo.height;
 }
 
 float CTerrainComponent::Average(int i, int j)
@@ -265,7 +294,7 @@ float CTerrainComponent::Average(int i, int j)
 		{
 			if (InBounds(m, n))
 			{
-				avg += m_heightMap[m * m_hmInfo.numCols + n];
+				avg += m_heightMap[m * m_hmInfo.height + n];
 				num += 1.0f;
 			}
 		}

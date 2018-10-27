@@ -35,9 +35,7 @@ void CTestScene::ConfigurateScene()
 	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
 	m_terrain = terrain;
 	HeightMapInfo heightMap;
-	heightMap.heightmapFilename = util::stringToWstring("Resources/HeightMaps/HeightMap3.data");
-	heightMap.numRows = 256;
-	heightMap.numCols = 256;
+	heightMap.heightmapFilename = "Resources/HeightMaps/RandomHeightmap.tga";
 	heightMap.cellSpacing = 4.0f;
 	terrainRenderer->CreateTerrain(heightMap);
 	this->m_vGameObj.push_back(terrain);
@@ -62,11 +60,10 @@ void CTestScene::UpdateScene()
 {
 	__super::UpdateScene();
 	
-	glm::vec3 postion = m_cubeOBJ.lock()->m_transform.position;
+	glm::vec3 position = m_cubeOBJ.lock()->m_transform.position;
 	CTerrainComponent* terrainRender = m_terrain.lock()->GetComponent<CTerrainComponent>();
 
 	m_cubeOBJ.lock()->m_transform.position.y
-		= terrainRender->GetHeight(postion.x, postion.z) + m_cubeOBJ.lock()->m_transform.scale.y;
-
+		= terrainRender->GetHeight(position.x, position.z) + m_cubeOBJ.lock()->m_transform.scale.y;
 }
 

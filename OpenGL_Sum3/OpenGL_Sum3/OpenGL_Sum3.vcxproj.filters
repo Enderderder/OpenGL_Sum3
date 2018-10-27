@@ -197,6 +197,9 @@
     <ClInclude Include="Engine\InputMgr.h">
       <Filter>Framework\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\BuildScene.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
