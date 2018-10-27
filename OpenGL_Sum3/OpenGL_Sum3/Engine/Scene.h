@@ -42,33 +42,103 @@ public:
 	 */
 	void ResetScene();
 
-	void Instantiate(std::shared_ptr<CGameObject> _gameobj);
-	void Instantiate(std::shared_ptr<CGameObject> _gameobj, glm::vec3 _pos);
-	void Instantiate(std::shared_ptr<CGameObject> _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
+	/**
+	 * Instantiate a gameobject into the scene
+	 */
+	template<typename T>
+	std::shared_ptr<T> Instantiate(std::shared_ptr<T> _gameobj);
+	/**
+	* Instantiate a gameobject into the scene with transform detail
+	*/
+	template<typename T>
+	std::shared_ptr<T> Instantiate(std::shared_ptr<T> _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
+	/**
+	* Remove a gameobject from the scene
+	*/
 	void DestroyObject(std::shared_ptr<CGameObject> _gameobj);
 
+	/**
+	 * Find gameobject that exists in the scene
+	 */
 	std::shared_ptr<CGameObject> FindGameObject(std::string _name) const;
-	std::vector<std::weak_ptr<CGameObject>> FindGameObjectAll(std::string _name) const;
+	std::vector<std::shared_ptr<CGameObject>> FindGameObjectAll(std::string _name) const;
 	std::shared_ptr<CGameObject> FindObjectWithTag(std::string _tag) const;
-	std::vector<std::weak_ptr<CGameObject>> FindObjectWithTagAll(std::string _tag) const;
+	std::vector<std::shared_ptr<CGameObject>> FindObjectWithTagAll(std::string _tag) const;
 
+	/**
+	 * Return the rendering camera of the scene
+	 */
 	CCamera* GetMainCamera() const;
 
+	/**
+	 * Return the gameobject container of the scene
+	 */
 	std::vector<std::shared_ptr<CGameObject>> GetObjectVec() const;
 
 	/** Configuration */
 public:
 
+	/** Name of the scene */
 	std::string m_sceneName;
 
+	/** Is scene rendering using scissor test */
 	bool m_bScissorTest;
 
 protected:
 	
+	/** Rendering camera of the scene */
 	CCamera* m_mainCamera;
+
+	/** Rendering cubemap of the scene */
 	CCubeMap* m_cubeMap;
+
+	/** Gameobject container of the scene */
 	std::vector<std::shared_ptr<CGameObject>> m_vGameObj;
 
 private:
 
 };
+
+template<typename T>
+std::shared_ptr<T> CScene::Instantiate(std::shared_ptr<T> _gameobj)
+{
+	// Check if the object is a gameobject
+	if (std::shared_ptr<CGameObject> gameobject
+		= std::dynamic_pointer_cast<CGameObject>(_gameobj))
+	{
+		gameobject->SetScene(this);
+		m_vGameObj.push_back(gameobject);
+
+		// Return the gameobject with its right type
+		return _gameobj;
+	}
+
+	// Otherwise return nullptr
+	CDebug::Log("The object instantiating is not a gameobject");
+	return nullptr;
+}
+
+template<typename T>
+std::shared_ptr<T> CScene::Instantiate(std::shared_ptr<T> _gameobj,
+	glm::vec3 _pos,
+	glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, 0.0f),
+	glm::vec3 _scale = glm::vec3(1.0f, 1.0f, 1.0f))
+{
+	// Check if the object is a gameobject
+	if (std::shared_ptr<CGameObject> gameobject
+		= std::dynamic_pointer_cast<CGameObject>(_gameobj))
+	{
+		gameobject->SetScene(this);
+		gameobject->m_transform.position = _pos;
+		gameobject->m_transform.rotation = _rotation;
+		gameobject->m_transform.scale = _scale;
+		m_vGameObj.push_back(gameobject);
+
+		// Return the gameobject with its right type
+		return _gameobj;
+	}
+
+	// Otherwise return nullptr
+	CDebug::Log("The object instantiating is not a gameobject");
+	return nullptr;
+}

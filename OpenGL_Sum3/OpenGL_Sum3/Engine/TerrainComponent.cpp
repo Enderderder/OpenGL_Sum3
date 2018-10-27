@@ -115,9 +115,9 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	float z;
 	float x;
 	float y;
-	for (unsigned int row = 0; row < _info.width; ++row)
+	for (unsigned int row = 0; row < m_hmInfo.width; ++row)
 	{
-		for (unsigned int col = 0; col < _info.height; ++col)
+		for (unsigned int col = 0; col < m_hmInfo.height; ++col)
 		{
 			z = (float)row * m_hmInfo.cellSpacing;
 			x = (float)col * m_hmInfo.cellSpacing;
@@ -186,9 +186,9 @@ void CTerrainComponent::RenderTerrain(CCamera* _camera)
 	glFrontFace(GL_CW);
 
 	/** Get the translate scale rotation from the game object transform */
-	glm::vec3 objPos = this->GetOwner()->m_transform.position;
-	glm::vec3 objRotate = this->GetOwner()->m_transform.rotation;
-	glm::vec3 objScale = this->GetOwner()->m_transform.scale;
+	glm::vec3 objPos = m_owner->m_transform.position;
+	glm::vec3 objRotate = m_owner->m_transform.rotation;
+	glm::vec3 objScale = m_owner->m_transform.scale;
 
 	/** Calculate the MVP matrix from the game object transform */
 	glm::mat4 translate = glm::translate(glm::mat4(), objPos);

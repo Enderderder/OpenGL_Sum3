@@ -4,6 +4,7 @@
 #include "Utility.h"
 
 // Forward Declare
+class CScene;
 class CGameObject;
 class CComponent;
 struct Trasform;
@@ -33,7 +34,8 @@ protected:
 	bool m_shouldDestroyed;
 	bool m_isActive;
 	
-	//std::vector<std::shared_ptr<CComponent>> m_components;
+	CScene* m_scene;
+
 	std::vector<CComponent*> m_components;
 
 public:
@@ -73,6 +75,11 @@ public:
 	 *Set active state for a object
 	 */
 	void SetActive(bool);
+	/**
+	 * Get and Set the scene pointer for the gameobject
+	 */
+	void SetScene(CScene* _scene);
+	CScene* GetScene() const;
 
 };
 

@@ -4,6 +4,7 @@
 
 CGameObject::CGameObject()
 {
+	m_scene = nullptr;
 	m_shouldDestroyed = false;
 	m_isActive = true;
 	m_transform.gameObject = this;
@@ -48,6 +49,16 @@ bool CGameObject::IsActive() const
 void CGameObject::SetActive(bool _b)
 {
 	m_isActive = _b;
+}
+
+void CGameObject::SetScene(CScene* _scene)
+{
+	m_scene = _scene;
+}
+
+CScene* CGameObject::GetScene() const
+{
+	return m_scene;
 }
 
 bool CGameObject::ShouldDestroyed() const

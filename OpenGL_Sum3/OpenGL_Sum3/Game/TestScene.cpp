@@ -29,7 +29,7 @@ void CTestScene::ConfigurateScene()
 	
 	/** Create game objects in the scenes */
 
-	std::shared_ptr<CGameObject> terrain = std::make_shared<CGameObject>();
+	std::shared_ptr<CGameObject> terrain = Instantiate(std::make_shared<CGameObject>());
 	terrain->m_transform.position = glm::vec3(0.0, 0.0, 0.0);
 	terrain->m_transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
@@ -40,13 +40,11 @@ void CTestScene::ConfigurateScene()
 	terrainRenderer->CreateTerrain(heightMap);
 	this->m_vGameObj.push_back(terrain);
 
-	std::shared_ptr<CCube> cubeOBJ = std::make_shared<CCube>();
+	std::shared_ptr<CCube> cubeOBJ = Instantiate(std::make_shared<CCube>());
 	m_cubeOBJ = cubeOBJ;
 	cubeOBJ->m_transform.position = glm::vec3(100.0f, 0.0f, 100.0f);
 	cubeOBJ->m_transform.scale = glm::vec3(10.0f, 10.0f, 10.0f);
 	this->m_vGameObj.push_back(cubeOBJ);
-	cubeOBJ->m_transform.position.y
-		= terrainRenderer->GetHeight(cubeOBJ->m_transform.position.x, cubeOBJ->m_transform.position.z);
 }
 
 void CTestScene::BeginPlay()
@@ -66,4 +64,3 @@ void CTestScene::UpdateScene()
 	m_cubeOBJ.lock()->m_transform.position.y
 		= terrainRender->GetHeight(position.x, position.z) + m_cubeOBJ.lock()->m_transform.scale.y;
 }
-

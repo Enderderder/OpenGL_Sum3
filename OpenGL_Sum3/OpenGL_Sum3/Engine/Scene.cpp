@@ -104,65 +104,6 @@ void CScene::UpdateScene()
 	}
 }
 
-/* Legacy code */
-// void CScene::CheckCollision()
-// {
-// 	size_t currVecSize = m_vGameObj.size();
-// 	for (size_t index = 0; index < currVecSize; ++index)
-// 	{
-// 		if (m_vGameObj[index]->HasCollider()) // Check if object itself has a collider
-// 		{
-// 			// Get the collistion detail of the object
-// 			float selfCollider = m_vGameObj[index]->GetCollisionRad();
-// 			glm::vec3 selfPos = m_vGameObj[index]->GetTransform();
-// 
-// 			// Check with all the rest of the other objects
-// 			for (size_t i = index + 1; i < currVecSize; ++i)
-// 			{
-// 				if (m_vGameObj[i]->HasCollider())
-// 				{
-// 					// Get the other objects' collision detail
-// 					float otherCollider = m_vGameObj[i]->GetCollisionRad();
-// 					glm::vec3 otherPos = m_vGameObj[i]->GetTransform();
-// 
-// 					float distance = glm::distance(selfPos, otherPos);
-// 					if (distance <= (selfCollider + otherCollider))
-// 					{
-// 						m_vGameObj[index]->OnCollision(m_vGameObj[i]);
-// 						m_vGameObj[i]->OnCollision(m_vGameObj[index]);
-// 					}
-// 				}
-// 			}
-// 		}
-// 		
-// 
-// 
-// 		currVecSize = m_vGameObj.size(); // Revalidate the number of item inside the vector
-// 	}
-// }
-
-void CScene::Instantiate(std::shared_ptr<CGameObject> _gameobj)
-{
-	m_vGameObj.push_back(_gameobj);
-}
-
-void CScene::Instantiate(std::shared_ptr<CGameObject> _gameobj, glm::vec3 _pos)
-{
-	_gameobj->m_transform.position = _pos;
-	m_vGameObj.push_back(_gameobj);
-}
-
-void CScene::Instantiate(std::shared_ptr<CGameObject> _gameobj,
-	glm::vec3 _pos, 
-	glm::vec3 _rotation, 
-	glm::vec3 _scale = glm::vec3(1.0f, 1.0f, 1.0f))
-{
-	_gameobj->m_transform.position = _pos;
-	_gameobj->m_transform.rotation = _rotation;
-	_gameobj->m_transform.scale = _scale;
-	m_vGameObj.push_back(_gameobj);
-}
-
 void CScene::DestroyObject(std::shared_ptr<CGameObject> _gameobj)
 {
 	for (auto iter = m_vGameObj.begin(); iter != m_vGameObj.end(); ++iter)
@@ -188,9 +129,9 @@ std::shared_ptr<CGameObject> CScene::FindGameObject(std::string _name) const
 	return nullptr;
 }
 
-std::vector<std::weak_ptr<CGameObject>> CScene::FindGameObjectAll(std::string _name) const
+std::vector<std::shared_ptr<CGameObject>> CScene::FindGameObjectAll(std::string _name) const
 {
-	std::vector<std::weak_ptr<CGameObject>> resultVector;
+	std::vector<std::shared_ptr<CGameObject>> resultVector;
 
 	for (auto iter = m_vGameObj.begin(); iter != m_vGameObj.end(); ++iter)
 	{
@@ -216,9 +157,9 @@ std::shared_ptr<CGameObject> CScene::FindObjectWithTag(std::string _tag) const
 	return nullptr;
 }
 
-std::vector<std::weak_ptr<CGameObject>> CScene::FindObjectWithTagAll(std::string _tag) const
+std::vector<std::shared_ptr<CGameObject>> CScene::FindObjectWithTagAll(std::string _tag) const
 {
-	std::vector<std::weak_ptr<CGameObject>> resultVector;
+	std::vector<std::shared_ptr<CGameObject>> resultVector;
 
 	for (auto iter = m_vGameObj.begin(); iter != m_vGameObj.end(); ++iter)
 	{
