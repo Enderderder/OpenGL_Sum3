@@ -16,7 +16,14 @@ class ShaderLoader
 
 		ShaderLoader(void);
 		~ShaderLoader(void);
-		static GLuint CreateProgram(const char* VertexShaderFilename,
-			const char* FragmentShaderFilename);
+
+		static GLuint CreateProgram(
+			const char* _vertexShaderFilename,
+			const char* _fragmentShaderFilename);
+
+		static GLuint CreateProgram(
+			const char* _vertexShaderFilename,
+			const char* _fragmentShaderFilename,
+			const char* _geometryShaderFilename);
 
 };
