@@ -46,13 +46,22 @@ private:
 	 * Creates shader program and bind it into a map
 	 */
 	void CreateProgram(std::string _name, const char* _vertexPath, const char* _fragmentPath);
-
+	void CreateProgram(std::string _name, const char* _vertexPath, const char* _fragmentPath, const char* _geometryPath);
+	/**
+	* Creates sprite and bind it into a map
+	*/
 	void CreateSprite(std::string _name, const char* _pathName);
-
+	/**
+	* Creates mesh and bind it into a map
+	*/
 	void CreateMesh(std::string _name, CMesh* _mesh);
-
+	/**
+	* Creates texture and bind it into a map
+	*/
 	void CreateTexture(std::string _name, const char* _pathName);
-
+	/**
+	* Creates cubemap and bind it into a map
+	*/
 	void CreateCubeMap(std::string _name, std::vector<std::string> _pathNames);
 
 private:

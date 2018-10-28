@@ -80,6 +80,9 @@
     <None Include="Engine\Shaders\BlinnPhong.vs" />
     <None Include="Engine\Shaders\CubeMap.fs" />
     <None Include="Engine\Shaders\CubeMap.vs" />
+    <None Include="Engine\Shaders\Geo.fs" />
+    <None Include="Engine\Shaders\Geo.gs" />
+    <None Include="Engine\Shaders\Geo.vs" />
     <None Include="Engine\Shaders\Heightmap.fs" />
     <None Include="Engine\Shaders\Heightmap.vs" />
     <None Include="Engine\Shaders\Sprite.fs" />

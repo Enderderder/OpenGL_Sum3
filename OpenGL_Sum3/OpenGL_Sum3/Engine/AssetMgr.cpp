@@ -36,6 +36,7 @@ void CAssetMgr::InitializeAssets()
 	CreateProgram("BlinnPhongProgram", "Engine/Shaders/BlinnPhong.vs", "Engine/Shaders/BlinnPhong.fs");
 	CreateProgram("CubeMapProgram", "Engine/Shaders/CubeMap.vs", "Engine/Shaders/CubeMap.fs");
 	CreateProgram("TextProgram", "Engine/Shaders/Text.vs", "Engine/Shaders/Text.fs");
+	CreateProgram("GeometryProgram", "Engine/Shaders/Geo.vs", "Engine/Shaders/Geo.fs", "Engine/Shaders/Geo.fs");
 
 	/** Initialize Meshes */
 	CreateMesh("DefaultCubeMesh", new CCubeMesh());
@@ -126,6 +127,13 @@ CCubeMap* CAssetMgr::GetCubeMap(std::string _name) const
 void CAssetMgr::CreateProgram(std::string _name, const char* _vertexPath, const char* _fragmentPath)
 {
 	GLuint newProgram = ShaderLoader::CreateProgram(_vertexPath, _fragmentPath);
+
+	m_programMap.insert(std::pair<std::string, GLuint>(_name, newProgram));
+}
+
+void CAssetMgr::CreateProgram(std::string _name, const char* _vertexPath, const char* _fragmentPath, const char* _geometryPath)
+{
+	GLuint newProgram = ShaderLoader::CreateProgram(_vertexPath, _fragmentPath, _geometryPath);
 
 	m_programMap.insert(std::pair<std::string, GLuint>(_name, newProgram));
 }

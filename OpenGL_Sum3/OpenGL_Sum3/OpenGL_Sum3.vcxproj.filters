@@ -309,5 +309,14 @@
     <None Include="Engine\Shaders\Heightmap.vs">
       <Filter>Resources\Shaders\HeightMap</Filter>
     </None>
+    <None Include="Engine\Shaders\Geo.fs">
+      <Filter>Resources\Shaders\Geometry</Filter>
+    </None>
+    <None Include="Engine\Shaders\Geo.gs">
+      <Filter>Resources\Shaders\Geometry</Filter>
+    </None>
+    <None Include="Engine\Shaders\Geo.vs">
+      <Filter>Resources\Shaders\Geometry</Filter>
+    </None>
   </ItemGroup>
 </Project>
