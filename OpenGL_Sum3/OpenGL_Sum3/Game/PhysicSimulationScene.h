@@ -3,11 +3,7 @@
 // Derive Include
 #include "Engine/Scene.h"
 
-// Forward Declaration
-class CCube;
-class CTerrainComponent;
-
-class CTestScene : public CScene
+class CPhysicSimulationScene : public CScene
 {
 public:
 
@@ -17,7 +13,5 @@ public:
 
 private:
 
-	std::weak_ptr<CCube> m_cubeOBJ;
-	std::weak_ptr<CGameObject> m_terrain;
 
 };

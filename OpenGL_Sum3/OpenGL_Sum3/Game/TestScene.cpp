@@ -15,25 +15,22 @@ void CTestScene::ConfigurateScene()
 	__super::ConfigurateScene();
 
 	/** Scene Configuration */
+	m_sceneName = "TestScene";
 	m_bScissorTest = false;
-
 
 	/** Create Cubemap Object */
 	m_cubeMap = CAssetMgr::GetInstance()->GetCubeMap("DefaultCubeMap");
 
 
 	/** Create Camera Object */
-	CCamera* mainCamera = new CCamera();
-	mainCamera->m_bIsControlling = false;
-	this->m_mainCamera = mainCamera;
+	m_mainCamera = new CCamera();
+	m_mainCamera->m_bIsControlling = false;
 	
 	/** Create game objects in the scenes */
 
 	std::shared_ptr<CGameObject> terrain = Instantiate(std::make_shared<CGameObject>());
-	terrain->m_transform.position = glm::vec3(0.0, 0.0, 0.0);
-	terrain->m_transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
 	m_terrain = terrain;
+	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
 	HeightMapInfo heightMap;
 	heightMap.heightmapFilename = "Resources/HeightMaps/RandomHeightmap.tga";
 	heightMap.cellSpacing = 4.0f;

@@ -47,6 +47,7 @@
     <ClInclude Include="Engine\Utility.h" />
     <ClInclude Include="Game\Cube.h" />
     <ClInclude Include="Game\GameClasses.h" />
+    <ClInclude Include="Game\PhysicSimulationScene.h" />
     <ClInclude Include="Game\SpaceShip.h" />
     <ClInclude Include="Game\TestScene.h" />
   </ItemGroup>
@@ -72,6 +73,7 @@
     <ClCompile Include="Engine\TextLoader.cpp" />
     <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Game\Cube.cpp" />
+    <ClCompile Include="Game\PhysicSimulationScene.cpp" />
     <ClCompile Include="Game\SpaceShip.cpp" />
     <ClCompile Include="Game\TestScene.cpp" />
   </ItemGroup>

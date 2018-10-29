@@ -5,7 +5,7 @@ layout (triangle_strip, max_vertices = 3) out;
 
 out vec3 outColor;
 
-int VS_GS_VERTEX{
+in VS_GS_VERTEX{
 	in vec4 position;
 	in vec3 color;
 	in mat4 mvp;

@@ -65,7 +65,7 @@ CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 	glGenTextures(1, &m_textureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 
-	int width, height;
+	int width, height, channel;
 	unsigned char* image;
 	for (GLuint i = 0; i < 6; ++i)
 	{
@@ -73,7 +73,7 @@ CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 		fullPathName.append(_textureFilePaths[i]);
 
 		image = SOIL_load_image(fullPathName.c_str(),
-			&width, &height, 0, SOIL_LOAD_RGB);
+			&width, &height, &channel, SOIL_LOAD_RGB);
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB,
 			width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 		SOIL_free_image_data(image);

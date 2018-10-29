@@ -19,8 +19,8 @@ void Update();
 
 int main(int argc, char **argv)
 {
-	// Set up randon
-	srand((unsigned int)time(NULL));
+	// Set up random
+	srand((unsigned int)time(nullptr));
 
 	// Create the window
 	glutInit(&argc, argv);
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	glutInitWindowPosition(400, 200);
 
 	glutInitWindowSize((int)util::SCR_WIDTH, (int)util::SCR_HEIGHT);
-	glutCreateWindow("Velocitas");
+	glutCreateWindow("OpenGL_Playground");
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

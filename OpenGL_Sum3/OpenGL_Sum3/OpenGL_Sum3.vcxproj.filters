@@ -112,6 +112,9 @@
     <Filter Include="Resources\Shaders\Geometry">
       <UniqueIdentifier>{6f0f33f0-4e41-417a-9430-e3fddc488794}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scenes\PhysicSimulationScene">
+      <UniqueIdentifier>{822c6690-ebad-4f9c-8c42-a3e0deae869e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\Commenting Header.txt">
@@ -200,6 +203,9 @@
     <ClInclude Include="Engine\BuildScene.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PhysicSimulationScene.h">
+      <Filter>Game\Scenes\PhysicSimulationScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
@@ -270,6 +276,9 @@
     </ClCompile>
     <ClCompile Include="Engine\InputMgr.cpp">
       <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PhysicSimulationScene.cpp">
+      <Filter>Game\Scenes\PhysicSimulationScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

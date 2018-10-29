@@ -28,6 +28,7 @@ void CSceneMgr::InitializeScenes()
 {
 	/** Create scenes that is going to build in the game */
 	CreateNewScene(new CTestScene());
+	CreateNewScene(new CPhysicSimulationScene());
 	
 	/** Run the first scene */
 	if (!m_scenes.empty())
@@ -87,6 +88,8 @@ CSceneMgr::CSceneMgr()
 
 CSceneMgr::~CSceneMgr()
 {
+	m_runningScene = nullptr;
+
 	for (auto scene : m_scenes)
 	{
 		delete scene;

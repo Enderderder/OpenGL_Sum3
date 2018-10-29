@@ -30,14 +30,14 @@ void CInput::InitializeInput()
 {
 #pragma region Set all input state to release
 
-	for (unsigned char i = 0; i < 255; i++)
+	for (unsigned char& key : g_cKeyState)
 	{
-		g_cKeyState[i] = INPUT_RELEASED;
+		key = INPUT_RELEASED;
 	}
 
-	for (unsigned char i = 0; i < 3; i++)
+	for (unsigned char& button : g_cMouseState)
 	{
-		g_cMouseState[i] = INPUT_RELEASED;
+		button = INPUT_RELEASED;
 	}
 
 #pragma endregion Set all input state to release
@@ -51,19 +51,19 @@ void CInput::InitializeInput()
 
 void CInput::Update()
 {
-	for (unsigned char i = 0; i < 255; i++)
+	for (unsigned char& key : g_cKeyState)
 	{
-		if (g_cKeyState[i] == INPUT_FIRST_PRESS)
+		if (key == INPUT_FIRST_PRESS)
 		{
-			g_cKeyState[i] = INPUT_HOLD;
+			key = INPUT_HOLD;
 		}
 	}
 
-	for (unsigned char i = 0; i < 3; i++)
+	for (unsigned char& button : g_cMouseState)
 	{
-		if (g_cMouseState[i] == INPUT_FIRST_PRESS)
+		if (button == INPUT_FIRST_PRESS)
 		{
-			g_cMouseState[i] = INPUT_HOLD;
+			button = INPUT_HOLD;
 		}
 	}
 }
