@@ -27,8 +27,8 @@ void CSceneMgr::DestroyInstance()
 void CSceneMgr::InitializeScenes()
 {
 	/** Create scenes that is going to build in the game */
-	CreateNewScene(new CTestScene());
 	CreateNewScene(new CPhysicSimulationScene());
+	CreateNewScene(new CTestScene());
 	
 	/** Run the first scene */
 	if (!m_scenes.empty())
@@ -67,11 +67,11 @@ void CSceneMgr::LoadScene(std::string _name)
 	m_runningScene->ResetScene();
 
 	// Jump to another scene and initialise 
-	for (auto iter = m_scenes.begin(); iter != m_scenes.end(); ++iter)
+	for (auto scene : m_scenes)
 	{
-		if ((*iter)->m_sceneName == _name)
+		if (scene->m_sceneName == _name)
 		{
-			m_runningScene = *iter;
+			m_runningScene = scene;
 			m_runningScene->ConfigurateScene();
 			m_runningScene->BeginPlay();
 		}

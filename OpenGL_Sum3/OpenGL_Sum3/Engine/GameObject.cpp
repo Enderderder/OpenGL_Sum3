@@ -22,17 +22,23 @@ CGameObject::~CGameObject()
 
 void CGameObject::BeginPlay() 
 {
-	for (auto iter : m_components)
+	for (auto component : m_components)
 	{
-		iter->BeginPlay();
+		if (component->IsActive())
+		{
+			component->BeginPlay();
+		}
 	}
 }
 
 void CGameObject::Update() 
 {
-	for (auto iter : m_components)
+	for (auto component : m_components)
 	{
-		
+		if (component->IsActive())
+		{
+			component->Update();
+		}
 	}
 }
 

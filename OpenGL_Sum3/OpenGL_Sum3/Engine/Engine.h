@@ -15,6 +15,8 @@
 #include "MeshComponent.h"
 #include "SpriteRenderComponent.h"
 #include "TerrainComponent.h"
+#include "ClothComponent.h"
+#include "ClothPoint.h"
 
 // General
 #include "Scene.h"

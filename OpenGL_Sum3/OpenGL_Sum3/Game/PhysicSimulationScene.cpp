@@ -21,14 +21,13 @@ void CPhysicSimulationScene::ConfigurateScene()
 
 	/** Create Camera Object */
 	m_mainCamera = new CCamera();
-	m_mainCamera->m_bIsControlling = false;
+	m_mainCamera->m_bIsControlling = true;
 
 	/** Create game objects in the scenes */
 
-
-
-
-
+	std::shared_ptr<CGameObject> clothObj = Instantiate(std::make_shared<CGameObject>());
+	clothObj->m_transform.position = { 2.0f, 2.0f, 0.0f };
+	auto* clothComponent = clothObj->CreateComponent<CClothComponent>();
 }
 
 void CPhysicSimulationScene::BeginPlay()

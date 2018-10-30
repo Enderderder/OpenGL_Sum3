@@ -32,7 +32,7 @@ public:
 	virtual ~CTerrainComponent();
 
 	virtual void BeginPlay() override;
-	virtual void Update(float _tick);
+	virtual void Update() override;
 
 	/**
 	 * Load the height map in using a RAW file

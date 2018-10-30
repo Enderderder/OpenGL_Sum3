@@ -15,6 +15,9 @@ public:
 protected:
 
 	CGameObject* m_owner;
+
+private:
+
 	bool m_isActive;
 
 // Membre Funciton
@@ -27,7 +30,7 @@ public:
 	/**
 	 * Calls every tick
 	 */
-	virtual void Update(float _tick) {}
+	virtual void Update() {}
 	/**
 	* Getter and setter of the "owner" property of the component
 	*/

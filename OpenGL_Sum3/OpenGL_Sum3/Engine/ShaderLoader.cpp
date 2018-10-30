@@ -66,6 +66,11 @@ GLuint ShaderLoader::CreateProgram(
 	glAttachShader(program, vertex_shader);
 	glAttachShader(program, fragment_shader);
 
+	// Delete the shader after attached to the program
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
+
+	// Link and use the program
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
 	//check for link errors
@@ -92,16 +97,22 @@ GLuint ShaderLoader::CreateProgram(
 	std::string fragment_shader_code = ReadShader(_fragmentShaderFilename);
 
 	GLuint vertex_shader = CreateShader(GL_VERTEX_SHADER, vertex_shader_code, "vertex shader");
-	GLuint geometry_shader = CreateShader(GL_GEOMETRY_SHADER, geometry_shader_code, "geometry shader");
 	GLuint fragment_shader = CreateShader(GL_FRAGMENT_SHADER, fragment_shader_code, "fragment shader");
+	GLuint geometry_shader = CreateShader(GL_GEOMETRY_SHADER, geometry_shader_code, "geometry shader");
 
 	int link_result = 0;
 	//create the program handle, attatch the shaders and link it
 	GLuint program = glCreateProgram();
 	glAttachShader(program, vertex_shader);
-	glAttachShader(program, geometry_shader);
 	glAttachShader(program, fragment_shader);
+	glAttachShader(program, geometry_shader);
 
+	// Delete the shader after attached to the program
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
+	glDeleteShader(geometry_shader);
+
+	// Link and use the program
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
 	//check for link errors

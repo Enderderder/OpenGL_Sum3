@@ -14,9 +14,9 @@ void CTerrainComponent::BeginPlay()
 	
 }
 
-void CTerrainComponent::Update(float _tick)
+void CTerrainComponent::Update()
 {
-	__super::Update(_tick);
+	__super::Update();
 	
 }
 
@@ -24,7 +24,7 @@ void CTerrainComponent::LoadHeightMap()
 {
 	// Load the .tga image as a heightmap
 	int width, height, channel;
-	unsigned char* htmp = SOIL_load_image(
+	unsigned char* heightmapImage = SOIL_load_image(
 		m_hmInfo.heightmapFilename,
 		&width,
 		&height,
@@ -32,7 +32,7 @@ void CTerrainComponent::LoadHeightMap()
 		SOIL_LOAD_L);
 
 	// Check if the heightmap loaded correctly
-	if (htmp == nullptr)
+	if (heightmapImage == nullptr)
 	{
 		CDebug::Log("Fail to load the height map, please check file name and file type");
 		return;
@@ -46,36 +46,8 @@ void CTerrainComponent::LoadHeightMap()
 	m_heightMap.resize(width * height, 0);
 	for (int i = 0; i < width * height; ++i)
 	{
-		m_heightMap[i] = htmp[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
+		m_heightMap[i] = heightmapImage[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
 	}
-
-#pragma region Legacy way of loading heightmap using .data file
-
-	// A height for each vertex
-	//std::vector<unsigned char> in(m_hmInfo.numRows * m_hmInfo.numCols);
-
-	// Open the height map file
-	//std::ifstream inFile;
-	//inFile.open(m_hmInfo.heightmapFilename.c_str(), std::ios_base::binary);
-
-	//if (inFile)
-	//{
-	//	// Read the RAW bytes
-	//	inFile.read((char*)&in[0], (std::streamsize)in.size());
-
-	//	// Done with file.
-	//	inFile.close();
-	//}
-
-	// Copy the array data into a float array, and scale and offset the heights.
-	/*m_heightMap.resize(m_hmInfo.numRows * m_hmInfo.numCols, 0);
-	for (unsigned int i = 0; i < m_hmInfo.numRows * m_hmInfo.numCols; ++i)
-	{
-	m_heightMap[i] = (float)in[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
-	}*/
-
-#pragma endregion Legacy way of loading heightmap using .data file
-
 }
 
 void CTerrainComponent::SmoothHeightMap()

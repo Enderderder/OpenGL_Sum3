@@ -2,7 +2,7 @@
 // Engine Include
 #include "Engine.h"
 
-CComponent::CComponent() {}
+CComponent::CComponent() : m_isActive(true) {}
 
 CComponent::~CComponent() {}
 
