@@ -21,16 +21,32 @@ public:
 
 private:
 
+	/**
+	 * Render data setup
+	 */
+	void SetupMesh();
+	void RefreshMesh();
+	void CalculateVertexData();
+	void CalculateIndiceData();
+
 	bool IndexInBound(int _row, int _col);
-	glm::vec3 LocalToWorld(glm::vec3 _localPos, glm::mat4 _mvp);
-	void DrawLine(glm::vec3 _pos1, glm::vec3 _pos2);
 
 public:
 
-	int m_width = 10;
-	int m_height = 10;
-
-	float m_restDistance = 1.0f;
+	// Configuration
+	int m_width;
+	int m_height;
+	float m_restDistance;
 	
+	// Points stored
 	std::vector<CClothPoint*> m_clothPoints;
+
+private:
+
+	// Render Data
+	GLuint m_vao, m_vbo, m_ebo;
+	GLuint m_program;
+	GLuint m_indiceCount;
+	std::vector<float> m_vertexBuffer;
+	std::vector<GLuint> m_indiceBuffer;
 };

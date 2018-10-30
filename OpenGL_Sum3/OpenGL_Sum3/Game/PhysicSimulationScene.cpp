@@ -26,7 +26,7 @@ void CPhysicSimulationScene::ConfigurateScene()
 	/** Create game objects in the scenes */
 
 	std::shared_ptr<CGameObject> clothObj = Instantiate(std::make_shared<CGameObject>());
-	clothObj->m_transform.position = { 2.0f, 2.0f, 0.0f };
+	clothObj->m_transform.position = { 0.0f, 0.0f, -10.0f };
 	auto* clothComponent = clothObj->CreateComponent<CClothComponent>();
 }
 

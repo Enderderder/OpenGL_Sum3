@@ -22,12 +22,12 @@ void CTime::DestroyInstance()
 
 void CTime::Initialize()
 {
-	oldTime = (float)glutGet(GLUT_ELAPSED_TIME);
+	oldTime = (float)glutGet(GLUT_ELAPSED_TIME) * 0.0001f;
 }
 
 void CTime::Update()
 {
-	newTime = (float)glutGet(GLUT_ELAPSED_TIME);
+	newTime = (float)glutGet(GLUT_ELAPSED_TIME) * 0.0001f;
 	deltaTime = newTime - oldTime;
 
 	oldTime = newTime;

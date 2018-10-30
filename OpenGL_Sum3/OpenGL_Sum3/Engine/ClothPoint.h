@@ -25,6 +25,6 @@ public:
 	float m_damping;
 	float m_mass;
 	bool m_bMoveable;
-
+	bool m_bActive;
 
 };

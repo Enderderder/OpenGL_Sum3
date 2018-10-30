@@ -91,9 +91,6 @@
     <Filter Include="Framework\CubeMap">
       <UniqueIdentifier>{7c8ee095-959f-43d3-87de-92c0cbaa877c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Component\Terrain">
-      <UniqueIdentifier>{ee6aabad-6b40-43a4-a687-68a16a8297e2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Shaders\HeightMap">
       <UniqueIdentifier>{b5a26ed9-3a1a-48d1-bcb6-0e81ce699963}</UniqueIdentifier>
     </Filter>
@@ -132,6 +129,9 @@
     </Filter>
     <Filter Include="Framework\Component\ClothComponent">
       <UniqueIdentifier>{bb771d15-4cf9-4d5e-9110-cb6d5a0750cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Component\TerrainComponent">
+      <UniqueIdentifier>{ee6aabad-6b40-43a4-a687-68a16a8297e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -210,7 +210,7 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Engine\TerrainComponent.h">
-      <Filter>Framework\Component\Terrain</Filter>
+      <Filter>Framework\Component\TerrainComponent</Filter>
     </ClInclude>
     <ClInclude Include="Engine\SoundMgr.h">
       <Filter>Framework\Sound</Filter>
@@ -293,7 +293,7 @@
       <Filter>Framework\CubeMap</Filter>
     </ClCompile>
     <ClCompile Include="Engine\TerrainComponent.cpp">
-      <Filter>Framework\Component\Terrain</Filter>
+      <Filter>Framework\Component\TerrainComponent</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SoundMgr.cpp">
       <Filter>Framework\Sound</Filter>

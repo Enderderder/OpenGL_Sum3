@@ -8,6 +8,8 @@
 CCube::CCube() 
 {
 	m_meshRenderer = CreateComponent<CMeshComponent>();
+
+	m_moveSpd = 100.0f;
 }
 
 CCube::~CCube() {}
@@ -30,18 +32,18 @@ void CCube::Update()
 	// Moving functionality of the object
 	if (input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
 	{
-		m_transform.position.z -= 0.5f * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.z -= m_moveSpd * CTime::GetInstance()->GetDeltaTime();
 	}
 	if (input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
 	{
-		m_transform.position.z += 0.5f * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.z += m_moveSpd * CTime::GetInstance()->GetDeltaTime();
 	}
 	if (input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
 	{
-		m_transform.position.x -= 0.5f * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.x -= m_moveSpd * CTime::GetInstance()->GetDeltaTime();
 	}
 	if (input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
 	{
-		m_transform.position.x += 0.5f * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.x += m_moveSpd * CTime::GetInstance()->GetDeltaTime();
 	}
 }

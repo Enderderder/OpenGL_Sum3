@@ -19,5 +19,7 @@ public:
 private:
 
 	CMeshComponent* m_meshRenderer;
+
+	float m_moveSpd;
 };
 

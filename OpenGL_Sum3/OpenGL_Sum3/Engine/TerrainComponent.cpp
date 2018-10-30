@@ -145,7 +145,7 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	glBindVertexArray(0);
 
 	// Comput the indice size
-	m_indiceCount = indices.size() * sizeof(GLuint) / sizeof(GLuint);
+	m_indiceCount = indices.size();
 }
 
 void CTerrainComponent::RenderTerrain(CCamera* _camera)
