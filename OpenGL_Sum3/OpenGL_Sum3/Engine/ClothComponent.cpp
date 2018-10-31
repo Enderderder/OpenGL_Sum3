@@ -7,11 +7,17 @@ CClothComponent::CClothComponent()
 	m_width = 20;
 	m_height = 30;
 	m_restDistance = 0.1f;
+	m_stiffness = 0.1f;
 }
 
 CClothComponent::~CClothComponent()
 {
-
+	for (auto point : m_clothPoints)
+	{
+		delete point;
+		point = nullptr;
+	}
+	m_clothPoints.clear();
 }
 
 void CClothComponent::BeginPlay()
@@ -69,9 +75,11 @@ void CClothComponent::Update()
 		}	
 	}
 
+	// Constraints all the points thats active so they dont loss their shape
+	ConstraintPoints();
+
 	// Refresh the render data every frame
 	RefreshMesh();
-
 }
 
 void CClothComponent::RenderColth(CCamera* _camera)
@@ -217,6 +225,71 @@ void CClothComponent::CalculateIndiceData()
 
 	// Calculate the indice count
 	m_indiceCount = m_indiceBuffer.size();
+}
+
+void CClothComponent::ConstraintPoints()
+{
+	for (int row = 0; row < m_height; ++row)
+	{
+		for (int col = 0; col < m_width; ++col)
+		{
+			// Calculate constrain for the point if it is active
+			int selfIndex = row * m_width + col;
+			if (m_clothPoints[selfIndex]->m_bActive)
+			{
+				// Calculate constrain for the point with the point below if it is active
+				int downIndex = (row + 1) * m_width + col;
+				if (row < m_height - 1 && m_clothPoints[downIndex]->m_bActive)
+				{
+					ConstraintDistance(
+						m_clothPoints[selfIndex], m_clothPoints[downIndex],
+						m_restDistance, m_stiffness);
+				}
+
+				// Calculate constrain for the point with the point below if it is active
+				int rightIndex = row * m_width + col + 1;
+				if (col < m_width - 1 && m_clothPoints[rightIndex]->m_bActive)
+				{
+					ConstraintDistance(
+						m_clothPoints[selfIndex], m_clothPoints[rightIndex],
+						m_restDistance, m_stiffness);
+				}
+			}
+		}
+	}
+}
+
+void CClothComponent::ConstraintDistance(CClothPoint* _point1, CClothPoint* _point2, float _restDistance, float _stiffness)
+{
+	glm::vec3 delta = _point1->m_localPosition - _point2->m_localPosition;
+
+	float deltaLength = glm::length(delta);
+
+	float difference = (deltaLength - _restDistance) / deltaLength;
+
+	float im1 = 1 / _point1->m_mass;
+	float im2 = 1 / _point2->m_mass;
+
+	glm::vec3 moveAmount_point1 = delta * (im1 / (im1 + im2)) * _stiffness * difference;
+	glm::vec3 moveAmount_point2 = delta * (im2 / (im1 + im2)) * _stiffness * difference;
+
+	if (_point1->m_bMoveable)
+	{
+		_point1->m_localPosition -= moveAmount_point1;
+
+// 		if (_point2->m_bMoveable)
+// 		{
+// 			_point2->m_localPosition += moveAmount_point2;
+// 		}
+// 		else
+// 		{
+// 			_point1->m_localPosition -= moveAmount_point2;
+// 		}
+	}
+	if (_point2->m_bMoveable)
+	{
+		_point2->m_localPosition += moveAmount_point2;
+	}
 }
 
 bool CClothComponent::IndexInBound(int _row, int _col)

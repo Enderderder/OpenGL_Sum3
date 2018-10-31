@@ -29,6 +29,11 @@ private:
 	void CalculateVertexData();
 	void CalculateIndiceData();
 
+	void ConstraintPoints();
+	void ConstraintDistance(
+		CClothPoint* _point1, CClothPoint* _point2, 
+		float _restDistance, float _stiffness);
+
 	bool IndexInBound(int _row, int _col);
 
 public:
@@ -37,6 +42,7 @@ public:
 	int m_width;
 	int m_height;
 	float m_restDistance;
+	float m_stiffness;
 	
 	// Points stored
 	std::vector<CClothPoint*> m_clothPoints;
