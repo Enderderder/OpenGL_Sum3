@@ -6,7 +6,7 @@ CClothComponent::CClothComponent()
 {
 	m_width = 20;
 	m_height = 30;
-	m_restDistance = 0.1f;
+	m_restDistance = 0.5f;
 	m_stiffness = 0.1f;
 }
 
@@ -45,13 +45,13 @@ void CClothComponent::BeginPlay()
 	}
 	
 	// Set the top row of the cloth to fix position
-	for (int i = 0; i < m_width; ++i)
+	for (int i = 0; i < m_width - 4; ++i)
 	{
 		m_clothPoints[i]->m_bMoveable = false;
 	}
 
 	// Set the middle row to in-active
-	for (int i = 0; i < m_width; ++i)
+	for (int i = 4; i < m_width; ++i)
 	{
 		m_clothPoints[(6 * m_width) + i]->m_bActive = false;
 	}
@@ -277,18 +277,18 @@ void CClothComponent::ConstraintDistance(CClothPoint* _point1, CClothPoint* _poi
 	{
 		_point1->m_localPosition -= moveAmount_point1;
 
-// 		if (_point2->m_bMoveable)
-// 		{
-// 			_point2->m_localPosition += moveAmount_point2;
-// 		}
-// 		else
-// 		{
-// 			_point1->m_localPosition -= moveAmount_point2;
-// 		}
+		if (_point2->m_bMoveable)
+		{
+			_point2->m_localPosition += moveAmount_point2;
+		}
+		else
+		{
+			_point1->m_localPosition -= moveAmount_point2;
+		}
 	}
-	if (_point2->m_bMoveable)
+	else if (_point2->m_bMoveable)
 	{
-		_point2->m_localPosition += moveAmount_point2;
+		_point2->m_localPosition += moveAmount_point2 + moveAmount_point1;
 	}
 }
 

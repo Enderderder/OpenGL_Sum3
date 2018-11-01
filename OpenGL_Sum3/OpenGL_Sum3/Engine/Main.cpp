@@ -46,9 +46,9 @@ int main(int argc, char **argv)
 	glutDisplayFunc(Render);
 
 	glutCloseFunc([]() {
-		p_Input->DestroyInstance();
 		p_SceneMgr->DestroyInstance();
 		p_Asset->DestroyInstance();
+		p_Input->DestroyInstance();
 		p_Time->DestroyInstance();
 	}); // Clean up the memory when closing the program
 
@@ -57,10 +57,10 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
-	p_Time->Initialize();
+	p_Input->InitializeInput();
 	p_Asset->InitializeAssets();
 	p_SceneMgr->InitializeScenes();
-	p_Input->InitializeInput();
+	p_Time->Initialize();
 }
 
 void Render()
@@ -73,6 +73,12 @@ void Render()
 void Update()
 {
 	p_Time->Update();
+
+	if (p_SceneMgr->GetRunningScene() == nullptr)
+	{
+		p_SceneMgr->InitializeFirstScene();
+		return;
+	}
 
 	// Update whats currently running
 	p_SceneMgr->UpdateCurrentScene();

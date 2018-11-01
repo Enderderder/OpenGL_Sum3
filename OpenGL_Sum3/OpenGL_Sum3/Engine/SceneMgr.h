@@ -33,6 +33,7 @@ public:
 	
 	// Member Functions
 	void InitializeScenes();
+	void InitializeFirstScene();
 	void RenderCurrentScene();
 	void UpdateCurrentScene();
 	void CreateNewScene(CScene* _scene);

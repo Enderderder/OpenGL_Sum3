@@ -7,7 +7,7 @@ CClothPoint::CClothPoint(glm::vec3 _localPosition)
 	m_localPosition = _localPosition;
 	m_acceleration = { 0.0f, 0.0f, 0.0f };
 	m_oldLocalPosition = _localPosition;
-	m_mass = 0.5f;
+	m_mass = 1.0f;
 	m_damping = 0.1f;
 	m_bMoveable = true;
 	m_bActive = true;
@@ -28,6 +28,7 @@ void CClothPoint::Update(float _deltaTime)
 			m_localPosition + (m_localPosition - m_oldLocalPosition) * (1.0f - m_damping) + m_acceleration * (std::powf(_deltaTime, 2));
 		m_oldLocalPosition = storeOldPosition;
 
+		// Reset the acceleration since the 
 		m_acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 	}
 

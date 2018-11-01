@@ -29,7 +29,10 @@ void CSceneMgr::InitializeScenes()
 	/** Create scenes that is going to build in the game */
 	CreateNewScene(new CPhysicSimulationScene());
 	CreateNewScene(new CTestScene());
-	
+}
+
+void CSceneMgr::InitializeFirstScene()
+{
 	/** Run the first scene */
 	if (!m_scenes.empty())
 	{
@@ -45,9 +48,14 @@ void CSceneMgr::InitializeScenes()
 
 void CSceneMgr::RenderCurrentScene()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	if (m_runningScene != nullptr)
+	{
+		// Clear the screen
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	m_runningScene->RenderScene();
+		// Render scene
+		m_runningScene->RenderScene();
+	}
 }
 
 void CSceneMgr::UpdateCurrentScene()
