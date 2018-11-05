@@ -4,9 +4,9 @@
 
 CClothComponent::CClothComponent()
 {
-	m_width = 20;
-	m_height = 30;
-	m_restDistance = 0.5f;
+	m_width = 10;
+	m_height = 20;
+	m_restDistance = 0.1f;
 	m_stiffness = 0.1f;
 }
 
@@ -39,22 +39,25 @@ void CClothComponent::BeginPlay()
 		{
 			x = col * m_restDistance - halfWidth;
 
-			CClothPoint* clothPoint = new CClothPoint({ x,y,z });
+			CClothPoint* clothPoint = new CClothPoint({ x,y,z }, (row * m_width + col));
 			m_clothPoints.push_back(clothPoint);
 		}
 	}
 	
 	// Set the top row of the cloth to fix position
-	for (int i = 0; i < m_width - 4; ++i)
+	for (int i = 0; i < m_width; ++i)
 	{
 		m_clothPoints[i]->m_bMoveable = false;
 	}
 
 	// Set the middle row to in-active
-	for (int i = 4; i < m_width; ++i)
+	for (int i = 0; i < m_width - 3; ++i)
 	{
 		m_clothPoints[(6 * m_width) + i]->m_bActive = false;
 	}
+
+	// Create the constrain link between points
+	CreateLinks();
 
 	// Setup render data for the cloth
 	m_program = CAssetMgr::GetInstance()->GetProgramID("UnlitProgram");
@@ -73,6 +76,11 @@ void CClothComponent::Update()
 		{
 			point->Update(deltaTime);
 		}	
+	}
+
+	for (const auto& link : m_clothLinks)
+	{
+		link->Update();
 	}
 
 	// Constraints all the points thats active so they dont loss their shape
@@ -196,30 +204,16 @@ void CClothComponent::CalculateIndiceData()
 	m_indiceBuffer.resize(0);
 	
 	// Bind the indice data into the buffer
-	for (int row = 0; row < m_height; ++row)
+	for (const auto& link : m_clothLinks)
 	{
-		for (int col = 0; col < m_width; ++col)
+		// Check if the link is active
+		if (link->IsActiveLink())
 		{
-			// Link with other points if point is active
-			int selfIndex = row * m_width + col;
-			if (m_clothPoints[selfIndex]->m_bActive)
-			{
-				// Link downwards if the point is active
-				int downIndex = (row + 1) * m_width + col;
-				if (row < m_height - 1 && m_clothPoints[downIndex]->m_bActive)
-				{
-					m_indiceBuffer.push_back(selfIndex);
-					m_indiceBuffer.push_back(downIndex);
-				}
+			int pointIndex_1 = link->GetPoint_1()->GetIndex();
+			int pointIndex_2 = link->GetPoint_2()->GetIndex();
 
-				// Link rightwards if the point is active
-				int rightIndex = row * m_width + col + 1;
-				if (col < m_width - 1 && m_clothPoints[rightIndex]->m_bActive) 
-				{
-					m_indiceBuffer.push_back(selfIndex);
-					m_indiceBuffer.push_back(rightIndex);
-				}
-			}
+			m_indiceBuffer.push_back(pointIndex_1);
+			m_indiceBuffer.push_back(pointIndex_2);
 		}
 	}
 
@@ -227,7 +221,7 @@ void CClothComponent::CalculateIndiceData()
 	m_indiceCount = m_indiceBuffer.size();
 }
 
-void CClothComponent::ConstraintPoints()
+void CClothComponent::CreateLinks()
 {
 	for (int row = 0; row < m_height; ++row)
 	{
@@ -235,28 +229,82 @@ void CClothComponent::ConstraintPoints()
 		{
 			// Calculate constrain for the point if it is active
 			int selfIndex = row * m_width + col;
-			if (m_clothPoints[selfIndex]->m_bActive)
-			{
-				// Calculate constrain for the point with the point below if it is active
-				int downIndex = (row + 1) * m_width + col;
-				if (row < m_height - 1 && m_clothPoints[downIndex]->m_bActive)
-				{
-					ConstraintDistance(
-						m_clothPoints[selfIndex], m_clothPoints[downIndex],
-						m_restDistance, m_stiffness);
-				}
 
-				// Calculate constrain for the point with the point below if it is active
+			// Creating Horizontal and Verticle link
+			// Calculate constrain for the point with the point below
+			if (IndexInBound(row, col + 1))
+			{
 				int rightIndex = row * m_width + col + 1;
-				if (col < m_width - 1 && m_clothPoints[rightIndex]->m_bActive)
-				{
-					ConstraintDistance(
-						m_clothPoints[selfIndex], m_clothPoints[rightIndex],
-						m_restDistance, m_stiffness);
-				}
+				CreateLink(m_clothPoints[selfIndex], m_clothPoints[rightIndex], m_restDistance);
+			}
+			// Calculate constrain for the point with the point below
+			if (IndexInBound(row + 1, col))
+			{
+				int downIndex = (row + 1) * m_width + col;
+				CreateLink(m_clothPoints[selfIndex], m_clothPoints[downIndex], m_restDistance);
+			}
+
+			// Create Diagonal link
+			float diagonalRestDistance = std::sqrtf(std::powf(m_restDistance, 2) * 2);
+			// Calculate constrain for the point with the point bottom right
+			if (IndexInBound(row + 1, col + 1))
+			{
+				int bottomRightIndex = (row + 1) * m_width + (col + 1);
+				CreateLink(m_clothPoints[selfIndex], m_clothPoints[bottomRightIndex], diagonalRestDistance);
+			}
+			// Calculate constrain for the point with the point bottom right
+			if (IndexInBound(row + 1, col - 1))
+			{
+				int bottomLeftIndex = (row + 1) * m_width + (col - 1);
+				CreateLink(m_clothPoints[selfIndex], m_clothPoints[bottomLeftIndex], diagonalRestDistance);
 			}
 		}
 	}
+}
+
+void CClothComponent::CreateLink(CClothPoint* _point1, CClothPoint* _point2, float _restDistance)
+{
+	CClothLink* newLink = new CClothLink(_point1, _point2, this, _restDistance);
+	m_clothLinks.push_back(newLink);
+}
+
+void CClothComponent::ConstraintPoints()
+{
+	for (const auto& link : m_clothLinks)
+	{
+		if (link->IsActiveLink())
+		{
+			link->ResolveLink();
+		}
+	}
+// 	for (int row = 0; row < m_height; ++row)
+// 	{
+// 		for (int col = 0; col < m_width; ++col)
+// 		{
+// 			// Calculate constrain for the point if it is active
+// 			int selfIndex = row * m_width + col;
+// 			if (m_clothPoints[selfIndex]->m_bActive)
+// 			{
+// 				// Calculate constrain for the point with the point below if it is active
+// 				int downIndex = (row + 1) * m_width + col;
+// 				if (row < m_height - 1 && m_clothPoints[downIndex]->m_bActive)
+// 				{
+// 					ConstraintDistance(
+// 						m_clothPoints[selfIndex], m_clothPoints[downIndex],
+// 						m_restDistance, m_stiffness);
+// 				}
+// 
+// 				// Calculate constrain for the point with the point below if it is active
+// 				int rightIndex = row * m_width + col + 1;
+// 				if (col < m_width - 1 && m_clothPoints[rightIndex]->m_bActive)
+// 				{
+// 					ConstraintDistance(
+// 						m_clothPoints[selfIndex], m_clothPoints[rightIndex],
+// 						m_restDistance, m_stiffness);
+// 				}
+// 			}
+// 		}
+// 	}
 }
 
 void CClothComponent::ConstraintDistance(CClothPoint* _point1, CClothPoint* _point2, float _restDistance, float _stiffness)
@@ -267,28 +315,34 @@ void CClothComponent::ConstraintDistance(CClothPoint* _point1, CClothPoint* _poi
 
 	float difference = (deltaLength - _restDistance) / deltaLength;
 
+	glm::vec3 correctionVec = delta * (1 - m_restDistance / deltaLength);
+	glm::vec3 correctionVecHalf = correctionVec * 0.5f;
+
 	float im1 = 1 / _point1->m_mass;
 	float im2 = 1 / _point2->m_mass;
 
 	glm::vec3 moveAmount_point1 = delta * (im1 / (im1 + im2)) * _stiffness * difference;
 	glm::vec3 moveAmount_point2 = delta * (im2 / (im1 + im2)) * _stiffness * difference;
 
+	//if (_point1->m_bMoveable) _point1->m_localPosition -= correctionVecHalf;
+	//if (_point2->m_bMoveable) _point2->m_localPosition += correctionVecHalf;
+
 	if (_point1->m_bMoveable)
 	{
-		_point1->m_localPosition -= moveAmount_point1;
+		_point1->m_localPosition -= correctionVecHalf;
 
 		if (_point2->m_bMoveable)
 		{
-			_point2->m_localPosition += moveAmount_point2;
+			_point2->m_localPosition += correctionVecHalf;
 		}
 		else
 		{
-			_point1->m_localPosition -= moveAmount_point2;
+			_point1->m_localPosition -= correctionVecHalf;
 		}
 	}
 	else if (_point2->m_bMoveable)
 	{
-		_point2->m_localPosition += moveAmount_point2 + moveAmount_point1;
+		_point2->m_localPosition += correctionVec;
 	}
 }
 

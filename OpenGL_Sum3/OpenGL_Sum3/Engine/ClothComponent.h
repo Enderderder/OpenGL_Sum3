@@ -6,6 +6,7 @@
 // Forward Declare
 class CCamera;
 class CClothPoint;
+class CClothLink;
 
 class CClothComponent : public CComponent
 {
@@ -29,6 +30,12 @@ private:
 	void CalculateVertexData();
 	void CalculateIndiceData();
 
+	void CreateLinks();
+	void CreateLink(
+		CClothPoint* _point1,
+		CClothPoint* _point2,
+		float _restDistance);
+
 	void ConstraintPoints();
 	void ConstraintDistance(
 		CClothPoint* _point1, CClothPoint* _point2, 
@@ -46,6 +53,9 @@ public:
 	
 	// Points stored
 	std::vector<CClothPoint*> m_clothPoints;
+
+	// Links between points stored
+	std::vector<CClothLink*> m_clothLinks;
 
 private:
 

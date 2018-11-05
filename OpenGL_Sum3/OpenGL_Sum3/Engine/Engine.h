@@ -17,6 +17,7 @@
 #include "TerrainComponent.h"
 #include "ClothComponent.h"
 #include "ClothPoint.h"
+#include "ClothLink.h"
 
 // General
 #include "Scene.h"

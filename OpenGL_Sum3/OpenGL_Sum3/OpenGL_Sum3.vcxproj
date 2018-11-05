@@ -26,6 +26,7 @@
     <ClInclude Include="Engine\BuildScene.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\ClothComponent.h" />
+    <ClInclude Include="Engine\ClothLink.h" />
     <ClInclude Include="Engine\ClothPoint.h" />
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\CubeMap.h" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Engine\AssetMgr.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\ClothComponent.cpp" />
+    <ClCompile Include="Engine\ClothLink.cpp" />
     <ClCompile Include="Engine\ClothPoint.cpp" />
     <ClCompile Include="Engine\Component.cpp" />
     <ClCompile Include="Engine\CubeMap.cpp" />

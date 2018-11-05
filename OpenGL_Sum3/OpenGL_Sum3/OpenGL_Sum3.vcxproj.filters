@@ -230,6 +230,9 @@
     <ClInclude Include="Engine\ClothPoint.h">
       <Filter>Framework\Component\ClothComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ClothLink.h">
+      <Filter>Framework\Component\ClothComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
@@ -308,6 +311,9 @@
       <Filter>Framework\Component\ClothComponent</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ClothPoint.cpp">
+      <Filter>Framework\Component\ClothComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ClothLink.cpp">
       <Filter>Framework\Component\ClothComponent</Filter>
     </ClCompile>
   </ItemGroup>
