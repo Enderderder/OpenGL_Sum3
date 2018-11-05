@@ -17,6 +17,8 @@ public:
 
 private:
 
+	void ProcessMovement(float _deltaTime);
+
 	void ApplyGravityForce();
 
 public:

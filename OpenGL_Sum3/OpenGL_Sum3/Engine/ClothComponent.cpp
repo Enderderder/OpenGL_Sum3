@@ -4,10 +4,10 @@
 
 CClothComponent::CClothComponent()
 {
-	m_width = 10;
+	m_width = 13;
 	m_height = 20;
-	m_restDistance = 0.1f;
-	m_stiffness = 0.1f;
+	m_restDistance = 1.0f;
+	m_stiffness = 0.5f;
 }
 
 CClothComponent::~CClothComponent()
@@ -45,7 +45,7 @@ void CClothComponent::BeginPlay()
 	}
 	
 	// Set the top row of the cloth to fix position
-	for (int i = 0; i < m_width; ++i)
+	for (int i = 0; i < m_width; i += 4)
 	{
 		m_clothPoints[i]->m_bMoveable = false;
 	}
@@ -53,7 +53,7 @@ void CClothComponent::BeginPlay()
 	// Set the middle row to in-active
 	for (int i = 0; i < m_width - 3; ++i)
 	{
-		m_clothPoints[(6 * m_width) + i]->m_bActive = false;
+		//m_clothPoints[(6 * m_width) + i]->m_bActive = false;
 	}
 
 	// Create the constrain link between points
