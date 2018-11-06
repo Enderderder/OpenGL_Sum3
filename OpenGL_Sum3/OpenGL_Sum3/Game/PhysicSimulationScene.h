@@ -13,5 +13,7 @@ public:
 
 private:
 
+	std::weak_ptr<CGameObject> m_clothObj;
 
+	std::weak_ptr<CGameObject> m_groundObj;
 };

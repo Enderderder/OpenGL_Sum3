@@ -103,6 +103,11 @@ void CInput::MouseButton(int button, int glutState, int x, int y)
 
 void CInput::MouseMotion(int x, int y)
 {
+	// Convert the OpenGL coord to NDC
+	float ndcMouseX = (2.0f * (float)x / util::SCR_WIDTH - 1.0f);
+	float ndcMouseY = 1.0f - (2.0f * (float)y) / util::SCR_HEIGHT;
+	g_mouseNdcPosition = { ndcMouseX, ndcMouseY };
+
 	// Get the mouse position at OpenGL coord
 	glm::vec2 mousePosition = glm::vec2((float)x, (float)y);
 
@@ -113,7 +118,7 @@ void CInput::MouseMotion(int x, int y)
 
 void CInput::InitKeyDown(unsigned char key, int x, int y)
 {
-		CInput::GetInstance()->KeyboardDown(key, x, y);
+	CInput::GetInstance()->KeyboardDown(key, x, y);
 }
 
 void CInput::InitKeyUp(unsigned char key, int x, int y)

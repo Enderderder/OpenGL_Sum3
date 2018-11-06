@@ -1,11 +1,6 @@
-// Global Include
-#include "Utility.h"
-#include "SceneMgr.h"
-#include "Time.h"
-#include "AssetMgr.h"
-#include "SceneMgr.h"
-#include "InputMgr.h"
-#include "TextLabel.h"
+
+// Engine Include
+#include "Engine.h"
 
 // GLobal Variables
 static CTime* p_Time = CTime::GetInstance();

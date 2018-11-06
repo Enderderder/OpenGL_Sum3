@@ -23,6 +23,13 @@ void CMeshComponent::SetProgram(GLuint _program)
 
 void CMeshComponent::RenderMesh(CCamera* _camera)
 {
+	// Check if there is a mesh attached to prevent crashing
+	if (m_mesh == nullptr)
+	{
+		CDebug::Log("Warning: There is no mesh attach to gameobject " + m_owner->m_name);
+		return;
+	}
+
 	glUseProgram(m_program);
 
 	glEnable(GL_DEPTH_TEST);

@@ -12,10 +12,11 @@ class CClothLink
 public:
 
 	CClothLink(
-		CClothPoint* _point1, 
-		CClothPoint* _point2, 
+		CClothPoint* _point1,
+		CClothPoint* _point2,
 		CClothComponent* _owner,
-		float _restDistance);
+		float _restDistance,
+		CClothPoint* _pointMiddle = nullptr);
 	~CClothLink();
 
 	void ResolveLink();
@@ -33,6 +34,7 @@ private:
 	CClothComponent* m_componentOwner;
 	CClothPoint* m_point1;
 	CClothPoint* m_point2;
+	CClothPoint* m_pointMiddle;
 	float m_restDistance;
 
 	bool m_bActive;

@@ -7,3 +7,4 @@
 /** Game Object and Component Class */
 #include "SpaceShip.h"
 #include "Cube.h"
+#include "WindBox.h"

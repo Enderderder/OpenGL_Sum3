@@ -8,7 +8,7 @@ CClothPoint::CClothPoint(glm::vec3 _localPosition, int _index)
 	m_localPosition = _localPosition;
 	m_acceleration = { 0.0f, 0.0f, 0.0f };
 	m_oldLocalPosition = _localPosition;
-	m_mass = 0.1f;
+	m_mass = 0.01f;
 	m_damping = 0.8f;
 	m_bMoveable = true;
 	m_bActive = true;
@@ -32,7 +32,7 @@ void CClothPoint::Update(float _deltaTime)
 
 void CClothPoint::ApplyForce(glm::vec3 _force)
 {
-	m_acceleration = _force / m_mass;
+	m_acceleration += _force / m_mass;
 }
 
 int CClothPoint::GetIndex() const

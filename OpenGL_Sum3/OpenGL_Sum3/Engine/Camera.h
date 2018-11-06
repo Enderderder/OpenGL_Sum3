@@ -29,7 +29,16 @@ public:
 
 	glm::vec3 GetCameraNormal() const;
 	void SetCameraNormal(glm::vec3 _Normal);
-	
+
+
+
+private:
+
+	/**
+	 * Calculate the ray from the mouse coord
+	 */
+	void CalculateCameraRay();
+		
 	/** Configuration for the camera */
 public: 
 
@@ -52,4 +61,6 @@ private:
 
 	glm::mat4 m_viewMatrix;
 	glm::mat4 m_projectionMatrix;
+
+	glm::vec3 m_cameraRay;
 };

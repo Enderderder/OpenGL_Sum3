@@ -12,11 +12,15 @@
 #include FT_FREETYPE_H  
 //#include <Box2D/Box2D.h>
 
+#define _USE_MATH_DEFINES
+
 // Library Include -----------------------------------------------------------------------------
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <math.h>
 #include <memory>
+#include <cstdlib>
 #include <string>
 #include <vector>
 #include <map>
@@ -51,11 +55,21 @@ namespace util
 	}
 
 	template<typename T>
-	std::string ToString(const T& _value)
+	static std::string ToString(const T& _value)
 	{
 		std::strstream theStream;
 		theStream << _value << std::ends;
 		return (theStream.str());
+	}
+
+	static float ToRad(float _deg)
+	{
+		return (_deg * static_cast<float>(M_PI)) / 180.0f;
+	}
+
+	static float ToDeg(float _rad)
+	{
+		return (_rad * 180.0f) / static_cast<float>(M_PI);
 	}
 
 }

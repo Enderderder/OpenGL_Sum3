@@ -53,6 +53,7 @@
     <ClInclude Include="Game\PhysicSimulationScene.h" />
     <ClInclude Include="Game\SpaceShip.h" />
     <ClInclude Include="Game\TestScene.h" />
+    <ClInclude Include="Game\WindBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\AssetMgr.cpp" />
@@ -82,6 +83,7 @@
     <ClCompile Include="Game\PhysicSimulationScene.cpp" />
     <ClCompile Include="Game\SpaceShip.cpp" />
     <ClCompile Include="Game\TestScene.cpp" />
+    <ClCompile Include="Game\WindBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\BlinnPhong.fs" />

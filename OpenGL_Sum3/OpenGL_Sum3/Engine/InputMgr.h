@@ -45,4 +45,5 @@ public: // Public Variables
 	unsigned char g_cKeyState[255];
 	unsigned char g_cMouseState[3];
 	glm::vec2 g_mousePosition;
+	glm::vec2 g_mouseNdcPosition;
 };

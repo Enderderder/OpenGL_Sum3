@@ -6,11 +6,13 @@
 #include "ClothPoint.h"
 #include "ClothComponent.h"
 
-CClothLink::CClothLink(CClothPoint* _point1, CClothPoint* _point2, CClothComponent* _owner, float _restDistance)
+CClothLink::CClothLink(CClothPoint* _point1, CClothPoint* _point2,
+	CClothComponent* _owner, float _restDistance, CClothPoint* _pointMiddle)
 {
 	m_componentOwner = _owner;
 	m_point1 = _point1;
 	m_point2 = _point2;
+	m_pointMiddle = _pointMiddle;
 	m_restDistance = _restDistance;
 	m_bActive = true;
 }
@@ -36,31 +38,26 @@ void CClothLink::ResolveLink()
 	glm::vec3 moveAmount_point1 = delta * (im1 / (im1 + im2)) * m_componentOwner->m_stiffness * difference;
 	glm::vec3 moveAmount_point2 = delta * (im2 / (im1 + im2)) * m_componentOwner->m_stiffness * difference;
 
-	if (m_point1->m_bMoveable) m_point1->m_localPosition -= correctionVecHalf;
-	if (m_point2->m_bMoveable) m_point2->m_localPosition += correctionVecHalf;
+	//if (m_point1->m_bMoveable) m_point1->m_localPosition -= moveAmount_point1;
+	//if (m_point2->m_bMoveable) m_point2->m_localPosition += moveAmount_point2;
 
-// 	if (m_point1->m_bMoveable)
-// 	{
-// 		m_point1->m_localPosition -= moveAmount_point1;
-// 
-// 		if (m_point2->m_bMoveable)
-// 		{
-// 			m_point2->m_localPosition += moveAmount_point2;
-// 		}
-// 		else
-// 		{
-// 			m_point1->m_localPosition -= moveAmount_point1;
-// 		}
-// 	}
-// 	else if (m_point2->m_bMoveable)
-// 	{
-// 		m_point2->m_localPosition += moveAmount_point2 + moveAmount_point1;
-// 	}
+	if (m_point1->m_bMoveable)
+	{
+		m_point1->m_localPosition -= moveAmount_point1;
 
-
-
-
-
+		if (m_point2->m_bMoveable)
+		{
+			m_point2->m_localPosition += moveAmount_point2;
+		}
+		else
+		{
+			m_point1->m_localPosition -= moveAmount_point2;
+		}
+	}
+	else if (m_point2->m_bMoveable)
+	{
+		m_point2->m_localPosition += moveAmount_point2 + moveAmount_point1;
+	}
 }
 
 void CClothLink::DestroyLink()
@@ -71,11 +68,21 @@ void CClothLink::DestroyLink()
 void CClothLink::Update()
 {
 	// Check if the points are active
-	if (m_point1->m_bActive && m_point2->m_bActive)
+
+	if (m_pointMiddle != nullptr)
 	{
-		m_bActive = true;
+		if (m_pointMiddle->m_bActive == false)
+		{
+			m_bActive = false;
+			return;
+		}
 	}
-	else m_bActive = false;
+
+	if (m_point1->m_bActive == false || m_point2->m_bActive == false)
+	{	
+		m_bActive = false;
+		return;
+	}
 }
 
 CClothPoint* CClothLink::GetPoint_1() const

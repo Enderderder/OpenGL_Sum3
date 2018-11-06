@@ -133,6 +133,9 @@
     <Filter Include="Framework\Component\TerrainComponent">
       <UniqueIdentifier>{ee6aabad-6b40-43a4-a687-68a16a8297e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ObjectClass\WindBox">
+      <UniqueIdentifier>{c2b1672f-6512-471a-829b-084235e85b89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\Commenting Header.txt">
@@ -233,6 +236,9 @@
     <ClInclude Include="Engine\ClothLink.h">
       <Filter>Framework\Component\ClothComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Game\WindBox.h">
+      <Filter>Game\ObjectClass\WindBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
@@ -315,6 +321,9 @@
     </ClCompile>
     <ClCompile Include="Engine\ClothLink.cpp">
       <Filter>Framework\Component\ClothComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\WindBox.cpp">
+      <Filter>Game\ObjectClass\WindBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
