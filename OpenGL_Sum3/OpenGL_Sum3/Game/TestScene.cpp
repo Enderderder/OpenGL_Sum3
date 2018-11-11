@@ -21,10 +21,9 @@ void CTestScene::ConfigurateScene()
 	/** Create Cubemap Object */
 	m_cubeMap = CAssetMgr::GetInstance()->GetCubeMap("DefaultCubeMap");
 
-
 	/** Create Camera Object */
 	m_mainCamera = new CCamera();
-	m_mainCamera->m_bIsControlling = false;
+	m_mainCamera->m_bIsControlling = true;
 	
 	/** Create game objects in the scenes */
 
@@ -33,7 +32,7 @@ void CTestScene::ConfigurateScene()
 	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
 	HeightMapInfo heightMap;
 	heightMap.heightmapFilename = "Resources/HeightMaps/RandomHeightmap.tga";
-	heightMap.cellSpacing = 4.0f;
+	heightMap.cellSpacing = 0.1f;
 	terrainRenderer->CreateTerrain(heightMap);
 	this->m_vGameObj.push_back(terrain);
 
@@ -48,7 +47,7 @@ void CTestScene::BeginPlay()
 {
 	__super::BeginPlay();
 
-	m_mainCamera->m_cameraPosition = { 300.0f, 200.0f, 500.f };
+	m_mainCamera->m_transform.position = { 300.0f, 200.0f, 500.f };
 }
 
 void CTestScene::UpdateScene()
@@ -58,6 +57,6 @@ void CTestScene::UpdateScene()
 	glm::vec3 position = m_cubeOBJ.lock()->m_transform.position;
 	CTerrainComponent* terrainRender = m_terrain.lock()->GetComponent<CTerrainComponent>();
 
-	m_cubeOBJ.lock()->m_transform.position.y
-		= terrainRender->GetHeight(position.x, position.z) + m_cubeOBJ.lock()->m_transform.scale.y;
+// 	m_cubeOBJ.lock()->m_transform.position.y
+// 		= terrainRender->GetHeight(position.x, position.z) + m_cubeOBJ.lock()->m_transform.scale.y;
 }

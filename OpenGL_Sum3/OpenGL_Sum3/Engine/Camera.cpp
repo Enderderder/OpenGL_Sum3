@@ -7,9 +7,9 @@ static CInput* p_Input = CInput::GetInstance();
 
 CCamera::CCamera()
 {
-	m_cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
-	m_cameraFacing = glm::vec3(0.0f, 0.0f, -1.0f);
-	m_cameraNormal = glm::vec3(0.0f, 1.0f, 0.0f);
+	//m_cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+	//m_cameraFacing = glm::vec3(0.0f, 0.0f, -1.0f);
+	//m_cameraNormal = glm::vec3(0.0f, 1.0f, 0.0f);
 	m_bPerspective = true;
 	m_fov = 45.0f;
 	m_nearPlane = 0.1f;
@@ -32,43 +32,44 @@ void CCamera::Update()
 {
 	if (m_bIsControlling)
 	{
+		float moveSpeed = 2.0f;
 		glm::vec3 resultVec;
 
 		if (p_Input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || 
 			p_Input->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
 		{
-			resultVec.z -= 2.0f;
+			resultVec += this->m_transform.GetForward() * moveSpeed;
 		}
 		if ((p_Input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || 
 			p_Input->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
 		{
-			resultVec.z += 2.0f;
+			resultVec -= this->m_transform.GetForward() * moveSpeed;
 		}
 		if ((p_Input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD ||
 			p_Input->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
 		{
-			resultVec.x -= 2.0f;
+			resultVec -= this->m_transform.GetRight() * moveSpeed;
 		}
 		if ((p_Input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || 
 			p_Input->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
 		{
-			resultVec.x += 2.0f;
+			resultVec += this->m_transform.GetRight() * moveSpeed;
 		}
 		if ((p_Input->g_cKeyState[(unsigned char)'r'] == INPUT_HOLD ||
 			p_Input->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS))
 		{
-			resultVec.y += 2.0f;
+			resultVec.y += moveSpeed;
 		}
 		if ((p_Input->g_cKeyState[(unsigned char)'f'] == INPUT_HOLD ||
 			p_Input->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS))
 		{
-			resultVec.y -= 2.0f;
+			resultVec.y -= moveSpeed;
 		}
 
 		if (resultVec != glm::vec3())
 		{
 			// Add the speed force to the direction
-			this->m_cameraPosition += resultVec;
+			this->m_transform.position += resultVec;
 		}
 	}
 
@@ -88,10 +89,12 @@ glm::mat4 CCamera::GetView() const
 void CCamera::CalcViewMatrix()
 {
 	m_viewMatrix = glm::lookAt(
-		m_cameraPosition,
-		{ 0.0f, 0.0f, 0.0f },
-		//m_cameraPosition + m_cameraFacing,
-		m_cameraNormal);
+		m_transform.position,
+		//{ 0.0f, 0.0f, 0.0f },
+		m_transform.position + m_transform.GetForward(),
+		//{ 0.0f, 1.0f, 0.0f }
+		m_transform.GetUp()
+	);
 }
 
 glm::mat4 CCamera::GetProj() const
@@ -113,23 +116,23 @@ void CCamera::CalcProjectionMatrix()
 	}
 }
 
-glm::vec3 CCamera::GetCameraFacing() const
-{
-	return m_cameraFacing;
-}
-void CCamera::SetCameraFacing(glm::vec3 _facing)
-{
-	m_cameraFacing = _facing;
-}
+// glm::vec3 CCamera::GetCameraFacing() const
+// {
+// 	return m_cameraFacing;
+// }
+// void CCamera::SetCameraFacing(glm::vec3 _facing)
+// {
+// 	m_cameraFacing = _facing;
+// }
 
-glm::vec3 CCamera::GetCameraNormal() const
-{
-	return m_cameraNormal;
-}
-void CCamera::SetCameraNormal(glm::vec3 _normal)
-{
-	m_cameraNormal = _normal;
-}
+// glm::vec3 CCamera::GetCameraNormal() const
+// {
+// 	return m_cameraNormal;
+// }
+// void CCamera::SetCameraNormal(glm::vec3 _normal)
+// {
+// 	m_cameraNormal = _normal;
+// }
 
 void CCamera::CalculateCameraRay()
 {

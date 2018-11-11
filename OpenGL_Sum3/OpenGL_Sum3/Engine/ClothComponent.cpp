@@ -12,6 +12,13 @@ CClothComponent::CClothComponent()
 
 CClothComponent::~CClothComponent()
 {
+	for (auto link : m_clothLinks)
+	{
+		delete link;
+		link = nullptr;
+	}
+	m_clothLinks.clear();
+
 	for (auto point : m_clothPoints)
 	{
 		delete point;
@@ -244,6 +251,11 @@ void CClothComponent::SetupMesh()
 		0, 3, GL_FLOAT, GL_FALSE, 
 		3 * sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+
+	// Unbind
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void CClothComponent::RefreshMesh()

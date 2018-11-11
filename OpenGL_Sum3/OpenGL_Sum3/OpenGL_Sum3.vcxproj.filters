@@ -136,6 +136,12 @@
     <Filter Include="Game\ObjectClass\WindBox">
       <UniqueIdentifier>{c2b1672f-6512-471a-829b-084235e85b89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Component\ParticleComponent">
+      <UniqueIdentifier>{d6d2d5cd-dcfa-4ee3-9e10-e709b828fa86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Component\ParticleComponent\NoneGPGPU">
+      <UniqueIdentifier>{a0051d76-1fcc-44e7-bfce-833ca5650897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\Commenting Header.txt">
@@ -239,6 +245,12 @@
     <ClInclude Include="Game\WindBox.h">
       <Filter>Game\ObjectClass\WindBox</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\NGPGPUParticleComponent.h">
+      <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\NGPGPUParticle.h">
+      <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
@@ -324,6 +336,12 @@
     </ClCompile>
     <ClCompile Include="Game\WindBox.cpp">
       <Filter>Game\ObjectClass\WindBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\NGPGPUParticleComponent.cpp">
+      <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\NGPGPUParticle.cpp">
+      <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

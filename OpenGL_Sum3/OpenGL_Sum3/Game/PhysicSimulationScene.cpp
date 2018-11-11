@@ -21,7 +21,8 @@ void CPhysicSimulationScene::ConfigurateScene()
 
 	/** Create Camera Object */
 	m_mainCamera = new CCamera();
-	m_mainCamera->m_cameraPosition.z += 5.0f;
+	m_mainCamera->m_transform.position.z += 5.0f;
+	//m_mainCamera->m_transform.rotation.y = 45.0f;
 	m_mainCamera->m_bIsControlling = true;
 
 	/** Create game objects in the scenes */

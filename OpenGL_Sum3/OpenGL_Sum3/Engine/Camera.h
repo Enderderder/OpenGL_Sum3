@@ -30,8 +30,6 @@ public:
 	glm::vec3 GetCameraNormal() const;
 	void SetCameraNormal(glm::vec3 _Normal);
 
-
-
 private:
 
 	/**
@@ -42,9 +40,11 @@ private:
 	/** Configuration for the camera */
 public: 
 
-	glm::vec3 m_cameraPosition;
-	glm::vec3 m_cameraFacing;
-	glm::vec3 m_cameraNormal;
+	Transform m_transform;
+
+	//glm::vec3 m_cameraPosition;
+	//glm::vec3 m_cameraFacing;
+	//glm::vec3 m_cameraNormal;
 
 	float m_viewPortWidth;
 	float m_viewPortHeight;

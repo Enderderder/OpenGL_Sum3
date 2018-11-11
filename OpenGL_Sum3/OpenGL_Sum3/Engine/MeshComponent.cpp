@@ -64,7 +64,7 @@ void CMeshComponent::RenderMesh(CCamera* _camera)
 	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, glm::value_ptr(normalMat));
 
 	GLuint camPosLoc = glGetUniformLocation(m_program, "camPos");
-	glUniform3fv(camPosLoc, 1, glm::value_ptr(_camera->m_cameraPosition));
+	glUniform3fv(camPosLoc, 1, glm::value_ptr(_camera->m_transform.position));
 
 	/************************************************************************/
 

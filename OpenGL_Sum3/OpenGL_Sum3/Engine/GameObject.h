@@ -16,6 +16,39 @@ struct Transform
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	glm::vec3 GetForward() const 
+	{
+		float radX = glm::radians(rotation.x);
+		float radY = glm::radians(rotation.y);
+
+		glm::vec3 forwardVec(
+			glm::cos(radX) * glm::sin(radY),
+			glm::sin(radX),
+			-glm::cos(radX) * glm::cos(radY)
+		);
+
+		return glm::normalize(forwardVec);
+	}
+	glm::vec3 GetUp() const 
+	{
+		return -glm::cross(this->GetForward(), this->GetRight());
+	}
+	glm::vec3 GetRight() const 
+	{
+		//float radX = glm::radians(rotation.x);
+		float radY = glm::radians(rotation.y + 90.0f);
+
+		glm::vec3 rightVec(
+			glm::sin(radY),
+			0.0f,
+			-glm::cos(radY)
+		);
+
+		return glm::normalize(rightVec);
+
+		//return glm::cross({ 0.0f, -1.0f, 0.0f }, this->GetForward());
+	}
 };
 
 class CGameObject : public std::enable_shared_from_this<CGameObject>
