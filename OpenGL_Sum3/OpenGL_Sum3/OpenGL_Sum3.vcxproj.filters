@@ -142,6 +142,9 @@
     <Filter Include="Framework\Component\ParticleComponent\NoneGPGPU">
       <UniqueIdentifier>{a0051d76-1fcc-44e7-bfce-833ca5650897}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Shaders\CPUParticle">
+      <UniqueIdentifier>{d45ada4c-35d0-48b4-a16d-50441a9fdb7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\Commenting Header.txt">
@@ -245,10 +248,10 @@
     <ClInclude Include="Game\WindBox.h">
       <Filter>Game\ObjectClass\WindBox</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\NGPGPUParticleComponent.h">
+    <ClInclude Include="Engine\CPUParticleComponent.h">
       <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\NGPGPUParticle.h">
+    <ClInclude Include="Engine\CPUParticle.h">
       <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClInclude>
   </ItemGroup>
@@ -337,10 +340,10 @@
     <ClCompile Include="Game\WindBox.cpp">
       <Filter>Game\ObjectClass\WindBox</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\NGPGPUParticleComponent.cpp">
+    <ClCompile Include="Engine\CPUParticleComponent.cpp">
       <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\NGPGPUParticle.cpp">
+    <ClCompile Include="Engine\CPUParticle.cpp">
       <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClCompile>
   </ItemGroup>
@@ -389,6 +392,15 @@
     </None>
     <None Include="Engine\Shaders\Geo.vs">
       <Filter>Resources\Shaders\Geometry</Filter>
+    </None>
+    <None Include="Engine\Shaders\CPUParticle.vs">
+      <Filter>Resources\Shaders\CPUParticle</Filter>
+    </None>
+    <None Include="Engine\Shaders\CPUParticle.gs">
+      <Filter>Resources\Shaders\CPUParticle</Filter>
+    </None>
+    <None Include="Engine\Shaders\CPUParticle.fs">
+      <Filter>Resources\Shaders\CPUParticle</Filter>
     </None>
   </ItemGroup>
 </Project>

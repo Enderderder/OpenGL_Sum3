@@ -7,9 +7,6 @@ static CInput* p_Input = CInput::GetInstance();
 
 CCamera::CCamera()
 {
-	//m_cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
-	//m_cameraFacing = glm::vec3(0.0f, 0.0f, -1.0f);
-	//m_cameraNormal = glm::vec3(0.0f, 1.0f, 0.0f);
 	m_bPerspective = true;
 	m_fov = 45.0f;
 	m_nearPlane = 0.1f;
@@ -35,33 +32,27 @@ void CCamera::Update()
 		float moveSpeed = 2.0f;
 		glm::vec3 resultVec;
 
-		if (p_Input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || 
-			p_Input->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
+		if (p_Input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
 		{
 			resultVec += this->m_transform.GetForward() * moveSpeed;
 		}
-		if ((p_Input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || 
-			p_Input->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
+		if (p_Input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
 		{
 			resultVec -= this->m_transform.GetForward() * moveSpeed;
 		}
-		if ((p_Input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD ||
-			p_Input->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
+		if (p_Input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
 		{
 			resultVec -= this->m_transform.GetRight() * moveSpeed;
 		}
-		if ((p_Input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || 
-			p_Input->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
+		if (p_Input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
 		{
 			resultVec += this->m_transform.GetRight() * moveSpeed;
 		}
-		if ((p_Input->g_cKeyState[(unsigned char)'r'] == INPUT_HOLD ||
-			p_Input->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS))
+		if (p_Input->g_cKeyState[(unsigned char)'r'] == INPUT_HOLD)
 		{
 			resultVec.y += moveSpeed;
 		}
-		if ((p_Input->g_cKeyState[(unsigned char)'f'] == INPUT_HOLD ||
-			p_Input->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS))
+		if (p_Input->g_cKeyState[(unsigned char)'f'] == INPUT_HOLD)
 		{
 			resultVec.y -= moveSpeed;
 		}
@@ -70,6 +61,33 @@ void CCamera::Update()
 		{
 			// Add the speed force to the direction
 			this->m_transform.position += resultVec;
+		}
+
+
+		// Rotate the camera
+		float rotateSpeed = 1.0f;
+		glm::vec3 resultRotation = glm::vec3();
+		if (p_Input->g_cKeyState[(unsigned char)'i'] == INPUT_HOLD)
+		{
+			resultRotation.x += rotateSpeed;
+		}
+		if (p_Input->g_cKeyState[(unsigned char)'k'] == INPUT_HOLD)
+		{
+			resultRotation.x -= rotateSpeed;
+		}
+		if (p_Input->g_cKeyState[(unsigned char)'j'] == INPUT_HOLD)
+		{
+			resultRotation.y -= rotateSpeed;
+		}
+		if (p_Input->g_cKeyState[(unsigned char)'l'] == INPUT_HOLD)
+		{
+			resultRotation.y += rotateSpeed;
+		}
+
+		if (resultRotation != glm::vec3())
+		{
+			// Add the speed force to the direction
+			this->m_transform.rotation += resultRotation;
 		}
 	}
 

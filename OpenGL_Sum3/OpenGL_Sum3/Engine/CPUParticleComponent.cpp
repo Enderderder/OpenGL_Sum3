@@ -2,7 +2,7 @@
 // This Include
 #include "Engine.h"
 
-CNGPGPUParticleComponent::CNGPGPUParticleComponent()
+CCPUParticleComponent::CCPUParticleComponent()
 {
 	m_particleCount = 10000;
 	m_lifeTime = 1.0f;
@@ -12,7 +12,7 @@ CNGPGPUParticleComponent::CNGPGPUParticleComponent()
 	m_isPlaying = true;
 }
 
-CNGPGPUParticleComponent::~CNGPGPUParticleComponent()
+CCPUParticleComponent::~CCPUParticleComponent()
 {
 	for (auto* particle : m_particles)
 	{
@@ -22,27 +22,36 @@ CNGPGPUParticleComponent::~CNGPGPUParticleComponent()
 	m_particles.clear();
 }
 
-void CNGPGPUParticleComponent::BeginPlay()
+void CCPUParticleComponent::BeginPlay()
 {
 	__super::BeginPlay();
 
 	GenerateRenderData();
 }
 
-void CNGPGPUParticleComponent::Update()
+void CCPUParticleComponent::Update()
 {
 	__super::Update();
 	
 	// Get the delta time for later use
 	float deltaTime = CTime::GetInstance()->GetDeltaTime();
 
-	/// Here will be the code that spawn the particle with time 
-	///
-	///
-	/// =======================================================
-
 	if (m_isPlaying)
 	{
+		if (m_particles.size() < m_particleCount)
+		{
+			for (int i = 0; i < glm::floor(m_particlesPerSecond * deltaTime); ++i)
+			{
+				glm::vec3 spawnPosition = glm::vec3();
+				spawnPosition.x = rand() % 100 + (-100);
+				spawnPosition.z = rand() % 100 + (-100);
+
+				// Spawn the particle
+				CCPUParticle* particle = new CCPUParticle(this, spawnPosition, glm::vec3());
+				m_particles.push_back(particle);
+			}
+		}
+
 		// Update the position of the particles with deltaTime
 		for (auto* particle : m_particles)
 		{
@@ -55,7 +64,7 @@ void CNGPGPUParticleComponent::Update()
 	RefreshRenderData();
 }
 
-void CNGPGPUParticleComponent::Render(CCamera* _camera)
+void CCPUParticleComponent::Render(CCamera* _camera)
 {
 	// Calculate the bilboad
 	glm::mat4 viewMat = _camera->GetView();
@@ -79,8 +88,8 @@ void CNGPGPUParticleComponent::Render(CCamera* _camera)
 	glUniform3f(glGetUniformLocation(m_program, "quadVec_2"), quadVec_2.x, quadVec_2.y, quadVec_2.z);
 	glUniformMatrix4fv(glGetUniformLocation(m_program, "viewMat"), 1, GL_FALSE, glm::value_ptr(viewMat));
 	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(m_program, "Texture"), 0);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
+	glUniform1i(glGetUniformLocation(m_program, "texture"), 0);
 
 	// Bind render data
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -97,7 +106,7 @@ void CNGPGPUParticleComponent::Render(CCamera* _camera)
 	glDisable(GL_BLEND);
 }
 
-void CNGPGPUParticleComponent::SetTexture(std::string _texureName)
+void CCPUParticleComponent::SetTexture(std::string _texureName)
 {
 	GLuint texture = CAssetMgr::GetInstance()->GetTexture(_texureName);
 	if (texture != NULL)
@@ -106,16 +115,18 @@ void CNGPGPUParticleComponent::SetTexture(std::string _texureName)
 	}
 }
 
-void CNGPGPUParticleComponent::GenerateRenderData()
+void CCPUParticleComponent::GenerateRenderData()
 {
+	m_program = CAssetMgr::GetInstance()->GetProgramID("CPUParticleProgram");
+
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(
-		GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_vertices.size(), 
-		&m_vertices[0], GL_STATIC_DRAW);
+// 	glBufferData(
+// 		GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_vertices.size(), 
+// 		&m_vertices[0], GL_STATIC_DRAW);
 
 	glVertexAttribPointer(
 		0, 3, GL_FLOAT, GL_FALSE,
@@ -127,7 +138,7 @@ void CNGPGPUParticleComponent::GenerateRenderData()
 	glBindVertexArray(0);
 }
 
-void CNGPGPUParticleComponent::RefreshRenderData()
+void CCPUParticleComponent::RefreshRenderData()
 {
 	// Clear all the elements inside the vertices and reset the size
 	m_vertices.clear();

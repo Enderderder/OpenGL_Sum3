@@ -37,6 +37,7 @@ void CAssetMgr::InitializeAssets()
 	CreateProgram("CubeMapProgram", "Engine/Shaders/CubeMap.vs", "Engine/Shaders/CubeMap.fs");
 	CreateProgram("TextProgram", "Engine/Shaders/Text.vs", "Engine/Shaders/Text.fs");
 	CreateProgram("GeometryProgram", "Engine/Shaders/Geo.vs", "Engine/Shaders/Geo.fs", "Engine/Shaders/Geo.gs");
+	CreateProgram("CPUParticleProgram", "Engine/Shaders/CPUParticle.vs", "Engine/Shaders/CPUParticle.fs", "Engine/Shaders/CPUParticle.gs");
 
 	/** Initialize Meshes */
 	CreateMesh("DefaultCubeMesh", new CCubeMesh());

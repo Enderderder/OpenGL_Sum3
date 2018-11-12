@@ -5,20 +5,18 @@
 
 // Forward Declare
 
-class CNGPGPUParticle
+class CCPUParticle
 {
 public:
 
-	CNGPGPUParticle(CNGPGPUParticleComponent* _owner);
-	virtual ~CNGPGPUParticle();
+	CCPUParticle(CCPUParticleComponent* _owner, glm::vec3 _spawnLocation, glm::vec3 _initVelocity);
+	virtual ~CCPUParticle();
 
-	void InitializeData();
+	void InitializeData(glm::vec3 _spawnLocation, glm::vec3 _initVelocity);
 	void Update(float _deltaTime);
 
 	// Getter and setter
 	glm::vec3 GetLocation() const;
-
-
 
 private:
 
@@ -29,7 +27,7 @@ private:
 private:
 
 	// Component pointer
-	CNGPGPUParticleComponent* m_ownerComponent;
+	CCPUParticleComponent* m_ownerComponent;
 
 	// Destroy flag
 	bool m_shouldDestroy;

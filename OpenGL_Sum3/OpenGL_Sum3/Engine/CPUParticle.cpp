@@ -2,31 +2,30 @@
 // This Include
 #include "Engine.h"
 
-CNGPGPUParticle::CNGPGPUParticle(CNGPGPUParticleComponent* _owner)
+CCPUParticle::CCPUParticle(CCPUParticleComponent* _owner, glm::vec3 _spawnLocation, glm::vec3 _initVelocity)
 {
 	m_ownerComponent = _owner;
-	InitializeData();
+	InitializeData(_spawnLocation, _initVelocity);
 }
 
-CNGPGPUParticle::~CNGPGPUParticle()
+CCPUParticle::~CCPUParticle()
 {
 	m_ownerComponent = nullptr;
 }
 
-void CNGPGPUParticle::InitializeData()
+void CCPUParticle::InitializeData(glm::vec3 _spawnLocation, glm::vec3 _initVelocity)
 {
 	// Safe check
 	if (m_ownerComponent == nullptr)
 	{
-		CDebug::Log("Error - This NGPGPUParticle does not have a parent component.");
+		CDebug::Log("Error - This CPUParticle does not have a parent component.");
 		return;
 	}
 
 	// Set the init data
 	m_shouldDestroy = false;
 
-	this->m_originLocationl = m_ownerComponent->GetOwner()->m_transform.position;
-	m_worldLocation = m_originLocationl;
+	this->m_originLocationl = _spawnLocation;
 
 	this->m_totalLifeTime = m_ownerComponent->m_lifeTime;
 	m_currentLifeTime = m_totalLifeTime;
@@ -36,7 +35,7 @@ void CNGPGPUParticle::InitializeData()
 
 }
 
-void CNGPGPUParticle::Update(float _deltaTime)
+void CCPUParticle::Update(float _deltaTime)
 {
 	ApplyGravity(_deltaTime);
 
@@ -45,12 +44,12 @@ void CNGPGPUParticle::Update(float _deltaTime)
 	CountDownLife(_deltaTime);
 }
 
-glm::vec3 CNGPGPUParticle::GetLocation() const
+glm::vec3 CCPUParticle::GetLocation() const
 {
 	return m_worldLocation;
 }
 
-void CNGPGPUParticle::CountDownLife(float _deltaTime)
+void CCPUParticle::CountDownLife(float _deltaTime)
 {
 	m_currentLifeTime -= _deltaTime;
 	if (m_currentLifeTime <= 0.0f)
@@ -59,7 +58,7 @@ void CNGPGPUParticle::CountDownLife(float _deltaTime)
 	}
 }
 
-void CNGPGPUParticle::ApplyGravity(float _deltaTime)
+void CCPUParticle::ApplyGravity(float _deltaTime)
 {
 	m_worldLocation += glm::vec3(0.0f, -9.81f, 0.0f) * _deltaTime;
 }

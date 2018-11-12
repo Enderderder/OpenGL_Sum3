@@ -18,8 +18,8 @@
 #include "ClothComponent.h"
 #include "ClothPoint.h"
 #include "ClothLink.h"
-#include "NGPGPUParticleComponent.h"
-#include "NGPGPUParticle.h"
+#include "CPUParticleComponent.h"
+#include "CPUParticle.h"
 
 // General
 #include "Scene.h"

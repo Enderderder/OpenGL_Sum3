@@ -4,15 +4,15 @@
 #include "Component.h"
 
 // Forward Declare
-class CNGPGPUParticle;
+class CCPUParticle;
 class CCamera;
 
-class CNGPGPUParticleComponent : public CComponent
+class CCPUParticleComponent : public CComponent
 {
 public:
 
-	CNGPGPUParticleComponent();
-	virtual ~CNGPGPUParticleComponent();
+	CCPUParticleComponent();
+	virtual ~CCPUParticleComponent();
 
 	virtual void BeginPlay() override;
 	virtual void Update() override;
@@ -39,7 +39,7 @@ public:
 
 protected:
 
-	std::vector<CNGPGPUParticle*> m_particles;
+	std::vector<CCPUParticle*> m_particles;
 
 	// Render data
 	std::vector<glm::vec3> m_vertices;
