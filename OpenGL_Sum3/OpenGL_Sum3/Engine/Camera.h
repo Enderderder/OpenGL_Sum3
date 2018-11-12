@@ -24,12 +24,6 @@ public:
 	glm::mat4 GetProj() const;
 	void CalcProjectionMatrix();
 
-	glm::vec3 GetCameraFacing() const;
-	void SetCameraFacing(glm::vec3 _Facing);
-
-	glm::vec3 GetCameraNormal() const;
-	void SetCameraNormal(glm::vec3 _Normal);
-
 private:
 
 	/**

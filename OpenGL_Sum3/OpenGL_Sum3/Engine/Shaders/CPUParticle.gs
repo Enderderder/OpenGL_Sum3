@@ -9,14 +9,9 @@ uniform vec3 quadVec_1, quadVec_2;
 out GS_FS_VERTEX
 {
 	vec2 texCoord;
-} gs_out;
+}gs_out;
 
-void main()
-{
-	buildQuad(0.1, vp);
-}
-
-void buildQuad(_size, _vp)
+void buildQuad(float _size, mat4 _vp)
 {
 	vec3 p1 = gl_in[0].gl_Position.xyz +(-quadVec_1 - quadVec_2) * _size;
 	gl_Position = _vp * vec4(p1, 1.0f);
@@ -39,4 +34,9 @@ void buildQuad(_size, _vp)
 	EmitVertex();
 	
 	EndPrimitive();
+}
+
+void main()
+{
+	buildQuad(0.5, vp);
 }

@@ -26,14 +26,15 @@ private:
 
 	void GenerateRenderData();
 	void RefreshRenderData();
+	void DestroyParticle(CCPUParticle* particle);
 
 public:
 
 	// Data
-	int m_particleCount;
+	unsigned int m_particleCount;
 	float m_lifeTime;
 	int m_particlesPerSecond;
-	float m_startVelocity;
+	glm::vec3 m_startVelocity;
 	bool m_isLooping;
 	bool m_isPlaying;
 

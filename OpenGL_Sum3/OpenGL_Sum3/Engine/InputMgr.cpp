@@ -30,12 +30,12 @@ void CInput::InitializeInput()
 {
 #pragma region Set all input state to release
 
-	for (unsigned char& key : g_cKeyState)
+	for (auto& key : g_cKeyState)
 	{
 		key = INPUT_RELEASED;
 	}
 
-	for (unsigned char& button : g_cMouseState)
+	for (auto& button : g_cMouseState)
 	{
 		button = INPUT_RELEASED;
 	}
@@ -44,6 +44,8 @@ void CInput::InitializeInput()
 
 	glutKeyboardFunc(InitKeyDown);
 	glutKeyboardUpFunc(InitKeyUp);
+	glutSpecialFunc(InitSpecKeyDown);
+	glutSpecialUpFunc(InitSpecKeyUp);
 	glutMouseFunc(InitMouse);
 	glutMotionFunc(InitMouseMotion);
 	glutPassiveMotionFunc(InitMouseMotion);
@@ -51,7 +53,7 @@ void CInput::InitializeInput()
 
 void CInput::Update()
 {
-	for (unsigned char& key : g_cKeyState)
+	for (auto& key : g_cKeyState)
 	{
 		if (key == INPUT_FIRST_PRESS)
 		{
@@ -59,11 +61,19 @@ void CInput::Update()
 		}
 	}
 
-	for (unsigned char& button : g_cMouseState)
+	for (auto& button : g_cMouseState)
 	{
 		if (button == INPUT_FIRST_PRESS)
 		{
 			button = INPUT_HOLD;
+		}
+	}
+
+	for (auto& specKey : g_cSpecialKey)
+	{
+		if (specKey == INPUT_FIRST_PRESS)
+		{
+			specKey = INPUT_HOLD;
 		}
 	}
 }
@@ -80,6 +90,20 @@ void CInput::KeyboardDown(unsigned char key, int x, int y)
 void CInput::KeyboardUp(unsigned char key, int x, int y)
 {
 	g_cKeyState[key] = INPUT_RELEASED;
+}
+
+void CInput::KeyboardSpecialDown(int key, int x, int y)
+{
+	if (g_cSpecialKey[key] != INPUT_HOLD && g_cSpecialKey[key] != INPUT_FIRST_PRESS)
+	{
+		g_cSpecialKey[key] = INPUT_FIRST_PRESS;
+	}
+	else g_cSpecialKey[key] = INPUT_HOLD;
+}
+
+void CInput::KeyboardSpecialUp(int key, int x, int y)
+{
+	g_cSpecialKey[key] = INPUT_RELEASED;
 }
 
 void CInput::MouseButton(int button, int glutState, int x, int y)
@@ -124,6 +148,16 @@ void CInput::InitKeyDown(unsigned char key, int x, int y)
 void CInput::InitKeyUp(unsigned char key, int x, int y)
 {
 	CInput::GetInstance()->KeyboardUp(key, x, y);
+}
+
+void CInput::InitSpecKeyDown(int key, int x, int y)
+{
+	CInput::GetInstance()->KeyboardSpecialDown(key, x, y);
+}
+
+void CInput::InitSpecKeyUp(int key, int x, int y)
+{
+	CInput::GetInstance()->KeyboardSpecialUp(key, x, y);
 }
 
 void CInput::InitMouse(int button, int glutState, int x, int y)

@@ -25,14 +25,12 @@ void CCPUParticle::InitializeData(glm::vec3 _spawnLocation, glm::vec3 _initVeloc
 	// Set the init data
 	m_shouldDestroy = false;
 
-	this->m_originLocationl = _spawnLocation;
+	this->m_originLocation = _spawnLocation;
+	this->m_worldLocation = m_originLocation;
+	this->m_startVelocity = _initVelocity;
 
 	this->m_totalLifeTime = m_ownerComponent->m_lifeTime;
-	m_currentLifeTime = m_totalLifeTime;
-
-	glm::vec3 m_startVelocity =
-		m_ownerComponent->GetOwner()->m_transform.GetForward() * m_ownerComponent->m_startVelocity;
-
+	this->m_currentLifeTime = m_totalLifeTime;
 }
 
 void CCPUParticle::Update(float _deltaTime)
@@ -47,6 +45,11 @@ void CCPUParticle::Update(float _deltaTime)
 glm::vec3 CCPUParticle::GetLocation() const
 {
 	return m_worldLocation;
+}
+
+bool CCPUParticle::ShouldDestroy() const
+{
+	return m_shouldDestroy;
 }
 
 void CCPUParticle::CountDownLife(float _deltaTime)

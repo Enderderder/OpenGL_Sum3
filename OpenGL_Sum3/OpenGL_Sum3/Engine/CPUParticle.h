@@ -18,6 +18,9 @@ public:
 	// Getter and setter
 	glm::vec3 GetLocation() const;
 
+	// Get if the particle should be destroyed
+	bool ShouldDestroy() const;
+
 private:
 
 	void CountDownLife(float _deltaTime);
@@ -34,7 +37,7 @@ private:
 
 	// Data
 	glm::vec3 m_startVelocity;
-	glm::vec3 m_originLocationl;
+	glm::vec3 m_originLocation;
 	glm::vec3 m_worldLocation;
 	float m_totalLifeTime;
 	float m_currentLifeTime;

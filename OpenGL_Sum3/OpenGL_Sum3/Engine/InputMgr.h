@@ -18,6 +18,8 @@ public:
 
 	static void InitKeyDown(unsigned char key, int x, int y);
 	static void InitKeyUp(unsigned char key, int x, int y);
+	static void InitSpecKeyDown(int key, int x, int y);
+	static void InitSpecKeyUp(int key, int x, int y);
 	static void InitMouse(int button, int glutState, int x, int y);
 	static void InitMouseMotion(int x, int y);
 
@@ -37,13 +39,16 @@ private: // Private Member Variables
 
 	void KeyboardDown(unsigned char key, int x, int y);
 	void KeyboardUp(unsigned char key, int x, int y);
+	void KeyboardSpecialDown(int key, int x, int y);
+	void KeyboardSpecialUp(int key, int x, int y);
 	void MouseButton(int button, int glutState, int x, int y);
 	void MouseMotion(int x, int y);
 
 public: // Public Variables
 
-	unsigned char g_cKeyState[255];
-	unsigned char g_cMouseState[3];
+	InputState g_cKeyState[255];
+	InputState g_cSpecialKey[118];
+	InputState g_cMouseState[3];
 	glm::vec2 g_mousePosition;
 	glm::vec2 g_mouseNdcPosition;
 };

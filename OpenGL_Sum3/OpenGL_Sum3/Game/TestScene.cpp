@@ -38,6 +38,7 @@ void CTestScene::ConfigurateScene()
 	this->m_vGameObj.push_back(terrain);
 
 	std::shared_ptr<CGameObject> particleTest = Instantiate(std::make_shared<CGameObject>());
+	particleTest->m_transform.position.y = 1000.0f;
 	CCPUParticleComponent* particleSystem = particleTest->CreateComponent<CCPUParticleComponent>();
 	particleSystem->SetTexture("Box");
 }

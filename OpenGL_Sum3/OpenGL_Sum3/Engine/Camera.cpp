@@ -65,21 +65,21 @@ void CCamera::Update()
 
 
 		// Rotate the camera
-		float rotateSpeed = 1.0f;
+		float rotateSpeed = 2.0f;
 		glm::vec3 resultRotation = glm::vec3();
-		if (p_Input->g_cKeyState[(unsigned char)'i'] == INPUT_HOLD)
+		if (p_Input->g_cSpecialKey[GLUT_KEY_UP] == INPUT_HOLD)
 		{
 			resultRotation.x += rotateSpeed;
 		}
-		if (p_Input->g_cKeyState[(unsigned char)'k'] == INPUT_HOLD)
+		if (p_Input->g_cSpecialKey[GLUT_KEY_DOWN] == INPUT_HOLD)
 		{
 			resultRotation.x -= rotateSpeed;
 		}
-		if (p_Input->g_cKeyState[(unsigned char)'j'] == INPUT_HOLD)
+		if (p_Input->g_cSpecialKey[GLUT_KEY_LEFT] == INPUT_HOLD)
 		{
 			resultRotation.y -= rotateSpeed;
 		}
-		if (p_Input->g_cKeyState[(unsigned char)'l'] == INPUT_HOLD)
+		if (p_Input->g_cSpecialKey[GLUT_KEY_RIGHT] == INPUT_HOLD)
 		{
 			resultRotation.y += rotateSpeed;
 		}
@@ -133,24 +133,6 @@ void CCamera::CalcProjectionMatrix()
 			-(m_viewPortHeight / 2), (m_viewPortHeight / 2), m_nearPlane, m_farPlane);
 	}
 }
-
-// glm::vec3 CCamera::GetCameraFacing() const
-// {
-// 	return m_cameraFacing;
-// }
-// void CCamera::SetCameraFacing(glm::vec3 _facing)
-// {
-// 	m_cameraFacing = _facing;
-// }
-
-// glm::vec3 CCamera::GetCameraNormal() const
-// {
-// 	return m_cameraNormal;
-// }
-// void CCamera::SetCameraNormal(glm::vec3 _normal)
-// {
-// 	m_cameraNormal = _normal;
-// }
 
 void CCamera::CalculateCameraRay()
 {

@@ -56,7 +56,6 @@ void CScene::RenderScene()
 					if (spriteRenderer->IsActive())
 					{
 						spriteRenderer->Render(m_mainCamera);
-						continue;
 					}
 				}
 
@@ -65,7 +64,6 @@ void CScene::RenderScene()
 					if (meshRenderer->IsActive())
 					{
 						meshRenderer->RenderMesh(m_mainCamera);
-						continue;
 					}
 				}
 
@@ -74,7 +72,6 @@ void CScene::RenderScene()
 					if (terrainRender->IsActive())
 					{
 						terrainRender->RenderTerrain(m_mainCamera);
-						continue;
 					}
 				}
 
@@ -83,7 +80,14 @@ void CScene::RenderScene()
 					if (clothRender->IsActive())
 					{
 						clothRender->RenderColth(m_mainCamera);
-						continue;
+					}
+				}
+
+				if (auto* particleRender = gameObject->GetComponent<CCPUParticleComponent>())
+				{
+					if (particleRender->IsActive())
+					{
+						particleRender->Render(m_mainCamera);
 					}
 				}
 			}

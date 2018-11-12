@@ -20,6 +20,7 @@
 #include <sstream>
 #include <math.h>
 #include <memory>
+#include <random>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -62,14 +63,18 @@ namespace util
 		return (theStream.str());
 	}
 
-	static float ToRad(float _deg)
+	static std::default_random_engine randGenerator;
+	static float RandomFloat(float _min, float _max)
 	{
-		return (_deg * static_cast<float>(M_PI)) / 180.0f;
-	}
+		std::uniform_real_distribution<float> distribution(_min, _max);
 
-	static float ToDeg(float _rad)
+		return distribution(randGenerator);
+	}
+	static int RandomInt(int _min, int _max)
 	{
-		return (_rad * 180.0f) / static_cast<float>(M_PI);
+		std::uniform_int_distribution<int> distribution(_min, _max);
+
+		return distribution(randGenerator);
 	}
 
 }
