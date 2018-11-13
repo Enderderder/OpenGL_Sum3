@@ -4,9 +4,9 @@
 
 CCPUParticleComponent::CCPUParticleComponent()
 {
-	m_particleCount = 10000;
-	m_lifeTime = 0.7f;
-	m_particlesPerSecond = 5000;
+	m_particleCount = 8000;
+	m_lifeTime = 1.0f;
+	m_particlesPerSecond = 4000;
 	m_startVelocity = glm::vec3();
 	m_isLooping = true;
 	m_isPlaying = true;
@@ -55,8 +55,8 @@ void CCPUParticleComponent::Update()
 			for (int i = 0; i < glm::floor(m_particlesPerSecond * deltaTime) + 1; ++i)
 			{
 				glm::vec3 spawnPosition = m_owner->m_transform.position;
-				spawnPosition.x += util::RandomFloat(-200.0f, 200.0f);
-				spawnPosition.z += util::RandomFloat(-200.0f, 200.0f);
+				spawnPosition.x += util::RandomFloat(-400.0f, 400.0f);
+				spawnPosition.z += util::RandomFloat(-400.0f, 400.0f);
 
 				glm::vec3 initSpeed = glm::vec3();
 				initSpeed.y = -util::RandomFloat(1500.0f, 1600.0f);

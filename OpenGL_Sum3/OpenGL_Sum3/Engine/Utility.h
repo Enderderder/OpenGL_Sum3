@@ -12,6 +12,8 @@
 #include FT_FREETYPE_H  
 //#include <Box2D/Box2D.h>
 
+#include "Math_3d.h"
+
 #define _USE_MATH_DEFINES
 
 // Library Include -----------------------------------------------------------------------------

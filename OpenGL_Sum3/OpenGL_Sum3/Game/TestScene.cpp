@@ -7,6 +7,7 @@
 
 // Engine Include
 #include "Engine/Engine.h"
+#include "Engine/ssAnimatedModel.h"
 
 static CAssetMgr* p_Assets = CAssetMgr::GetInstance();
 
@@ -28,19 +29,21 @@ void CTestScene::ConfigurateScene()
 	/** Create game objects in the scenes */
 
 	std::shared_ptr<CGameObject> terrain = Instantiate(std::make_shared<CGameObject>());
-	terrain->m_transform.scale = { 0.1f, 0.1f, 0.1f };
+	terrain->m_transform.scale = { 1.0f, 1.0f, 1.0f };
 	m_terrain = terrain;
 	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
 	HeightMapInfo heightMap;
 	heightMap.heightmapFilename = "Resources/HeightMaps/RandomHeightmap.tga";
 	heightMap.cellSpacing = 3.0f;
 	terrainRenderer->CreateTerrain(heightMap);
-	this->m_vGameObj.push_back(terrain);
 
-	std::shared_ptr<CGameObject> particleTest = Instantiate(std::make_shared<CGameObject>());
-	particleTest->m_transform.position.y = 1000.0f;
-	CCPUParticleComponent* particleSystem = particleTest->CreateComponent<CCPUParticleComponent>();
+	std::shared_ptr<CGameObject> cpuParticle_Rain = Instantiate(std::make_shared<CGameObject>());
+	cpuParticle_Rain->m_transform.position.y = 1000.0f;
+	CCPUParticleComponent* particleSystem = cpuParticle_Rain->CreateComponent<CCPUParticleComponent>();
 	particleSystem->SetTexture("Box");
+
+	std::shared_ptr<CPlayer> animatedPlayer = Instantiate(std::make_shared<CPlayer>());
+	animatedPlayer->LinkTerrain(terrain);
 }
 
 void CTestScene::BeginPlay()

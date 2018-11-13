@@ -36,10 +36,6 @@ public:
 
 	Transform m_transform;
 
-	//glm::vec3 m_cameraPosition;
-	//glm::vec3 m_cameraFacing;
-	//glm::vec3 m_cameraNormal;
-
 	float m_viewPortWidth;
 	float m_viewPortHeight;
 

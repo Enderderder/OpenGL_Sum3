@@ -8,3 +8,4 @@
 #include "SpaceShip.h"
 #include "Cube.h"
 #include "WindBox.h"
+#include "Player.h"

@@ -22,6 +22,7 @@
     <Text Include="Engine\Commenting Header.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\AnimationComponent.h" />
     <ClInclude Include="Engine\AssetMgr.h" />
     <ClInclude Include="Engine\BuildScene.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\InputMgr.h" />
+    <ClInclude Include="Engine\Math_3d.h" />
     <ClInclude Include="Engine\Mesh.h" />
     <ClInclude Include="Engine\MeshComponent.h" />
     <ClInclude Include="Engine\CPUParticleComponent.h" />
@@ -45,11 +47,13 @@
     <ClInclude Include="Engine\SoundMgr.h" />
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\SpriteRenderComponent.h" />
+    <ClInclude Include="Engine\ssAnimatedModel.h" />
     <ClInclude Include="Engine\TerrainComponent.h" />
     <ClInclude Include="Engine\TextLabel.h" />
     <ClInclude Include="Engine\TextLoader.h" />
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Utility.h" />
+    <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Cube.h" />
     <ClInclude Include="Game\GameClasses.h" />
     <ClInclude Include="Game\PhysicSimulationScene.h" />
@@ -58,6 +62,7 @@
     <ClInclude Include="Game\WindBox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\AnimationComponent.cpp" />
     <ClCompile Include="Engine\AssetMgr.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\ClothComponent.cpp" />
@@ -70,6 +75,7 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\InputMgr.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
+    <ClCompile Include="Engine\Math_3d.cpp" />
     <ClCompile Include="Engine\MeshComponent.cpp" />
     <ClCompile Include="Engine\CPUParticleComponent.cpp" />
     <ClCompile Include="Engine\CPUParticle.cpp" />
@@ -79,17 +85,21 @@
     <ClCompile Include="Engine\SoundMgr.cpp" />
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\SpriteRenderComponent.cpp" />
+    <ClCompile Include="Engine\ssAnimatedModel.cpp" />
     <ClCompile Include="Engine\TerrainComponent.cpp" />
     <ClCompile Include="Engine\TextLabel.cpp" />
     <ClCompile Include="Engine\TextLoader.cpp" />
     <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Game\Cube.cpp" />
     <ClCompile Include="Game\PhysicSimulationScene.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\SpaceShip.cpp" />
     <ClCompile Include="Game\TestScene.cpp" />
     <ClCompile Include="Game\WindBox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Engine\Shaders\Animation.fs" />
+    <None Include="Engine\Shaders\Animation.vs" />
     <None Include="Engine\Shaders\BlinnPhong.fs" />
     <None Include="Engine\Shaders\BlinnPhong.vs" />
     <None Include="Engine\Shaders\CPUParticle.fs" />

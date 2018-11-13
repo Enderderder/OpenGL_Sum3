@@ -90,6 +90,14 @@ void CScene::RenderScene()
 						particleRender->Render(m_mainCamera);
 					}
 				}
+
+				if (auto* animation = gameObject->GetComponent<CAnimationComponent>())
+				{
+					if (animation->IsActive())
+					{
+						animation->Render(m_mainCamera);
+					}
+				}
 			}
 		}
 	}

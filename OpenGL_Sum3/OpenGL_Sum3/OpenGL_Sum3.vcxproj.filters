@@ -145,6 +145,15 @@
     <Filter Include="Resources\Shaders\CPUParticle">
       <UniqueIdentifier>{d45ada4c-35d0-48b4-a16d-50441a9fdb7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Component\AnimationComponent">
+      <UniqueIdentifier>{d34c4efa-126a-4ec9-a16b-18b3ff47cf18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\AnimationShader">
+      <UniqueIdentifier>{99ffaca8-c7ae-48cf-9fb0-2843345b1838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ObjectClass\Player">
+      <UniqueIdentifier>{9e8807b0-81de-4e16-bb95-000d311243fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\Commenting Header.txt">
@@ -254,6 +263,18 @@
     <ClInclude Include="Engine\CPUParticle.h">
       <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ssAnimatedModel.h">
+      <Filter>Framework\Component\AnimationComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math_3d.h">
+      <Filter>Framework\Component\AnimationComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AnimationComponent.h">
+      <Filter>Framework\Component\AnimationComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Game\ObjectClass\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
@@ -346,6 +367,18 @@
     <ClCompile Include="Engine\CPUParticle.cpp">
       <Filter>Framework\Component\ParticleComponent\NoneGPGPU</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ssAnimatedModel.cpp">
+      <Filter>Framework\Component\AnimationComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math_3d.cpp">
+      <Filter>Framework\Component\AnimationComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AnimationComponent.cpp">
+      <Filter>Framework\Component\AnimationComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Game\ObjectClass\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\CubeMap.fs">
@@ -401,6 +434,12 @@
     </None>
     <None Include="Engine\Shaders\CPUParticle.fs">
       <Filter>Resources\Shaders\CPUParticle</Filter>
+    </None>
+    <None Include="Engine\Shaders\Animation.vs">
+      <Filter>Resources\Shaders\AnimationShader</Filter>
+    </None>
+    <None Include="Engine\Shaders\Animation.fs">
+      <Filter>Resources\Shaders\AnimationShader</Filter>
     </None>
   </ItemGroup>
 </Project>

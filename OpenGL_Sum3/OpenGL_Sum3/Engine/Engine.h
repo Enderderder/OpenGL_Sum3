@@ -20,6 +20,7 @@
 #include "ClothLink.h"
 #include "CPUParticleComponent.h"
 #include "CPUParticle.h"
+#include "AnimationComponent.h"
 
 // General
 #include "Scene.h"

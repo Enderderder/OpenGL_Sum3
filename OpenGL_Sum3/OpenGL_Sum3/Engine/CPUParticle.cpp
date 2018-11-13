@@ -37,7 +37,7 @@ void CCPUParticle::Update(float _deltaTime)
 {
 	ApplyGravity(_deltaTime);
 
-	m_worldLocation += m_startVelocity * _deltaTime;
+	m_worldLocation += m_startVelocity* _deltaTime;
 
 	CountDownLife(_deltaTime);
 }

@@ -195,6 +195,11 @@ float CTerrainComponent::GetHeight(float _x, float _z) const
 	int row = (int)floorf(d);
 	int col = (int)floorf(c);
 
+	if (row >= m_hmInfo.width || col >= m_hmInfo.height)
+	{
+		return 0.0f;
+	}
+
 	// Grab the heights of the cell we are in.
 	// A*--*B
 	//  | /|
