@@ -9,7 +9,7 @@ Text::Text(std::string font) :
 {
 	m_Program = CAssetMgr::GetInstance()->GetProgramID("TextProgram");
 
-	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)util::SCR_WIDTH, 0.0f, (GLfloat)util::SCR_HEIGHT);
+	glm::mat4 proj = glm::ortho(0.0f, util::SCR_WIDTH, 0.0f, util::SCR_HEIGHT);
 	glUseProgram(m_Program);
 	glUniformMatrix4fv(glGetUniformLocation(m_Program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 
@@ -80,10 +80,7 @@ Text::Text(std::string font) :
 	glBindVertexArray(0);
 }
 
-Text::~Text()
-{
-
-}
+Text::~Text() {}
 
 void Text::Render()
 {

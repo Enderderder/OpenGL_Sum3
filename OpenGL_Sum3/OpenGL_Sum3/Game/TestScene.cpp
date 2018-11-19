@@ -42,7 +42,9 @@ void CTestScene::ConfigurateScene()
 	cpuParticle_Rain->m_transform.position.y = 1000.0f;
 	CCPUParticleComponent* particleSystem = cpuParticle_Rain->CreateComponent<CCPUParticleComponent>();
 	particleSystem->m_isLooping = true;
-	particleSystem->m_lifeTime = 1.0f;
+	particleSystem->m_lifeTime = 6.0f;
+	particleSystem->m_particleCount = 10000.0f;
+	particleSystem->m_particlesPerSecond = 2000.0f;
 	particleSystem->m_spawnRadius = 400.0f;
 	particleSystem->SetTexture("Box");
 

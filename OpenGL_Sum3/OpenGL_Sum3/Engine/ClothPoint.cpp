@@ -44,7 +44,8 @@ void CClothPoint::ProcessMovement(float _deltaTime)
 {
 	// Update the position of the point with real time tick
 	glm::vec3 storeOldPosition = m_localPosition;
-	glm::vec3 velocity = (m_localPosition - m_oldLocalPosition) * (1.0f - m_damping) + m_acceleration * _deltaTime;
+	glm::vec3 velocity = 
+		(m_localPosition - m_oldLocalPosition) * (1.0f - m_damping) + m_acceleration * _deltaTime;
 	m_localPosition += velocity;
 	//	m_localPosition + (m_localPosition - m_oldLocalPosition) * (1.0f - m_damping) + m_acceleration * (std::powf(_deltaTime, 1));
 	m_oldLocalPosition = storeOldPosition;

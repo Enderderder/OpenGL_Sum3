@@ -44,13 +44,19 @@ CAssetMgr::~CAssetMgr()
 		delete asset.second;
 	}
 	m_cubemapMap.clear();
+
+	for (auto& asset : m_fontMap)
+	{
+		delete asset.second;
+	}
+	m_fontMap.clear();
 }
 
 #pragma endregion Singleton
 
 void CAssetMgr::InitializeAssets()
 {
-	/** Initialize Programs */
+	/** Initialize shader programs */
 	CreateProgram("DefaultSpriteProgram", "Engine/Shaders/Sprite.vs", "Engine/Shaders/Sprite.fs");
 	CreateProgram("UnlitProgram", "Engine/Shaders/Unlit.vs", "Engine/Shaders/Unlit.fs");
 	CreateProgram("BlinnPhongProgram", "Engine/Shaders/BlinnPhong.vs", "Engine/Shaders/BlinnPhong.fs");
@@ -60,10 +66,10 @@ void CAssetMgr::InitializeAssets()
 	CreateProgram("CPUParticleProgram", "Engine/Shaders/CPUParticle.vs", "Engine/Shaders/CPUParticle.fs", "Engine/Shaders/CPUParticle.gs");
 	CreateProgram("AnimationProgram", "Engine/Shaders/Animation.vs", "Engine/Shaders/Animation.fs");
 
-	/** Initialize Meshes */
+	/** Initialize meshes */
 	CreateMesh("DefaultCubeMesh", new CCubeMesh());
 
-	/** Initialize Textures */
+	/** Initialize textures */
 	CreateTexture("Box", "Resources/Textures/Box.png");
 
 	/** Initialize cube maps */
@@ -71,9 +77,11 @@ void CAssetMgr::InitializeAssets()
 		"DefaultCubeMap/right.jpg", "DefaultCubeMap/left.jpg", "DefaultCubeMap/top.jpg",
 			"DefaultCubeMap/bottom.jpg", "DefaultCubeMap/back.jpg", "DefaultCubeMap/front.jpg"});
 
-
-	/** Initialize Sprites */
+	/** Initialize sprites */
 	CreateSprite("Block", "Resources/Sprites/Block.png");
+
+	/** Initialize fonts */
+	CreateFontType("Arial", "Resources/Fonts/arial.ttf");
 }
 
 CSprite* CAssetMgr::GetSprite(std::string _name) const
@@ -143,6 +151,20 @@ CCubeMap* CAssetMgr::GetCubeMap(std::string _name) const
 	}
 
 	CDebug::Log("Unable to grab cube map from name.");
+	return nullptr;
+}
+
+Text* CAssetMgr::GetFont(std::string _name) const
+{
+	for (const auto& iter : m_fontMap)
+	{
+		if (iter.first == _name)
+		{
+			return iter.second;
+		}
+	}
+
+	CDebug::Log("Unable to grab font from name.");
 	return nullptr;
 }
 
@@ -246,4 +268,12 @@ void CAssetMgr::CreateCubeMap(std::string _name, std::vector<std::string> _pathN
 	//Load into the map
 	m_cubemapMap.insert(std::pair<std::string, CCubeMap*>(_name, newCubeMap));
 	CDebug::Log("Loaded cubemap: " + _name);
+}
+
+void CAssetMgr::CreateFontType(std::string _name, const char* _pathName)
+{
+	Text* newFont = new Text(_pathName);
+
+	m_fontMap.insert(std::pair<std::string, Text*>(_name, newFont));
+	CDebug::Log("Loaded font: " + _name);
 }

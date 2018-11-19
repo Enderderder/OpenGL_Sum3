@@ -7,16 +7,16 @@ CTextLabel::CTextLabel(const char* _fontFamily) :
 	m_scale(1.0f),
 	m_color(glm::vec3(1.0f, 1.0f, 1.0f))
 {
-	//m_textObj = CAssetMgr::GetInstance()->GetTextID(_fontFamily);
+	m_textObj = CAssetMgr::GetInstance()->GetFont(_fontFamily);
 }
 
-CTextLabel::CTextLabel(const char * _fontFamily, std::string _text, glm::vec2 _position) :
+CTextLabel::CTextLabel(const char* _fontFamily, std::string _text, glm::vec2 _position) :
 	m_text(_text),
 	m_position(_position),
 	m_scale(1.0f),
 	m_color(glm::vec3(1.0f, 1.0f, 1.0f))
 {
-	//m_textObj = CAssetMgr::GetInstance()->GetTextID(_fontFamily);
+	m_textObj = CAssetMgr::GetInstance()->GetFont(_fontFamily);
 }
 
 CTextLabel::~CTextLabel()

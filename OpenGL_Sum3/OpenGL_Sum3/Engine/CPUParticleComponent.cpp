@@ -4,9 +4,9 @@
 
 CCPUParticleComponent::CCPUParticleComponent()
 {
-	m_particleCount = 15000;
-	m_lifeTime = 0.5f;
-	m_particlesPerSecond = 7000;
+	m_particleCount = 20000;
+	m_lifeTime = 3.0f;
+	m_particlesPerSecond = 8000;
 	m_spawnRadius = 100.0f;
 	m_minStartVelocity = glm::vec3();
 	m_minStartVelocity = glm::vec3();
@@ -61,7 +61,7 @@ void CCPUParticleComponent::Update()
 				spawnPosition.z += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
 
 				glm::vec3 initSpeed = glm::vec3();
-				initSpeed.y = -util::RandomFloat(1500.0f, 1600.0f);
+				initSpeed.y = -util::RandomFloat(100.0f, 160.0f);
 
 				// Spawn the particle
 				CCPUParticle* particle = new CCPUParticle(this, spawnPosition, initSpeed);
@@ -83,7 +83,7 @@ void CCPUParticleComponent::Render(CCamera* _camera)
 		return;
 	}
 
-	// Calculate the bilboad
+	// Calculate the bilboard
 	glm::mat4 viewProjMat = _camera->GetProj() * _camera->GetView();
 	glm::vec3 viewVec = glm::normalize(_camera->m_transform.GetForward());
 
@@ -180,7 +180,7 @@ void CCPUParticleComponent::RespawnParitcle(CCPUParticle* particle)
 	spawnPosition.z += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
 
 	glm::vec3 initSpeed = glm::vec3();
-	initSpeed.y = -util::RandomFloat(1500.0f, 1600.0f);
+	initSpeed.y = -util::RandomFloat(100.0f, 160.0f);
 
 	particle->ResetLocation(spawnPosition);
 	particle->SetVelocity(initSpeed);

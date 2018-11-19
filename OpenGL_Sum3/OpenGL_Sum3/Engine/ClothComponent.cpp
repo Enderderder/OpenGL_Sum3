@@ -57,7 +57,7 @@ void CClothComponent::Update()
 		{
 			if (m_clothPoints[row * m_width + col]->m_bActive)
 			{
-				m_clothPoints[row * m_width + col]->ApplyForce({ 0.0f, 0.0f, 1.0f });
+				m_clothPoints[row * m_width + col]->ApplyForce({ 0.0f, 0.0f, 0.5f });
 			}
 		}
 	}

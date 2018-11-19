@@ -27,8 +27,8 @@ void CSceneMgr::DestroyInstance()
 void CSceneMgr::InitializeScenes()
 {
 	/** Create scenes that is going to build in the game */
-	CreateNewScene(new CTestScene());
 	CreateNewScene(new CPhysicSimulationScene());
+	CreateNewScene(new CTestScene());
 }
 
 void CSceneMgr::InitializeFirstScene()

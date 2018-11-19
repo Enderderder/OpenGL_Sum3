@@ -39,6 +39,7 @@ public:
 	CMesh* GetMesh(std::string _name) const;
 	GLuint GetTexture(std::string _name) const;
 	CCubeMap* GetCubeMap(std::string _name) const;
+	Text* GetFont(std::string _name) const;
 
 private:
 
@@ -63,6 +64,10 @@ private:
 	* Creates cubemap and bind it into a map
 	*/
 	void CreateCubeMap(std::string _name, std::vector<std::string> _pathNames);
+	/**
+	* Creates font and bind it into a map
+	*/
+	void CreateFontType(std::string _name, const char* _pathName);
 
 private:
 	/** Map collection of sprites with a string name */
@@ -80,5 +85,7 @@ private:
 	/** Map collection of cubemap with a string name */
 	std::map<std::string, CCubeMap*> m_cubemapMap;
 
+	/** Map collection of cubemap with a string name */
+	std::map<std::string, Text*> m_fontMap;
 };
 

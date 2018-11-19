@@ -8,6 +8,10 @@ static CSceneMgr* p_SceneMgr = CSceneMgr::GetInstance();
 static CAssetMgr* p_Asset = CAssetMgr::GetInstance();
 static CInput* p_Input = CInput::GetInstance();
 
+CTextLabel* fpsLabel;
+float elapsedTime;
+float frameRate;
+
 void InititializeProgram();
 void Render();
 void Update();
@@ -45,6 +49,7 @@ int main(int argc, char **argv)
 		p_Asset->DestroyInstance();
 		p_Input->DestroyInstance();
 		p_Time->DestroyInstance();
+		delete fpsLabel;
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
@@ -55,11 +60,17 @@ void InititializeProgram()
 	p_Input->InitializeInput();
 	p_Asset->InitializeAssets();
 	p_SceneMgr->InitializeScenes();
+
+	fpsLabel = new CTextLabel("Arial", "00", glm::vec2(0.0f, 0.0f));
+	fpsLabel->SetScale(0.5f);
 }
 
 void Render()
 {
 	p_SceneMgr->RenderCurrentScene();
+
+	// Render fps label
+	fpsLabel->RenderTextLabel();
 
 	glutSwapBuffers();
 }
@@ -74,10 +85,20 @@ void Update()
 	}
 
 	p_Time->Update();
-
+	
 	// Update whats currently running
 	p_SceneMgr->UpdateCurrentScene();
 	p_Input->Update();
+
+	// FPS part
+	frameRate++;
+	elapsedTime += p_Time->GetDeltaTime();
+	if (elapsedTime >= 1.0f)
+	{
+		fpsLabel->SetText(std::to_string((int)frameRate));
+		elapsedTime = 0.0f;
+		frameRate = 0.0f;
+	}
 
 	// Goes To Render
 	glutPostRedisplay();
