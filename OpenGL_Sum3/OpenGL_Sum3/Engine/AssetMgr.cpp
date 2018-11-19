@@ -24,7 +24,27 @@ void CAssetMgr::DestroyInstance()
 }
 
 CAssetMgr::CAssetMgr() {}
-CAssetMgr::~CAssetMgr() {}
+
+CAssetMgr::~CAssetMgr() 
+{
+	for (auto& asset : m_spriteMap)
+	{
+		delete asset.second;
+	}
+	m_spriteMap.clear();
+
+	for (auto& asset : m_meshMap)
+	{
+		delete asset.second;
+	}
+	m_meshMap.clear();
+
+	for (auto& asset : m_cubemapMap)
+	{
+		delete asset.second;
+	}
+	m_cubemapMap.clear();
+}
 
 #pragma endregion Singleton
 

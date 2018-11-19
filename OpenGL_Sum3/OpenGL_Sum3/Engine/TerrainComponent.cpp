@@ -48,6 +48,9 @@ void CTerrainComponent::LoadHeightMap()
 	{
 		m_heightMap[i] = heightmapImage[i] * m_hmInfo.heightScale + m_hmInfo.heightOffset;
 	}
+
+	// Free up the data of the image after loaded
+	SOIL_free_image_data(heightmapImage);
 }
 
 void CTerrainComponent::SmoothHeightMap()
@@ -75,7 +78,8 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	LoadHeightMap();
 
 	// Smooth for 10 times to make it smooth af
-	for (unsigned int i = 0; i < 10; ++i)
+	int smoothTime = glm::floor(m_hmInfo.smoothness * 100.0f);
+	for (unsigned int i = 0; i < smoothTime; ++i)
 	{
 		SmoothHeightMap();
 	}

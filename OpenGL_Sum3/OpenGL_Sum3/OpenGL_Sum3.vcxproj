@@ -36,6 +36,7 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\InputMgr.h" />
+    <ClInclude Include="Engine\Material.h" />
     <ClInclude Include="Engine\Math_3d.h" />
     <ClInclude Include="Engine\Mesh.h" />
     <ClInclude Include="Engine\MeshComponent.h" />
@@ -75,6 +76,7 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\InputMgr.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
+    <ClCompile Include="Engine\Material.cpp" />
     <ClCompile Include="Engine\Math_3d.cpp" />
     <ClCompile Include="Engine\MeshComponent.cpp" />
     <ClCompile Include="Engine\CPUParticleComponent.cpp" />

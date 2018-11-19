@@ -42,14 +42,42 @@ void CCPUParticle::Update(float _deltaTime)
 	CountDownLife(_deltaTime);
 }
 
+bool CCPUParticle::ShouldDestroy() const
+{
+	return m_shouldDestroy;
+}
+
+void CCPUParticle::SetLocation(glm::vec3 _location)
+{
+	m_worldLocation = _location;
+}
+
+void CCPUParticle::ResetLocation(glm::vec3 _location)
+{
+	m_originLocation = _location;
+	m_worldLocation = _location;
+}
+
 glm::vec3 CCPUParticle::GetLocation() const
 {
 	return m_worldLocation;
 }
 
-bool CCPUParticle::ShouldDestroy() const
+void CCPUParticle::SetVelocity(glm::vec3 _velocity)
 {
-	return m_shouldDestroy;
+	m_startVelocity = _velocity;
+}
+
+glm::vec3 CCPUParticle::GetVelocity() const
+{
+	return m_startVelocity;
+}
+
+void CCPUParticle::ResetLifeTime(float _lifeTime)
+{
+	m_totalLifeTime = _lifeTime;
+	m_currentLifeTime = _lifeTime;
+	m_shouldDestroy = false;
 }
 
 void CCPUParticle::CountDownLife(float _deltaTime)

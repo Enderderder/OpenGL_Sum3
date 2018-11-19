@@ -4,10 +4,12 @@
 
 CCPUParticleComponent::CCPUParticleComponent()
 {
-	m_particleCount = 8000;
-	m_lifeTime = 1.0f;
-	m_particlesPerSecond = 4000;
-	m_startVelocity = glm::vec3();
+	m_particleCount = 15000;
+	m_lifeTime = 0.5f;
+	m_particlesPerSecond = 7000;
+	m_spawnRadius = 100.0f;
+	m_minStartVelocity = glm::vec3();
+	m_minStartVelocity = glm::vec3();
 	m_isLooping = true;
 	m_isPlaying = true;
 }
@@ -42,9 +44,9 @@ void CCPUParticleComponent::Update()
 		for (auto* particle : m_particles)
 		{
 			// If the particle die, detroy. Otherwise update
-			if (particle->ShouldDestroy()) 
+			if (particle->ShouldDestroy() && m_isLooping) 
 			{
-				DestroyParticle(particle); 
+				RespawnParitcle(particle); 
 			}
 			else { particle->Update(deltaTime); }
 		}
@@ -55,8 +57,8 @@ void CCPUParticleComponent::Update()
 			for (int i = 0; i < glm::floor(m_particlesPerSecond * deltaTime) + 1; ++i)
 			{
 				glm::vec3 spawnPosition = m_owner->m_transform.position;
-				spawnPosition.x += util::RandomFloat(-400.0f, 400.0f);
-				spawnPosition.z += util::RandomFloat(-400.0f, 400.0f);
+				spawnPosition.x += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
+				spawnPosition.z += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
 
 				glm::vec3 initSpeed = glm::vec3();
 				initSpeed.y = -util::RandomFloat(1500.0f, 1600.0f);
@@ -75,6 +77,12 @@ void CCPUParticleComponent::Update()
 
 void CCPUParticleComponent::Render(CCamera* _camera)
 {
+	// GTFO if there is nothing to render
+	if (m_vertices.empty())
+	{
+		return;
+	}
+
 	// Calculate the bilboad
 	glm::mat4 viewProjMat = _camera->GetProj() * _camera->GetView();
 	glm::vec3 viewVec = glm::normalize(_camera->m_transform.GetForward());
@@ -138,9 +146,6 @@ void CCPUParticleComponent::GenerateRenderData()
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-// 	glBufferData(
-// 		GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_vertices.size(), 
-// 		&m_vertices[0], GL_STATIC_DRAW);
 
 	glVertexAttribPointer(
 		0, 3, GL_FLOAT, GL_FALSE,
@@ -156,12 +161,30 @@ void CCPUParticleComponent::RefreshRenderData()
 {
 	// Clear all the elements inside the vertices and reset the size
 	m_vertices.clear();
-	m_vertices.resize(m_particles.size());
-	for (size_t index = 0; index < m_particles.size(); ++index)
+	m_vertices.resize(0);
+	//m_vertices.resize(m_particles.size());
+	for (auto& particle : m_particles)
 	{
-		glm::vec3 position = m_particles[index]->GetLocation();
-		m_vertices[index] = position;
+		if (particle->ShouldDestroy() == false)
+		{
+			glm::vec3 position = particle->GetLocation();
+			m_vertices.push_back(position);
+		}
 	}
+}
+
+void CCPUParticleComponent::RespawnParitcle(CCPUParticle* particle)
+{
+	glm::vec3 spawnPosition = m_owner->m_transform.position;
+	spawnPosition.x += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
+	spawnPosition.z += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
+
+	glm::vec3 initSpeed = glm::vec3();
+	initSpeed.y = -util::RandomFloat(1500.0f, 1600.0f);
+
+	particle->ResetLocation(spawnPosition);
+	particle->SetVelocity(initSpeed);
+	particle->ResetLifeTime(m_lifeTime);
 }
 
 void CCPUParticleComponent::DestroyParticle(CCPUParticle* particle)

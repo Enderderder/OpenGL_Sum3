@@ -35,11 +35,15 @@ void CTestScene::ConfigurateScene()
 	HeightMapInfo heightMap;
 	heightMap.heightmapFilename = "Resources/HeightMaps/RandomHeightmap.tga";
 	heightMap.cellSpacing = 3.0f;
+	heightMap.smoothness = 0.8f;
 	terrainRenderer->CreateTerrain(heightMap);
 
 	std::shared_ptr<CGameObject> cpuParticle_Rain = Instantiate(std::make_shared<CGameObject>());
 	cpuParticle_Rain->m_transform.position.y = 1000.0f;
 	CCPUParticleComponent* particleSystem = cpuParticle_Rain->CreateComponent<CCPUParticleComponent>();
+	particleSystem->m_isLooping = true;
+	particleSystem->m_lifeTime = 1.0f;
+	particleSystem->m_spawnRadius = 400.0f;
 	particleSystem->SetTexture("Box");
 
 	std::shared_ptr<CPlayer> animatedPlayer = Instantiate(std::make_shared<CPlayer>());

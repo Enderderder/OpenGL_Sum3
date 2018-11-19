@@ -15,11 +15,19 @@ public:
 	void InitializeData(glm::vec3 _spawnLocation, glm::vec3 _initVelocity);
 	void Update(float _deltaTime);
 
-	// Getter and setter
-	glm::vec3 GetLocation() const;
-
 	// Get if the particle should be destroyed
 	bool ShouldDestroy() const;
+
+	// Setter n Getter of location data
+	void SetLocation(glm::vec3 _location);
+	void ResetLocation(glm::vec3 _location);
+	glm::vec3 GetLocation() const;
+
+	// Setter n Getter of velocity data
+	void SetVelocity(glm::vec3 _velocity);
+	glm::vec3 GetVelocity() const;
+
+	void ResetLifeTime(float _lifeTime);
 
 private:
 

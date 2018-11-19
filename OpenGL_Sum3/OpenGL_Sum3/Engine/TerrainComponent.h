@@ -14,6 +14,7 @@ struct HeightMapInfo
 	unsigned int width;
 	unsigned int height;
 	float cellSpacing = 2.0f;
+	float smoothness = 0.5f;
 };
 
 struct TerrainVertex

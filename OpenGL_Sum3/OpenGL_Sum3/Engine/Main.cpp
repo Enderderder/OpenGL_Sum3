@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Set Clear Screen Color
-	glClearColor(0.0, 1.0, 0.0, 1.0); // Make the background color GREEN
+	glClearColor(0.0, 0.0, 0.0, 1.0); // Make the background color Black
 
 	// Initialize OpenGL Library
 	glewInit();
@@ -55,7 +55,6 @@ void InititializeProgram()
 	p_Input->InitializeInput();
 	p_Asset->InitializeAssets();
 	p_SceneMgr->InitializeScenes();
-	p_Time->Initialize();
 }
 
 void Render()
@@ -67,13 +66,14 @@ void Render()
 
 void Update()
 {
-	p_Time->Update();
-
 	if (p_SceneMgr->GetRunningScene() == nullptr)
 	{
 		p_SceneMgr->InitializeFirstScene();
+		p_Time->Initialize(); // Have to initialize the time after the initialize scene
 		return;
 	}
+
+	p_Time->Update();
 
 	// Update whats currently running
 	p_SceneMgr->UpdateCurrentScene();

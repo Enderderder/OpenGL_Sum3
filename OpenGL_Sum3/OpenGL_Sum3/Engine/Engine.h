@@ -30,6 +30,7 @@
 // Rendering
 #include "ShaderLoader.h"
 #include "TextLoader.h"
+#include "Material.h"
 #include "Mesh.h"
 #include "CubeMap.h"
 #include "CubeMesh.h"
