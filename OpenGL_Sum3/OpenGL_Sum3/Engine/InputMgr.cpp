@@ -11,7 +11,7 @@ CInput::CInput()
 CInput::~CInput()
 {}
 
-CInput* CInput::GetInstance()
+CInput* CInput::Get()
 {
 	if (s_pInput == nullptr)
 	{
@@ -142,30 +142,30 @@ void CInput::MouseMotion(int x, int y)
 
 void CInput::InitKeyDown(unsigned char key, int x, int y)
 {
-	CInput::GetInstance()->KeyboardDown(key, x, y);
+	CInput::Get()->KeyboardDown(key, x, y);
 }
 
 void CInput::InitKeyUp(unsigned char key, int x, int y)
 {
-	CInput::GetInstance()->KeyboardUp(key, x, y);
+	CInput::Get()->KeyboardUp(key, x, y);
 }
 
 void CInput::InitSpecKeyDown(int key, int x, int y)
 {
-	CInput::GetInstance()->KeyboardSpecialDown(key, x, y);
+	CInput::Get()->KeyboardSpecialDown(key, x, y);
 }
 
 void CInput::InitSpecKeyUp(int key, int x, int y)
 {
-	CInput::GetInstance()->KeyboardSpecialUp(key, x, y);
+	CInput::Get()->KeyboardSpecialUp(key, x, y);
 }
 
 void CInput::InitMouse(int button, int glutState, int x, int y)
 {
-	CInput::GetInstance()->MouseButton(button, glutState, x, y);
+	CInput::Get()->MouseButton(button, glutState, x, y);
 }
 
 void CInput::InitMouseMotion(int x, int y)
 {
-	CInput::GetInstance()->MouseMotion(x, y);
+	CInput::Get()->MouseMotion(x, y);
 }

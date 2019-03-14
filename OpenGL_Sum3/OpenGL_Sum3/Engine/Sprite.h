@@ -4,7 +4,7 @@
 #include "Utility.h"
 
 // Forward Declare
-struct Transform;
+struct STransform;
 class CCamera;
 
 class CSprite
@@ -14,7 +14,7 @@ public:
 	~CSprite();
 
 	void CreateSprite(const char* _filePath /*, GLuint _programID*/);
-	void RenderSprite(Transform _transform, CCamera* _camera, GLuint _programID);
+	void RenderSprite(STransform _transform, CCamera* _camera, GLuint _programID);
 
 private:
 	int m_iWidth;

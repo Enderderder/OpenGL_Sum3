@@ -12,7 +12,6 @@ public:
 
 	virtual void BindProgramData();
 
-
 public:
 
 	std::string m_name;

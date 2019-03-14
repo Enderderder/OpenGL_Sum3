@@ -8,7 +8,7 @@
 // Static Variable
 CSceneMgr* CSceneMgr::s_pSceneMgr = nullptr;
 
-CSceneMgr* CSceneMgr::GetInstance()
+CSceneMgr* CSceneMgr::Get()
 {
 	if (s_pSceneMgr == nullptr)
 	{
@@ -27,8 +27,8 @@ void CSceneMgr::DestroyInstance()
 void CSceneMgr::InitializeScenes()
 {
 	/** Create scenes that is going to build in the game */
-	CreateNewScene(new CPhysicSimulationScene());
 	CreateNewScene(new CTestScene());
+	CreateNewScene(new CPhysicSimulationScene());
 }
 
 void CSceneMgr::InitializeFirstScene()
@@ -58,10 +58,10 @@ void CSceneMgr::RenderCurrentScene()
 	}
 }
 
-void CSceneMgr::UpdateCurrentScene()
+void CSceneMgr::UpdateCurrentScene(float _deltaTime)
 {
 	// Only Proccess the current running scene
-	m_runningScene->UpdateScene();
+	m_runningScene->UpdateScene(_deltaTime);
 }
 
 void CSceneMgr::CreateNewScene(CScene* _scene)

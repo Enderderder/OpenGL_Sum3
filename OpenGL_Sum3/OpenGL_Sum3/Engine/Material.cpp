@@ -3,20 +3,13 @@
 #include "Engine.h"
 
 // Get manager class
-static CAssetMgr* p_assetMgr = CAssetMgr::GetInstance();
+static CAssetMgr* p_assetMgr = CAssetMgr::Get();
 
 CMaterial::CMaterial()
 {
-	m_name = "DefaultShader";
-	m_shaderProgram = p_assetMgr->GetProgramID("BlinnPhongProgram");
+	m_name = "EmptyMaterial";
 }
 
-CMaterial::~CMaterial()
-{
+CMaterial::~CMaterial() {}
 
-}
-
-void CMaterial::BindProgramData()
-{
-
-}
+void CMaterial::BindProgramData() {}

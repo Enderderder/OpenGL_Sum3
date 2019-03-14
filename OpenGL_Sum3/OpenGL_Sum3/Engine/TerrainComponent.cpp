@@ -51,6 +51,60 @@ void CTerrainComponent::LoadHeightMap()
 
 	// Free up the data of the image after loaded
 	SOIL_free_image_data(heightmapImage);
+
+	// Smooth for 10 times to make it smooth af
+	int smoothTime = std::floorf(m_hmInfo.smoothness * 100.0f);
+	for (int i = 0; i < smoothTime; ++i)
+	{
+		SmoothHeightMap();
+	}
+}
+
+void CTerrainComponent::CalculateNormal()
+{
+	// Loop through each point
+	for (unsigned int row = 0; row < m_hmInfo.width; ++row)
+	{
+		for (unsigned int col = 0; col < m_hmInfo.height; ++col)
+		{
+			// Get the self height for later use
+			float selfHeight = GetGridHeight((int)row, (int)col);
+
+			// Check and get left height
+			float heightLeft = selfHeight;
+			if (InGridBounds((int)row - 1, (int)col))
+			{
+				heightLeft = GetGridHeight((int)row - 1, (int)col);
+			}
+			// Check and get right height
+			float heightRight = selfHeight;
+			if (InGridBounds((int)row + 1, (int)col))
+			{
+				heightRight = GetGridHeight((int)row + 1, (int)col);
+			}
+			// Check and get top height
+			float heightTop = selfHeight;
+			if (InGridBounds((int)row, (int)col - 1))
+			{
+				heightTop = GetGridHeight((int)row, (int)col - 1);
+			}
+			// Check and get bottom height
+			float heightBottom = selfHeight;
+			if (InGridBounds((int)row, (int)col + 1))
+			{
+				heightBottom = GetGridHeight((int)row, (int)col + 1);
+			}
+
+			// Calculate the normal value
+			glm::vec3 resultNormal;
+			resultNormal.x = heightLeft - heightRight;
+			resultNormal.z = heightBottom - heightTop;
+			resultNormal.y = 2.0f;
+			resultNormal = glm::normalize(resultNormal);
+
+			m_terrainVertex[row + col * m_hmInfo.height].normal = resultNormal;
+		}
+	}
 }
 
 void CTerrainComponent::SmoothHeightMap()
@@ -69,7 +123,7 @@ void CTerrainComponent::SmoothHeightMap()
 	m_heightMap = dest;
 }
 
-void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
+void CTerrainComponent::CreateTerrain(SHeightMapInfo& _info)
 {
 	// Pass in the information of the heightmap
 	m_hmInfo = _info;
@@ -77,17 +131,10 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	// Load the height map into a vector that store the height of each point
 	LoadHeightMap();
 
-	// Smooth for 10 times to make it smooth af
-	int smoothTime = glm::floor(m_hmInfo.smoothness * 100.0f);
-	for (unsigned int i = 0; i < smoothTime; ++i)
-	{
-		SmoothHeightMap();
-	}
-
 	/************************************************************************/
 
 	// Initialize a vector of position vector with the size
-	std::vector<float> vertex;
+	//std::vector<float> vertex;
 	float z;
 	float x;
 	float y;
@@ -95,16 +142,24 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	{
 		for (unsigned int col = 0; col < m_hmInfo.height; ++col)
 		{
-			z = (float)row * m_hmInfo.cellSpacing;
-			x = (float)col * m_hmInfo.cellSpacing;
+			z = (float)(row - (float)(m_hmInfo.width / 2)) * m_hmInfo.cellSpacing;
+			x = (float)(col - (float)(m_hmInfo.height / 2)) * m_hmInfo.cellSpacing;
 			y = m_heightMap[(row * m_hmInfo.width) + col];
 
+			// Create a new struct
+			STerrainVertex vertexStruct;
+			vertexStruct.position = glm::vec3(x, y, z);
+			m_terrainVertex.push_back(vertexStruct);
+
 			// load each data into the vertices
-			vertex.push_back(x);
-			vertex.push_back(y);
-			vertex.push_back(z);
+			//vertex.push_back(x);
+			//vertex.push_back(y);
+			//vertex.push_back(z);
 		}
 	}
+
+	// For each vertex point, calculate its normal
+	CalculateNormal();
 
 	// Iterate over each quad and compute indices.
 	std::vector<GLuint> indices((m_hmInfo.width - 1) * (m_hmInfo.height - 1) * 6);
@@ -126,7 +181,7 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 	}
 
 	// Bind the program
-	m_program = CAssetMgr::GetInstance()->GetProgramID("UnlitProgram");
+	m_program = CAssetMgr::Get()->GetProgramID("TerrainProgram");
 	
 	// Bind the information of the shape in to VAO
 	GLuint VBO, EBO;
@@ -136,14 +191,19 @@ void CTerrainComponent::CreateTerrain(HeightMapInfo& _info)
 
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex.size(), &vertex[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(STerrainVertex) * m_terrainVertex.size(), &m_terrainVertex[0], GL_STATIC_DRAW);
 
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indices.size(), &indices[0], GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
+	// Attribute pointer for the vertex position
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+
+	// Attribute pointer for the vertex normal
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (GLvoid*)(3 * sizeof(GL_FLOAT)));
+	glEnableVertexAttribArray(1);
 
 	// Unbind the VAO after generating
 	glBindVertexArray(0);
@@ -173,10 +233,19 @@ void CTerrainComponent::RenderTerrain(CCamera* _camera)
 	rotation = glm::rotate(rotation, glm::radians(objRotate.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(objRotate.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(objRotate.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	// Pass in program variables
 	glm::mat4 model = translate * rotation * scale;
-	glm::mat4 mvp = _camera->GetProj() *  _camera->GetView() * model;
-	GLint mvpLoc = glGetUniformLocation(m_program, "MVP");
-	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+	GLint modelLoc = glGetUniformLocation(m_program, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	glm::mat3 normalMat = glm::mat3(transpose(inverse(model)));
+	GLuint normalMatLoc = glGetUniformLocation(m_program, "normalMat");
+	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, glm::value_ptr(normalMat));
+
+	glm::mat4 vp = _camera->GetProj() *  _camera->GetView();
+	GLint mvpLoc = glGetUniformLocation(m_program, "vp");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(vp));
 
 	// Render the shape
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -192,14 +261,16 @@ void CTerrainComponent::RenderTerrain(CCamera* _camera)
 float CTerrainComponent::GetHeight(float _x, float _z) const
 {
 	// Transform from terrain local space to "cell" space.
-	float c = (_x) / m_hmInfo.cellSpacing;
-	float d = (_z) / m_hmInfo.cellSpacing;
+	float c = _x / m_hmInfo.cellSpacing * m_owner->m_transform.scale.x + (float)(this->m_hmInfo.width / 2);
+	float d = _z / m_hmInfo.cellSpacing * m_owner->m_transform.scale.z + (float)(this->m_hmInfo.height / 2);
 
 	// Get the row and column we are in.
 	int row = (int)floorf(d);
 	int col = (int)floorf(c);
 
-	if (row >= m_hmInfo.width || col >= m_hmInfo.height)
+	// Check bound
+	if (row >= (int)m_hmInfo.width || row < 0
+		|| col >= (int)m_hmInfo.height || col < 0)
 	{
 		return 0.0f;
 	}
@@ -233,6 +304,18 @@ float CTerrainComponent::GetHeight(float _x, float _z) const
 	}
 }
 
+float CTerrainComponent::GetGridHeight(int _row, int _col) const
+{
+	// Check bound
+	if (_row >= (int)m_hmInfo.width || _row < 0
+		|| _col >= (int)m_hmInfo.height || _col < 0)
+	{
+		return 0.0f;
+	}
+
+	return m_heightMap[_row + _col * m_hmInfo.width];
+}
+
 float CTerrainComponent::GetWidth() const
 {
 	return (m_hmInfo.height - 1) * m_hmInfo.cellSpacing;
@@ -243,7 +326,7 @@ float CTerrainComponent::GetDepth() const
 	return (m_hmInfo.width - 1) * m_hmInfo.cellSpacing;
 }
 
-bool CTerrainComponent::InBounds(int i, int j)
+bool CTerrainComponent::InGridBounds(int i, int j)
 {
 	// True if ij are valid indices; false otherwise.
 	return
@@ -273,7 +356,7 @@ float CTerrainComponent::Average(int i, int j)
 	{
 		for (int n = j - 1; n <= j + 1; ++n)
 		{
-			if (InBounds(m, n))
+			if (InGridBounds(m, n))
 			{
 				avg += m_heightMap[m * m_hmInfo.height + n];
 				num += 1.0f;

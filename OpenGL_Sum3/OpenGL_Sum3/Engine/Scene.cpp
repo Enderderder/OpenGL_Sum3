@@ -110,10 +110,10 @@ void CScene::ResetScene()
 	m_vGameObj.clear();
 }
 
-void CScene::UpdateScene()
+void CScene::UpdateScene(float _deltaTime)
 {
 	// Refresh the camera
-	m_mainCamera->Update();
+	m_mainCamera->Update(_deltaTime);
 
 	// Delete the object that should be deleted fron last frame
 	for (const auto& obj : m_vGameObj)
@@ -127,7 +127,7 @@ void CScene::UpdateScene()
 	{
 		if (m_vGameObj[index]->IsActive())
 		{
-			m_vGameObj[index]->Update();
+			m_vGameObj[index]->Update(_deltaTime);
 			currVecSize = m_vGameObj.size(); // Revalidate the number of item inside the vector
 		}
 	}

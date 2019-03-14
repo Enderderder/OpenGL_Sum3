@@ -26,7 +26,7 @@ void CMeshComponent::RenderMesh(CCamera* _camera)
 	// Check if there is a mesh attached to prevent crashing
 	if (m_mesh == nullptr)
 	{
-		CDebug::Log("Warning: There is no mesh attach to gameobject " + m_owner->m_name);
+		CDebug::Log("Warning: There is no mesh attach to the component of game object: " + m_owner->m_name);
 		return;
 	}
 
@@ -37,12 +37,12 @@ void CMeshComponent::RenderMesh(CCamera* _camera)
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 
-	/** Get the translate scale rotation from the game object transform */
+	// Get the translate scale rotation from the game object transform
 	glm::vec3 objPos = m_owner->m_transform.position;
 	glm::vec3 objRotate = m_owner->m_transform.rotation;
 	glm::vec3 objScale = m_owner->m_transform.scale;
 
-	/** Calculate the MVP matrix from the game object transform */
+	// Calculate the MVP matrix from the game object transform
 	glm::mat4 translate = glm::translate(glm::mat4(), objPos);
     glm::mat4 scale = glm::scale(glm::mat4(), objScale);
 	glm::mat4 rotation = glm::mat4();
@@ -54,8 +54,7 @@ void CMeshComponent::RenderMesh(CCamera* _camera)
 	GLint mvpLoc = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
-	/** Other shader variables */
-	
+	// Other shader variables
 	GLint modelLoc = glGetUniformLocation(m_program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -68,11 +67,15 @@ void CMeshComponent::RenderMesh(CCamera* _camera)
 
 	/************************************************************************/
 
-	/** bind the texture for the mesh */
+	// Bind the texture for the mesh
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 	glUniform1i(glGetUniformLocation(m_program, "tex"), 0);
 
-	/** Render the mesh */
+	// Render the mesh
 	m_mesh->RenderMesh();
+
+
+	// Unbind
+	glUseProgram(0);
 }

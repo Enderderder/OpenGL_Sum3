@@ -4,7 +4,7 @@
 // Static Variable
 CTime* CTime::s_pTime = nullptr;
 
-CTime* CTime::GetInstance()
+CTime* CTime::Get()
 {
 	if (s_pTime == nullptr)
 	{

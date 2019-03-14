@@ -30,26 +30,17 @@ void CAnimationComponent::CAnimationComponent::BeginPlay()
 {
 	__super::BeginPlay();
 
-	if (m_animModel == nullptr)
-	{
-		CDebug::Log("There is no model");
-		return;
-	}
-
-	// Set root animation
-	m_animModel->setCurrentAnimation(0, 30);
 }
 
 void CAnimationComponent::CAnimationComponent::Update()
 {
 	__super::Update();
 	
-
 }
 
 void CAnimationComponent::CAnimationComponent::Render(CCamera* _camera)
 {
-	float deltaTime = CTime::GetInstance()->GetDeltaTime();
+	float deltaTime = CTime::Get()->GetDeltaTime();
 	m_animModel->render(deltaTime);
 }
 

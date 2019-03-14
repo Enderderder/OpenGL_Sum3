@@ -9,7 +9,7 @@ class CInput
 {
 public:
 	// Singletom Functions
-	static CInput* GetInstance();
+	static CInput* Get();
 	static void DestroyInstance();
 
 	// Member Functions

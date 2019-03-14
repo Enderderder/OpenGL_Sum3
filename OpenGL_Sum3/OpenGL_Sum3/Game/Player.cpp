@@ -24,19 +24,19 @@ void CPlayer::BeginPlay()
 {
 	__super::BeginPlay();
 	
-	GLuint animProgram = CAssetMgr::GetInstance()->GetProgramID("AnimationProgram");
+	GLuint animProgram = CAssetMgr::Get()->GetProgramID("AnimationProgram");
 	m_animComponent->SetModel("Resources/Models/theDude.dae", animProgram, m_scene->GetMainCamera());
 	m_animComponent->GetModel()->setScale(glm::vec3(0.1f));
 	m_animComponent->GetModel()->setCurrentAnimation(0, 30);
 	m_animState = IDLE;
 }
 
-void CPlayer::Update()
+void CPlayer::Update(float _deltaTime)
 {
-	__super::Update();
+	__super::Update(_deltaTime);
 	
 	// Process input
-	CInput* inputModule = CInput::GetInstance();
+	CInput* inputModule = CInput::Get();
 	glm::vec3 resultVec = glm::vec3();
 	if (inputModule->g_cKeyState[unsigned char('i')] == INPUT_HOLD)
 	{
@@ -57,7 +57,7 @@ void CPlayer::Update()
 	if (inputModule->g_cKeyState[32] == INPUT_FIRST_PRESS && !m_isJumping)
 	{
 		m_isJumping = true;
-		jumpvelo = { 0.0f, 1.0f, 0.0f };
+		jumpvelo = { 0.0f, 2.0f, 0.0f };
 	}
 
 	// Process jump b4 running
@@ -76,7 +76,7 @@ void CPlayer::Update()
 		float groundHeight = m_linkedTerrain->GetHeight(x, z);
 
 		m_transform.position += jumpvelo;
-		jumpvelo.y -= 9.8f * CTime::GetInstance()->GetDeltaTime();
+		jumpvelo.y -= 9.8f * _deltaTime;
 		if (m_transform.position.y <= groundHeight)
 		{
 			m_transform.position.y = groundHeight;

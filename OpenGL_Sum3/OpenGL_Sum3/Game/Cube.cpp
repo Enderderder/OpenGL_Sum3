@@ -18,32 +18,32 @@ void CCube::BeginPlay()
 {
 	__super::BeginPlay();
 	
-	m_meshRenderer->SetProgram(CAssetMgr::GetInstance()->GetProgramID("BlinnPhongProgram"));
-	m_meshRenderer->SetMesh(CAssetMgr::GetInstance()->GetMesh("DefaultCubeMesh"));
-	m_meshRenderer->SetTexture(CAssetMgr::GetInstance()->GetTexture("Box"));
+	m_meshRenderer->SetProgram(CAssetMgr::Get()->GetProgramID("BlinnPhongProgram"));
+	m_meshRenderer->SetMesh(CAssetMgr::Get()->GetMesh("DefaultCubeMesh"));
+	m_meshRenderer->SetTexture(CAssetMgr::Get()->GetTexture("Box"));
 }
 
-void CCube::Update()
+void CCube::Update(float _deltaTime)
 {
-	__super::Update();
+	__super::Update(_deltaTime);
 	
-	CInput* input = CInput::GetInstance();
+	CInput* input = CInput::Get();
 
 	// Moving functionality of the object
 	if (input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
 	{
-		m_transform.position.z -= m_moveSpd * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.z -= m_moveSpd * _deltaTime;
 	}
 	if (input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
 	{
-		m_transform.position.z += m_moveSpd * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.z += m_moveSpd * _deltaTime;
 	}
 	if (input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
 	{
-		m_transform.position.x -= m_moveSpd * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.x -= m_moveSpd * _deltaTime;
 	}
 	if (input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
 	{
-		m_transform.position.x += m_moveSpd * CTime::GetInstance()->GetDeltaTime();
+		m_transform.position.x += m_moveSpd * _deltaTime;
 	}
 }

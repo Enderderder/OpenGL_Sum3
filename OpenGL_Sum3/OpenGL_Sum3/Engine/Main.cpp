@@ -3,14 +3,16 @@
 #include "Engine.h"
 
 // GLobal Variables
-static CTime* p_Time = CTime::GetInstance();
-static CSceneMgr* p_SceneMgr = CSceneMgr::GetInstance();
-static CAssetMgr* p_Asset = CAssetMgr::GetInstance();
-static CInput* p_Input = CInput::GetInstance();
+static CTime* p_Time = CTime::Get();
+static CSceneMgr* p_SceneMgr = CSceneMgr::Get();
+static CAssetMgr* p_Asset = CAssetMgr::Get();
+static CInput* p_Input = CInput::Get();
 
+/** FPS Debugg Label */
 CTextLabel* fpsLabel;
 float elapsedTime;
 float frameRate;
+/** ================ */
 
 void InititializeProgram();
 void Render();
@@ -87,7 +89,7 @@ void Update()
 	p_Time->Update();
 	
 	// Update whats currently running
-	p_SceneMgr->UpdateCurrentScene();
+	p_SceneMgr->UpdateCurrentScene(p_Time->GetDeltaTime());
 	p_Input->Update();
 
 	// FPS part

@@ -16,7 +16,7 @@ public:
 	CCamera();
 	~CCamera();
 
-	void Update();
+	void Update(float _deltaTime);
 	void BeginPlay();
 
 	glm::mat4 GetView() const;
@@ -34,7 +34,7 @@ private:
 	/** Configuration for the camera */
 public: 
 
-	Transform m_transform;
+	STransform m_transform;
 
 	float m_viewPortWidth;
 	float m_viewPortHeight;

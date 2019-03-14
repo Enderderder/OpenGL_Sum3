@@ -14,7 +14,7 @@ public:
 	~CWindBox();
 
 	virtual void BeginPlay() override;
-	virtual void Update() override;
+	virtual void Update(float _deltaTime) override;
 
 	void AttachTarget(std::shared_ptr<CGameObject> _targetObj);
 

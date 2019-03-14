@@ -17,7 +17,7 @@ void CPhysicSimulationScene::ConfigurateScene()
 	m_bScissorTest = false;
 
 	/** Create Cubemap Object */
-	m_cubeMap = CAssetMgr::GetInstance()->GetCubeMap("DefaultCubeMap");
+	m_cubeMap = CAssetMgr::Get()->GetCubeMap("DefaultCubeMap");
 
 	/** Create Camera Object */
 	m_mainCamera = new CCamera();
@@ -50,11 +50,11 @@ void CPhysicSimulationScene::BeginPlay()
 
 }
 
-void CPhysicSimulationScene::UpdateScene()
+void CPhysicSimulationScene::UpdateScene(float _deltaTime)
 {
-	__super::UpdateScene();
+	__super::UpdateScene(_deltaTime);
 	
-	CInput* g_Input = CInput::GetInstance();
+	CInput* g_Input = CInput::Get();
 
 	// All the control for the cloth
 	auto* clothComponent = m_clothObj.lock()->GetComponent<CClothComponent>();

@@ -3,7 +3,7 @@
 #include "Engine.h"
 
 // Static variable
-static CInput* p_Input = CInput::GetInstance();
+static CInput* p_Input = CInput::Get();
 
 CCamera::CCamera()
 {
@@ -25,36 +25,36 @@ void CCamera::BeginPlay()
 	CalcProjectionMatrix();
 }
 
-void CCamera::Update()
+void CCamera::Update(float _deltaTime)
 {
 	if (m_bIsControlling)
 	{
-		float moveSpeed = 2.0f;
+		float moveSpeed = 100.0f;
 		glm::vec3 resultVec;
 
 		if (p_Input->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
 		{
-			resultVec += this->m_transform.GetForward() * moveSpeed;
+			resultVec += this->m_transform.GetForward() * moveSpeed * _deltaTime;
 		}
 		if (p_Input->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
 		{
-			resultVec -= this->m_transform.GetForward() * moveSpeed;
+			resultVec -= this->m_transform.GetForward() * moveSpeed * _deltaTime;
 		}
 		if (p_Input->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
 		{
-			resultVec -= this->m_transform.GetRight() * moveSpeed;
+			resultVec -= this->m_transform.GetRight() * moveSpeed * _deltaTime;
 		}
 		if (p_Input->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
 		{
-			resultVec += this->m_transform.GetRight() * moveSpeed;
+			resultVec += this->m_transform.GetRight() * moveSpeed * _deltaTime;
 		}
 		if (p_Input->g_cKeyState[(unsigned char)'r'] == INPUT_HOLD)
 		{
-			resultVec.y += moveSpeed;
+			resultVec.y += moveSpeed * _deltaTime;
 		}
 		if (p_Input->g_cKeyState[(unsigned char)'f'] == INPUT_HOLD)
 		{
-			resultVec.y -= moveSpeed;
+			resultVec.y -= moveSpeed * _deltaTime;
 		}
 
 		if (resultVec != glm::vec3())
@@ -65,23 +65,23 @@ void CCamera::Update()
 
 
 		// Rotate the camera
-		float rotateSpeed = 2.0f;
+		float rotateSpeed = 80.0f;
 		glm::vec3 resultRotation = glm::vec3();
 		if (p_Input->g_cSpecialKey[GLUT_KEY_UP] == INPUT_HOLD)
 		{
-			resultRotation.x += rotateSpeed;
+			resultRotation.x += rotateSpeed * _deltaTime;
 		}
 		if (p_Input->g_cSpecialKey[GLUT_KEY_DOWN] == INPUT_HOLD)
 		{
-			resultRotation.x -= rotateSpeed;
+			resultRotation.x -= rotateSpeed * _deltaTime;
 		}
 		if (p_Input->g_cSpecialKey[GLUT_KEY_LEFT] == INPUT_HOLD)
 		{
-			resultRotation.y -= rotateSpeed;
+			resultRotation.y -= rotateSpeed * _deltaTime;
 		}
 		if (p_Input->g_cSpecialKey[GLUT_KEY_RIGHT] == INPUT_HOLD)
 		{
-			resultRotation.y += rotateSpeed;
+			resultRotation.y += rotateSpeed * _deltaTime;
 		}
 
 		if (resultRotation != glm::vec3())

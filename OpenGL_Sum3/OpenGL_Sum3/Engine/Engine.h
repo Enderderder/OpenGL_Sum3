@@ -10,6 +10,9 @@
 #include "Debug.h"
 #include "Time.h"
 
+// Utilities
+#include "Color.h"
+
 // Components
 #include "Component.h"
 #include "MeshComponent.h"

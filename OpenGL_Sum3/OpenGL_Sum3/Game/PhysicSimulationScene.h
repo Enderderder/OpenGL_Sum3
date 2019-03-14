@@ -9,7 +9,7 @@ public:
 
 	virtual void ConfigurateScene() override;
 	virtual void BeginPlay() override;
-	virtual void UpdateScene() override;
+	virtual void UpdateScene(float _deltaTime) override;
 
 private:
 

@@ -7,7 +7,7 @@ Text::Text(std::string font) :
 	text(""),
 	scale(1.0f)
 {
-	m_Program = CAssetMgr::GetInstance()->GetProgramID("TextProgram");
+	m_Program = CAssetMgr::Get()->GetProgramID("TextProgram");
 
 	glm::mat4 proj = glm::ortho(0.0f, util::SCR_WIDTH, 0.0f, util::SCR_HEIGHT);
 	glUseProgram(m_Program);

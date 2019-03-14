@@ -11,7 +11,7 @@ class CSceneMgr
 #pragma region Singleton
 public:
 	// Singleton Methods
-	static CSceneMgr* GetInstance();
+	static CSceneMgr* Get();
 	static void DestroyInstance();
 
 private:
@@ -35,7 +35,7 @@ public:
 	void InitializeScenes();
 	void InitializeFirstScene();
 	void RenderCurrentScene();
-	void UpdateCurrentScene();
+	void UpdateCurrentScene(float _deltaTime);
 	void CreateNewScene(CScene* _scene);
 	void LoadScene(std::string _name);
 	CScene* GetRunningScene() const;

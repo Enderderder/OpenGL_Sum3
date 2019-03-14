@@ -14,31 +14,28 @@ public:
 
 protected:
 
+	/** The gameobject that owns this component */
 	CGameObject* m_owner;
 
 private:
 
+	/** The component's active state */
 	bool m_isActive;
 
 // Membre Funciton
 public:
 
-	/**
-	 * Calls when the game starts
-	 */
+	/** Calls when the game starts */
 	virtual void BeginPlay() {}
-	/**
-	 * Calls every tick
-	 */
+	
+	/** Calls every tick */
 	virtual void Update() {}
-	/**
-	* Getter and setter of the "owner" property of the component
-	*/
+
+	/** Getter and setter of the "owner" property of the component */
 	void SetOwner(CGameObject* _gameObject);
 	CGameObject* GetOwner() const;
-	/**
-	* Getter and setter of the "active" property of the component
-	*/
+	
+	/** Getter and setter of the "active" property of the component */
 	void SetActive(bool);
 	bool IsActive() const;
 };

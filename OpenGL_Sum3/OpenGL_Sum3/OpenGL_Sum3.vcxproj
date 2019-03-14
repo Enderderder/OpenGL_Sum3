@@ -29,6 +29,7 @@
     <ClInclude Include="Engine\ClothComponent.h" />
     <ClInclude Include="Engine\ClothLink.h" />
     <ClInclude Include="Engine\ClothPoint.h" />
+    <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\CubeMap.h" />
     <ClInclude Include="Engine\CubeMesh.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\InputMgr.h" />
+    <ClInclude Include="Engine\LightComponent.h" />
     <ClInclude Include="Engine\Material.h" />
     <ClInclude Include="Engine\Math_3d.h" />
     <ClInclude Include="Engine\Mesh.h" />
@@ -69,12 +71,14 @@
     <ClCompile Include="Engine\ClothComponent.cpp" />
     <ClCompile Include="Engine\ClothLink.cpp" />
     <ClCompile Include="Engine\ClothPoint.cpp" />
+    <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\Component.cpp" />
     <ClCompile Include="Engine\CubeMap.cpp" />
     <ClCompile Include="Engine\CubeMesh.cpp" />
     <ClCompile Include="Engine\Debug.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\InputMgr.cpp" />
+    <ClCompile Include="Engine\LightComponent.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\Material.cpp" />
     <ClCompile Include="Engine\Math_3d.cpp" />
@@ -116,6 +120,8 @@
     <None Include="Engine\Shaders\Heightmap.vs" />
     <None Include="Engine\Shaders\Sprite.fs" />
     <None Include="Engine\Shaders\Sprite.vs" />
+    <None Include="Engine\Shaders\Terrain.fs" />
+    <None Include="Engine\Shaders\Terrain.vs" />
     <None Include="Engine\Shaders\Text.fs" />
     <None Include="Engine\Shaders\Text.vs" />
     <None Include="Engine\Shaders\Unlit.fs" />

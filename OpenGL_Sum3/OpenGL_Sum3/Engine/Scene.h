@@ -32,7 +32,7 @@ public:
 	* inside each gameobject and all the logic needs to be run
 	* for the scene.
 	*/
-	virtual void UpdateScene();
+	virtual void UpdateScene(float _deltaTime);
 	/**
 	 * Render all the gameobject inside the scene
 	 */

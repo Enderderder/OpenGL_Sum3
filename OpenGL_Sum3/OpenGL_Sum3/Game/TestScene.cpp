@@ -9,7 +9,7 @@
 #include "Engine/Engine.h"
 #include "Engine/ssAnimatedModel.h"
 
-static CAssetMgr* p_Assets = CAssetMgr::GetInstance();
+static CAssetMgr* p_Assets = CAssetMgr::Get();
 
 void CTestScene::ConfigurateScene()
 {
@@ -20,7 +20,7 @@ void CTestScene::ConfigurateScene()
 	m_bScissorTest = false;
 
 	/** Create Cubemap Object */
-	m_cubeMap = CAssetMgr::GetInstance()->GetCubeMap("DefaultCubeMap");
+	m_cubeMap = CAssetMgr::Get()->GetCubeMap("DefaultCubeMap");
 
 	/** Create Camera Object */
 	m_mainCamera = new CCamera();
@@ -32,7 +32,7 @@ void CTestScene::ConfigurateScene()
 	terrain->m_transform.scale = { 1.0f, 1.0f, 1.0f };
 	m_terrain = terrain;
 	CTerrainComponent* terrainRenderer = terrain->CreateComponent<CTerrainComponent>();
-	HeightMapInfo heightMap;
+	SHeightMapInfo heightMap;
 	heightMap.heightmapFilename = "Resources/HeightMaps/RandomHeightmap.tga";
 	heightMap.cellSpacing = 3.0f;
 	heightMap.smoothness = 0.8f;
@@ -43,8 +43,8 @@ void CTestScene::ConfigurateScene()
 	CCPUParticleComponent* particleSystem = cpuParticle_Rain->CreateComponent<CCPUParticleComponent>();
 	particleSystem->m_isLooping = true;
 	particleSystem->m_lifeTime = 6.0f;
-	particleSystem->m_particleCount = 10000.0f;
-	particleSystem->m_particlesPerSecond = 2000.0f;
+	particleSystem->m_particleCount = 10000;
+	particleSystem->m_particlesPerSecond = 2000;
 	particleSystem->m_spawnRadius = 400.0f;
 	particleSystem->SetTexture("Box");
 
@@ -59,9 +59,9 @@ void CTestScene::BeginPlay()
 	m_mainCamera->m_transform.position = { 300.0f, 200.0f, 500.f };
 }
 
-void CTestScene::UpdateScene()
+void CTestScene::UpdateScene(float _deltaTime)
 {
-	__super::UpdateScene();
+	__super::UpdateScene(_deltaTime);
 	
 	//glm::vec3 position = m_cubeOBJ.lock()->m_transform.position;
 	//CTerrainComponent* terrainRender = m_terrain.lock()->GetComponent<CTerrainComponent>();

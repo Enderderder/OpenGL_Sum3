@@ -43,7 +43,7 @@ void CClothComponent::BeginPlay()
 	CreateLinks();
 
 	// Setup render data for the cloth
-	m_program = CAssetMgr::GetInstance()->GetProgramID("UnlitProgram");
+	m_program = CAssetMgr::Get()->GetProgramID("UnlitProgram");
 	SetupMesh();
 }
 
@@ -63,7 +63,7 @@ void CClothComponent::Update()
 	}
 
 	// Update each point on the cloth as they will have physics
-	float deltaTime = CTime::GetInstance()->GetDeltaTime();
+	float deltaTime = CTime::Get()->GetDeltaTime();
 	for (const auto& point : m_clothPoints)
 	{
 		if (point->m_bActive)

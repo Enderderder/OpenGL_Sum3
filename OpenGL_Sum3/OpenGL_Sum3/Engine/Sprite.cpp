@@ -98,7 +98,7 @@ void CSprite::CreateSprite(const char* _filePath /**  , GLuint _programID */)
 	glBindVertexArray(0);
 }
 
-void CSprite::RenderSprite(Transform _transform, CCamera* _camera, GLuint _programID)
+void CSprite::RenderSprite(STransform _transform, CCamera* _camera, GLuint _programID)
 {
 	glUseProgram(_programID);
 

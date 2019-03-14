@@ -11,7 +11,8 @@ out vec3 Normal;
 uniform mat4 vp;
 uniform mat4 model;
 
-void main(void){
+void main(void)
+{
 	gl_Position = vp * model *vec4(position, 1.0);
 	TexCoord = texCoord;
 	

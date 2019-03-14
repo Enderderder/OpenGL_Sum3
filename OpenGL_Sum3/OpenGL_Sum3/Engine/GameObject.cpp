@@ -31,7 +31,7 @@ void CGameObject::BeginPlay()
 	}
 }
 
-void CGameObject::Update() 
+void CGameObject::Update(float _deltaTime)
 {
 	for (auto component : m_components)
 	{

@@ -36,7 +36,7 @@ void CCPUParticleComponent::Update()
 	__super::Update();
 	
 	// Get the delta time for later use
-	float deltaTime = CTime::GetInstance()->GetDeltaTime();
+	float deltaTime = CTime::Get()->GetDeltaTime();
 
 	if (m_isPlaying)
 	{
@@ -130,7 +130,7 @@ void CCPUParticleComponent::Render(CCamera* _camera)
 
 void CCPUParticleComponent::SetTexture(std::string _texureName)
 {
-	GLuint texture = CAssetMgr::GetInstance()->GetTexture(_texureName);
+	GLuint texture = CAssetMgr::Get()->GetTexture(_texureName);
 	if (texture != NULL)
 	{
 		m_texture = texture;
@@ -139,7 +139,7 @@ void CCPUParticleComponent::SetTexture(std::string _texureName)
 
 void CCPUParticleComponent::GenerateRenderData()
 {
-	m_program = CAssetMgr::GetInstance()->GetProgramID("CPUParticleProgram");
+	m_program = CAssetMgr::Get()->GetProgramID("CPUParticleProgram");
 
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);

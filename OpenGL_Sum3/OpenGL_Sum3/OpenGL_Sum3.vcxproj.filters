@@ -160,6 +160,18 @@
     <Filter Include="Framework\Material">
       <UniqueIdentifier>{5c315df1-522d-4a67-b4a5-c816322e1c90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Color">
+      <UniqueIdentifier>{1e678e0e-d7a6-45fe-9650-47cc0c437ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\Terrain">
+      <UniqueIdentifier>{8e466570-69f4-4703-9edb-d108c91c40c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Material\DefaultMaterials">
+      <UniqueIdentifier>{6ea764bc-bfa1-42ef-8512-88786ed1cc5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Material\DefaultMaterials\NewFilter1">
+      <UniqueIdentifier>{9c65c9c3-54f6-4840-aeee-884d229924f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\Commenting Header.txt">
@@ -284,6 +296,12 @@
     <ClInclude Include="Engine\Material.h">
       <Filter>Framework\Material</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Color.h">
+      <Filter>Framework\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\LightComponent.h">
+      <Filter>Framework\Component\LightComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp">
@@ -391,6 +409,12 @@
     <ClCompile Include="Engine\Material.cpp">
       <Filter>Framework\Material</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Color.cpp">
+      <Filter>Framework\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\LightComponent.cpp">
+      <Filter>Framework\Component\LightComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\CubeMap.fs">
@@ -452,6 +476,12 @@
     </None>
     <None Include="Engine\Shaders\Animation.fs">
       <Filter>Resources\Shaders\AnimationShader</Filter>
+    </None>
+    <None Include="Engine\Shaders\Terrain.vs">
+      <Filter>Resources\Shaders\Terrain</Filter>
+    </None>
+    <None Include="Engine\Shaders\Terrain.fs">
+      <Filter>Resources\Shaders\Terrain</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ class CTime
 #pragma region Singleton
 
 public:
-	static CTime* GetInstance();
+	static CTime* Get();
 	static void DestroyInstance();
 
 private:

@@ -15,7 +15,7 @@ class CAssetMgr
 #pragma region Singleton
 public:
 
-	static CAssetMgr* GetInstance();
+	static CAssetMgr* Get();
 	static void DestroyInstance();
 
 private:

@@ -59,7 +59,7 @@ CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 	};
 
 	// Set the shader program
-	m_programID = CAssetMgr::GetInstance()->GetProgramID("CubeMapProgram");
+	m_programID = CAssetMgr::Get()->GetProgramID("CubeMapProgram");
 
 	// Bind each image into the cube map
 	glGenTextures(1, &m_textureID);
