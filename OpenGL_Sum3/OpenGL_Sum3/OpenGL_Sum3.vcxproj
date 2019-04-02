@@ -131,7 +131,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{AF20A57D-5CE4-425F-9A15-0A89BAE21C2B}</ProjectGuid>
     <RootNamespace>Velocitas</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

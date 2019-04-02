@@ -39,6 +39,6 @@ void CDebug::Log(T _info)
 template<typename T>
 void CDebug::Log(CGameObject* _gameObject, T _info)
 {
-	std::cout << "(Debug) " << _gameObject->m_name << ": ";
+	//std::cout << "(Debug) " << _gameObject->m_name << ": ";
 	std::cout << util::ToString(_info) << "\n";
 }

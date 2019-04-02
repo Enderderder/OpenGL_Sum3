@@ -36,7 +36,7 @@
 #include <sstream>
 #include <codecvt>
 
-#include <vld.h> // Memory Leak Detector
+//#include <vld.h> // Memory Leak Detector
 
 //----------------------------------------------------------------------------------------------
 
