@@ -53,7 +53,7 @@ void CTerrainComponent::LoadHeightMap()
 	SOIL_free_image_data(heightmapImage);
 
 	// Smooth for 10 times to make it smooth af
-	int smoothTime = std::floorf(m_hmInfo.smoothness * 100.0f);
+	int smoothTime = int(std::floorf(m_hmInfo.smoothness * 100.0f));
 	for (int i = 0; i < smoothTime; ++i)
 	{
 		SmoothHeightMap();

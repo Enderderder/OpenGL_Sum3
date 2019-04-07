@@ -57,11 +57,11 @@ void CCPUParticleComponent::Update()
 			for (int i = 0; i < glm::floor(m_particlesPerSecond * deltaTime) + 1; ++i)
 			{
 				glm::vec3 spawnPosition = m_owner->m_transform.position;
-				spawnPosition.x += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
-				spawnPosition.z += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
+				spawnPosition.x += util::RandomFloatinRange(-m_spawnRadius, m_spawnRadius);
+				spawnPosition.z += util::RandomFloatinRange(-m_spawnRadius, m_spawnRadius);
 
 				glm::vec3 initSpeed = glm::vec3();
-				initSpeed.y = -util::RandomFloat(100.0f, 160.0f);
+				initSpeed.y = -util::RandomFloatinRange(100.0f, 160.0f);
 
 				// Spawn the particle
 				CCPUParticle* particle = new CCPUParticle(this, spawnPosition, initSpeed);
@@ -176,11 +176,11 @@ void CCPUParticleComponent::RefreshRenderData()
 void CCPUParticleComponent::RespawnParitcle(CCPUParticle* particle)
 {
 	glm::vec3 spawnPosition = m_owner->m_transform.position;
-	spawnPosition.x += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
-	spawnPosition.z += util::RandomFloat(-m_spawnRadius, m_spawnRadius);
+	spawnPosition.x += util::RandomFloatinRange(-m_spawnRadius, m_spawnRadius);
+	spawnPosition.z += util::RandomFloatinRange(-m_spawnRadius, m_spawnRadius);
 
 	glm::vec3 initSpeed = glm::vec3();
-	initSpeed.y = -util::RandomFloat(100.0f, 160.0f);
+	initSpeed.y = -util::RandomFloatinRange(100.0f, 160.0f);
 
 	particle->ResetLocation(spawnPosition);
 	particle->SetVelocity(initSpeed);

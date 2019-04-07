@@ -66,7 +66,13 @@ namespace util
 	}
 
 	static std::default_random_engine randGenerator;
-	static float RandomFloat(float _min, float _max)
+	static float RandomFloat()
+	{
+		std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
+
+		return distribution(randGenerator);
+	}
+	static float RandomFloatinRange(float _min, float _max)
 	{
 		std::uniform_real_distribution<float> distribution(_min, _max);
 
